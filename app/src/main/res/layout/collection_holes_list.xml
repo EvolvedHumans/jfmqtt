@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="28dp"
+    android:layout_marginRight="28dp"
+    android:gravity="top|center"
+    android:orientation="vertical">
+
+    <!--    按钮样式，不做响应-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/holes_textview"
+        android:text="@string/holes_bts"
+        android:textColor="#ffffffff"
+        android:textSize="14sp" />
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!--    根据屏幕的宽度自适应的去配置的它高度-->
+        <dti.org.activity.choice.equip.message.map.collection.holes.HolesRecyclerView
+            android:id="@+id/holes_recycler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ffffffff" />
+
+    </HorizontalScrollView>
+
+
+</LinearLayout>

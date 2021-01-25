@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><!--设备信息录入界面-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".activity.CameraActivity">
+    <!--  android:fitsSystemWindows="true"
+      android-底部菜单被虚拟按键遮住-->
+
+    <!--    信息记录栏-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="8dp">
+
+        <include
+            android:id="@+id/info"
+            layout="@layout/well_top" />
+
+        <!--        扫码功能和添加扫码功能-->
+        <include
+            android:id="@+id/info1"
+            layout="@layout/well_scancode" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="70dp" />
+
+        <!--        拍照功能-->
+        <include layout="@layout/camera_add" />
+
+        <!---->
+        <include layout="@layout/finish" />
+
+    </LinearLayout>
+
+</ScrollView>

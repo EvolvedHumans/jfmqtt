@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?><!--功能选择界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dti_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="horizontal"
+    tools:context=".activity.ChoiceActivity">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="90" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="180"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="24" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="616"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/user"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:background="@mipmap/choice_user" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+
+            <ImageView
+                android:id="@+id/setout"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:background="@mipmap/cloice_equip" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="36" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="90" />
+
+
+</LinearLayout>

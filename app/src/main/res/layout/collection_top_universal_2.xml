@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--        设备信息录入-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/collection_top_title"
+        android:gravity="center"
+        android:text="设备信息录入"
+        android:textColor="#ff000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!--        位置信息-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/lock_ok"
+        android:orientation="horizontal"
+        android:textColor="#ffb4b4b4">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="207"
+            android:text="位置信息："
+            android:textColor="#ffb4b4b4"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/local_exit_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_weight="450"
+            android:background="@null"
+            android:gravity="top|left"
+            android:textColor="#ffb4b4b4"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!--        设备名称-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/lock_ok"
+        android:orientation="horizontal"
+        android:textColor="#ffb4b4b4">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="207"
+            android:text="设备名称："
+            android:textColor="#ffb4b4b4"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_weight="450"
+            android:background="@null"
+            android:gravity="top|left"
+            android:textColor="#ff000000"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

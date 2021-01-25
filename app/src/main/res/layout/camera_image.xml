@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="28dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="28dp"
+    android:fitsSystemWindows="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:textColor="#ffb4b4b4">
+
+    <!--    设置这个图片的左右边距为40dp-->
+    <!--    图片的高度应该随着图片的宽度进行动态的适配
+            应用场景:适配器-->
+    <ImageButton
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/collection_camera_img"
+        android:contentDescription="@string/todo"
+        android:onClick="onViewClicked" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="拍摄画面应按从左往右的设备顺序"
+        android:textColor="#ff000000"
+        android:textSize="14sp" />
+
+</LinearLayout>

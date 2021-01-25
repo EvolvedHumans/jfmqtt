@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><!--旋转条实现-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/touming"
+    android:gravity="center">
+
+    <com.yangf.pub_libs.image.rotate.RotateImageView
+        android:id="@+id/rotateImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/loading_bar" />
+
+</LinearLayout>

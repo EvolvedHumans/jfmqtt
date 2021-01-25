@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".activity.WellActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp">
+
+            <include
+                android:id="@+id/title"
+                layout="@layout/well_top" />
+
+            <!--        扫码功能和添加扫码功能-->
+            <include
+                android:id="@+id/scancode"
+                layout="@layout/well_scancode" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <!--        拍照功能-->
+            <include
+                android:id="@+id/camera"
+                layout="@layout/camera_add" />
+
+            <!---->
+            <include
+                android:id="@+id/finish"
+                layout="@layout/finish" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

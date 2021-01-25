@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?><!--安装设备选择-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/dti_bg"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".activity.SetoutActivity">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="70">
+
+            <ImageButton
+                android:id="@+id/image_icon_return"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginStart="30dp"
+                android:background="@mipmap/back"
+                android:contentDescription="@string/todo"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/EquipTextView"
+                android:textColor="#ffffffff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="452">
+            <!--疑问！控件重叠-->
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
+
+
+            <ImageButton
+                android:id="@+id/image_icon_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginStart="40dp"
+                android:layout_marginBottom="60dp"
+                android:background="@mipmap/left"
+                android:contentDescription="@string/todo"
+                tools:ignore="RtlHardcoded" />
+
+            <ImageButton
+                android:id="@+id/image_icon_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="60dp"
+                android:background="@mipmap/right"
+                android:contentDescription="@string/todo"
+                tools:ignore="RtlHardcoded" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="118"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/login_bt"
+                android:text="@string/setup"
+                android:textColor="#ff0099ff"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</layout>

@@ -1,0 +1,67 @@
+ apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+    
+//    引用此模块中的sdk版本，不应该小于此模块中的sdk版本
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+//        ndk {
+//            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+//            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","x86_64"
+//        }
+    }
+
+
+    
+    //添加jdk版本8.0
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation files('libs\\poi-scratchpad-3.8-20120326.jar')
+    //lombok插件
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+    //OKHTTP库依赖
+    implementation("com.squareup.okhttp3:okhttp:4.8.0")
+
+    //添加lombok依赖,需要在官网添加最新依赖
+    implementation 'org.projectlombok:lombok:1.18.16'
+
+    //GSON依赖
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    //RXJAVA和RXANDROID官方依赖
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+
+    testImplementation 'junit:junit:4.12'
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+}

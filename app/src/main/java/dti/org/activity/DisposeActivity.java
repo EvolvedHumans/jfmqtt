@@ -1,0 +1,86 @@
+package dti.org.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.yangf.pub_libs.Log4j;
+
+import dti.org.R;
+import dti.org.adapter.DisposeAdapter;
+import dti.org.base.BaseActivity;
+
+import dti.org.databinding.ActivityDisposeBinding;
+
+import dti.org.item.DisposeItemDecoration;
+import dti.org.presenter.DisposePresenter;
+import dti.org.views.DisposeView;
+
+
+/**
+ * 设备信息选择界面
+ */
+public class DisposeActivity extends BaseActivity implements DisposeView {
+
+    private final static String TAG = "dti.org.activity.DisposeActivity";
+
+    ActivityDisposeBinding activityDisposeBinding;
+    DisposePresenter disposePresenter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setTranSlucent();
+        activityDisposeBinding = DataBindingUtil.setContentView(this,R.layout.activity_dispose);
+        activityDisposeBinding.buttonIntent.setOnClickListener(v -> {
+            Intent intent = new Intent(this,MapActivity.class);
+            startActivity(intent);
+            finish();
+        });
+        activityDisposeBinding.imageIconReturn.setOnClickListener(v -> {
+            Intent intent = new Intent(this,SetoutActivity.class);
+            startActivity(intent);
+            finish();
+        });
+        disposePresenter = new DisposePresenter();
+        disposePresenter.attachView(this);
+        disposePresenter.drawDispose();
+        disposePresenter.lockMechanism();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposePresenter.detachView();
+    }
+
+    /**
+     *
+     * @param disposeAdapter 适配器
+     * @param disposeItemDecoration item位置布局
+     */
+    @Override
+    public void setButtonGroup(DisposeAdapter disposeAdapter, DisposeItemDecoration disposeItemDecoration) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        activityDisposeBinding.recyclerView.setLayoutManager(linearLayoutManager);
+        activityDisposeBinding.recyclerView.addItemDecoration(disposeItemDecoration);
+        activityDisposeBinding.recyclerView.setAdapter(disposeAdapter);
+    }
+
+
+    @Override
+    public void startOptional() {
+        activityDisposeBinding.buttonIntent.setEnabled(true);
+        activityDisposeBinding.buttonIntent.setBackgroundResource(R.drawable.dispose_check);
+    }
+
+}
