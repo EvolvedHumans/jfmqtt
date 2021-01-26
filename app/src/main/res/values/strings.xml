@@ -35,4 +35,5 @@
     <string name="nb_tips">当前页面有未录入项，请录入信息后重试。</string>
     <string name="well_text">设备信息录入</string>
     <string name="add_scancode">添加节点设备</string>
+    <string name="setName">设备名称：</string>
 </resources>

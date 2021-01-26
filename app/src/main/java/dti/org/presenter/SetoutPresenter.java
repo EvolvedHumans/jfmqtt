@@ -145,7 +145,7 @@ public class SetoutPresenter extends BasePresenter<SetoutView> {
             @Override
             public void onSuccess(String data) {
 
-                Log4j.d("获取到的数据",data);
+                Log4j.e("获取到的数据",data);
 
                 //存储设备ID号
                 getView().importIntegerCache(SharedPreferenceConfig.Setout_TYPE,

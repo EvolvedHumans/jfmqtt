@@ -9,7 +9,7 @@ package dti.org.config;
  */
 public final class UrlConfig {
 
-    public static String URL = "http://192.168.1.197:8080/scaninstall_war_exploded";
+    public static String URL = "http://scaninstalltest.dti2018.com";
 
     //登录
     public static String LoginUrl = URL + "/login";

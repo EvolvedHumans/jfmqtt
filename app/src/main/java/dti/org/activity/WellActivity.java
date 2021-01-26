@@ -67,7 +67,10 @@ public class WellActivity extends BaseActivity implements WellView {
 //        activityWellBinding.scancode.buttonAdd.setOnClickListener(v -> {
 //            wellPresenter.addScanCode();
 //        });
-
+        activityWellBinding.finish.buttonCollectionFinish.setOnClickListener(v -> {
+            Intent intent = new Intent(this, FailActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -102,16 +105,16 @@ public class WellActivity extends BaseActivity implements WellView {
                 wellPresenter.addPhoto();
             }
             //todo 3.删除照片
-            if(requestCode == CameraConfig.PHOTO_Activity){
-                Log4j.d("删除照片","CameraConfig.PHOTO_Activity");
-                assert data !=null;
-                int integer = data.getIntExtra(CameraConfig.PHOTO_DELETE,CameraConfig.PHOTO_Activity);
+            if (requestCode == CameraConfig.PHOTO_Activity) {
+                Log4j.d("删除照片", "CameraConfig.PHOTO_Activity");
+                assert data != null;
+                int integer = data.getIntExtra(CameraConfig.PHOTO_DELETE, CameraConfig.PHOTO_Activity);
 //                Intent intent = getIntent();
 //                Integer integer = intent.getIntExtra(CameraConfig.PHOTO_DELETE,CameraConfig.PHOTO_Activity);
-                Log4j.d("获取type",String.valueOf(integer));
-                if(integer!=CameraConfig.PHOTO_Activity){
+                Log4j.d("获取type", String.valueOf(integer));
+                if (integer != CameraConfig.PHOTO_Activity) {
                     //todo 删除对应照片
-                    Log4j.d("删除对应照片","CameraConfig.PHOTO_Activity");
+                    Log4j.d("删除对应照片", "CameraConfig.PHOTO_Activity");
                     wellPresenter.removeCamera(integer);
                 }
             }

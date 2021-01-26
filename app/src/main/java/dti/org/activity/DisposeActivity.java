@@ -9,15 +9,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.yangf.pub_libs.Log4j;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import dti.org.R;
 import dti.org.adapter.DisposeAdapter;
 import dti.org.base.BaseActivity;
 
+import dti.org.dao.Dispose;
+import dti.org.dao.DisposeGroup;
 import dti.org.databinding.ActivityDisposeBinding;
 
 import dti.org.item.DisposeItemDecoration;
 import dti.org.presenter.DisposePresenter;
 import dti.org.views.DisposeView;
+import lombok.SneakyThrows;
 
 
 /**
@@ -40,11 +46,11 @@ public class DisposeActivity extends BaseActivity implements DisposeView {
             startActivity(intent);
             finish();
         });
-        activityDisposeBinding.imageIconReturn.setOnClickListener(v -> {
-            Intent intent = new Intent(this,SetoutActivity.class);
-            startActivity(intent);
-            finish();
-        });
+//        activityDisposeBinding.imageIconReturn.setOnClickListener(v -> {
+//            Intent intent = new Intent(this,SetoutActivity.class);
+//            startActivity(intent);
+//            finish();
+//        });
         disposePresenter = new DisposePresenter();
         disposePresenter.attachView(this);
         disposePresenter.drawDispose();
@@ -59,7 +65,10 @@ public class DisposeActivity extends BaseActivity implements DisposeView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        disposePresenter.release();
         disposePresenter.detachView();
+        //销毁
+        disposePresenter = null;
     }
 
     /**
@@ -69,18 +78,22 @@ public class DisposeActivity extends BaseActivity implements DisposeView {
      */
     @Override
     public void setButtonGroup(DisposeAdapter disposeAdapter, DisposeItemDecoration disposeItemDecoration) {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        activityDisposeBinding.recyclerView.setLayoutManager(linearLayoutManager);
-        activityDisposeBinding.recyclerView.addItemDecoration(disposeItemDecoration);
-        activityDisposeBinding.recyclerView.setAdapter(disposeAdapter);
+        if (disposePresenter.isViewAttached()){
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            activityDisposeBinding.recyclerView.setLayoutManager(linearLayoutManager);
+            activityDisposeBinding.recyclerView.addItemDecoration(disposeItemDecoration);
+            activityDisposeBinding.recyclerView.setAdapter(disposeAdapter);
+        }
     }
 
 
     @Override
     public void startOptional() {
-        activityDisposeBinding.buttonIntent.setEnabled(true);
-        activityDisposeBinding.buttonIntent.setBackgroundResource(R.drawable.dispose_check);
+        if (disposePresenter.isViewAttached()){
+            activityDisposeBinding.buttonIntent.setEnabled(true);
+            activityDisposeBinding.buttonIntent.setBackgroundResource(R.drawable.dispose_check);
+        }
     }
 
 }

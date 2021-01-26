@@ -1,57 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:fitsSystemWindows="true"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:textColor="#ffb4b4b4">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!--扫描网关二维码复用-->
-    <FrameLayout
+    <data>
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginRight="28dp"
-        android:textColor="#ffb4b4b4"
-        tools:ignore="UselessParent">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:textColor="#ffb4b4b4">
 
-        <Button
-            android:id="@+id/button_scan_code"
+        <!--扫描网关二维码复用-->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/collection_bt"
-            android:onClick="onViewClicked"
-            android:textColor="#ffffffff"
-            android:textSize="14sp" />
+            android:layout_height="130dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:textColor="#ffb4b4b4"
+            tools:ignore="UselessParent">
 
-        <LinearLayout
-            android:id="@+id/list_item"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/lock_ok"
-            android:gravity="center"
-            android:textColor="#ffb4b4b4">
-
-            <!--            网关按钮文本框-->
-            <TextView
-                android:id="@+id/text_scan_code"
+            <Button
+                android:id="@+id/button_scan_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/collection_bt"
+                android:onClick="onViewClicked"
+                android:textColor="#ffffffff"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/list_item"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/lock_ok"
                 android:gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingTop="18dp"
-                android:paddingRight="10dp"
-                android:textSize="14sp"
-                tools:ignore="RtlHardcoded" />
-        </LinearLayout>
+                android:textColor="#ffb4b4b4">
 
-    </FrameLayout>
+                <!--            网关按钮文本框-->
+                <TextView
+                    android:id="@+id/text_scan_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="18dp"
+                    android:paddingRight="10dp"
+                    android:textSize="14sp"
+                    tools:ignore="RtlHardcoded" />
+            </LinearLayout>
+
+        </FrameLayout>
 
 
-</LinearLayout>
+    </LinearLayout>
+</layout>
 
 
 

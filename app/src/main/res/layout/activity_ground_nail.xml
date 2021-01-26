@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".activity.GroundNailActivity">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            tools:ignore="Suspicious0dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/message_top_bar"
+                android:gravity="center"
+                android:text="@string/well_text"
+                android:textColor="#ff000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <include
+            android:id="@+id/scancode"
+            layout="@layout/scancode" />
+
+        <TextView
+            android:id="@+id/local_text"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="28dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/nb_location"
+            android:textColor="#ffb4b4b4"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/local_exit_text"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="@null"
+            android:gravity="top|left"
+            android:text="@string/setName"
+            android:textColor="#ffb4b4b4"
+            android:textSize="14sp"
+            tools:ignore="RtlHardcoded" />
+
+
+    </LinearLayout>
+</layout>

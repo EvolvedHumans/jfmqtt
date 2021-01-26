@@ -62,23 +62,33 @@ public class MapActivity extends BaseActivity {
             int type = getSharedPreferences().getInt(SharedPreferenceConfig.NB_Type, SharedPreferenceConfig.TYPE_NO);
 
             //baseType->1 智能井盖
-            //type->1 跳转
-            if (baseType != SharedPreferenceConfig.TYPE_NO && type != SharedPreferenceConfig.TYPE_NO) {
+            //type->1 跳转智能井盖，->2 跳转地钉
+            if (type != SharedPreferenceConfig.TYPE_NO) {
                 MapObtain mapObtain = new MapObtain();
                 mapObtain.setLongitude(activityMapBinding.longitude.getText().toString());
                 mapObtain.setLatitude(activityMapBinding.latitude.getText().toString());
                 mapObtain.setAddress(activityMapBinding.address.getText().toString());
-                mapObtain.setBaseType(baseType);
                 mapObtain.setType(type);
-                Log4j.d("配置信息",mapObtain.toString());
-                Intent intent = new Intent(this,WellActivity.class);
-                intent.putExtra(MapConfig.MAP, mapObtain);
-                startActivity(intent);
-                finish();
+
+                if (baseType == 1) {
+                    if (baseType != SharedPreferenceConfig.TYPE_NO) {
+                        mapObtain.setBaseType(baseType); //智能井盖，有配置选项
+                        Log4j.d("配置信息", mapObtain.toString());
+                        Intent intent = new Intent(this, WellActivity.class);
+                        intent.putExtra(MapConfig.MAP, mapObtain);
+                        startActivity(intent);
+                        finish();
+                    }
+                } else if (baseType == 2) {
+                    Log4j.d("配置信息", mapObtain.toString());
+                    Intent intent = new Intent(this,GroundNailActivity.class);
+                    intent.putExtra(MapConfig.MAP, mapObtain);
+                    startActivity(intent);
+                    finish();
+                }
             } else {
                 showErr("缓存被清理，无产品信息");
             }
-
         });
 
         activityMapBinding.imageIconReturn.setOnClickListener(v -> {

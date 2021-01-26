@@ -4,22 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.yangf.pub_libs.DimensionImage;
 import com.yangf.pub_libs.GsonYang;
 import com.yangf.pub_libs.Log4j;
 
 import java.util.List;
 
-import dti.org.activity.APhotoActivity;
 import dti.org.activity.PhotoActivity;
 import dti.org.config.CameraConfig;
 import dti.org.dao.CameraGroup;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -57,7 +50,7 @@ public class CameraPresenter implements CameraPresenterView {
         });
         //图片放大功能
         holder.imageButton.setOnClickListener(v -> {
-            Intent intent = new Intent(context, APhotoActivity.class);
+            Intent intent = new Intent(context, PhotoActivity.class);
             intent.putExtra(CameraConfig.PHOTO_Enlarge, GsonYang.JsonString(cameraGroups.get(position)));
             ((Activity) context).startActivityForResult(intent, CameraConfig.PHOTO_Activity);
         });

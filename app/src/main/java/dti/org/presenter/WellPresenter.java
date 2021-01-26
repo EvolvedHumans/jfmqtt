@@ -1,21 +1,20 @@
 package dti.org.presenter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.icu.number.UnlocalizedNumberFormatter;
+
 import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
+
 import android.util.Log;
 
 import androidx.core.content.FileProvider;
 
 import com.yangf.pub_libs.Date;
-import com.yangf.pub_libs.DensityUtil;
-import com.yangf.pub_libs.DimensionImage;
+
 import com.yangf.pub_libs.GsonYang;
 import com.yangf.pub_libs.Log4j;
 import com.yangf.pub_libs.util.UrlsplicingUtil;

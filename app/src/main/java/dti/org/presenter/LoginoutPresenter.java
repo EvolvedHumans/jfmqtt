@@ -27,6 +27,7 @@ import dti.org.views.LoginoutView;
  * @Android_SDK: VERSION_8.0
  */
 public class LoginoutPresenter extends BasePresenter<LoginoutView> {
+
     //创建一个UI线程，并将这个UI线程放在主UI线程中去执行
     private Handler handler = new Handler(Looper.getMainLooper());
 

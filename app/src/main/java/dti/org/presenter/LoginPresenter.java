@@ -12,6 +12,7 @@ import dti.org.config.LoginConfig;
 import dti.org.config.SharedPreferenceConfig;
 import dti.org.config.SignConfig;
 import dti.org.config.UrlConfig;
+import dti.org.controller.LoginController;
 import dti.org.dao.LoginGroup;
 import dti.org.model.Model;
 import dti.org.views.LoginView;
@@ -23,11 +24,12 @@ import dti.org.views.LoginView;
  * @JDK: VERSION_1_8
  * @Android_SDK: VERSION_8.0
  */
-public class LoginPresenter extends BasePresenter<LoginView> {
+public class LoginPresenter extends BasePresenter<LoginView> implements LoginController {
 
     /**
      * 进入登录界面，判断是否第一次进入
      */
+    @Override
     public void firstLogin() {
         Log4j.d("登录",String.valueOf(getView().exportBooleanCache(LoginConfig.LOGIN_KEY, false)));
         if (getView().exportBooleanCache(LoginConfig.LOGIN_KEY, false)) {
@@ -45,6 +47,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
      * 6.存储数据
      * 7.跳转到ChoiceActivity界面
      */
+    @Override
     public void login() {
 
         //1.
