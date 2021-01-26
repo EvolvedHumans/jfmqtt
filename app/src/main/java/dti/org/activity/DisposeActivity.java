@@ -40,17 +40,17 @@ public class DisposeActivity extends BaseActivity implements DisposeView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTranSlucent();
-        activityDisposeBinding = DataBindingUtil.setContentView(this,R.layout.activity_dispose);
+        activityDisposeBinding = DataBindingUtil.setContentView(this, R.layout.activity_dispose);
         activityDisposeBinding.buttonIntent.setOnClickListener(v -> {
-            Intent intent = new Intent(this,MapActivity.class);
+            Intent intent = new Intent(this, MapActivity.class);
+            startActivity(intent);
+            // finish();
+        });
+        activityDisposeBinding.imageIconReturn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SetoutActivity.class);
             startActivity(intent);
             finish();
         });
-//        activityDisposeBinding.imageIconReturn.setOnClickListener(v -> {
-//            Intent intent = new Intent(this,SetoutActivity.class);
-//            startActivity(intent);
-//            finish();
-//        });
         disposePresenter = new DisposePresenter();
         disposePresenter.attachView(this);
         disposePresenter.drawDispose();
@@ -72,13 +72,12 @@ public class DisposeActivity extends BaseActivity implements DisposeView {
     }
 
     /**
-     *
-     * @param disposeAdapter 适配器
+     * @param disposeAdapter        适配器
      * @param disposeItemDecoration item位置布局
      */
     @Override
     public void setButtonGroup(DisposeAdapter disposeAdapter, DisposeItemDecoration disposeItemDecoration) {
-        if (disposePresenter.isViewAttached()){
+        if (disposePresenter.isViewAttached()) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             activityDisposeBinding.recyclerView.setLayoutManager(linearLayoutManager);
@@ -90,7 +89,7 @@ public class DisposeActivity extends BaseActivity implements DisposeView {
 
     @Override
     public void startOptional() {
-        if (disposePresenter.isViewAttached()){
+        if (disposePresenter.isViewAttached()) {
             activityDisposeBinding.buttonIntent.setEnabled(true);
             activityDisposeBinding.buttonIntent.setBackgroundResource(R.drawable.dispose_check);
         }

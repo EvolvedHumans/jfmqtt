@@ -71,6 +71,11 @@ public class WellActivity extends BaseActivity implements WellView {
             Intent intent = new Intent(this, FailActivity.class);
             startActivity(intent);
         });
+        activityWellBinding.title.imageIconReturn.setOnClickListener(v -> {
+            Intent intent1 = new Intent(this, MapActivity.class);
+            startActivity(intent1);
+            finish();
+        });
     }
 
     @Override
@@ -125,6 +130,7 @@ public class WellActivity extends BaseActivity implements WellView {
     public MapObtain getMapContainer() {
         //获取上一个activity中传过来的intent
         Intent intent = getIntent();
+        Log4j.d("返回过来的信息", ((MapObtain) intent.getSerializableExtra(MapConfig.MAP)).toString());
         return (MapObtain) intent.getSerializableExtra(MapConfig.MAP);
     }
 

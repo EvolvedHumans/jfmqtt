@@ -11,7 +11,7 @@ import dti.org.updater.net.INetCallBack;
 /**
  * @name： 杨帆
  * @Time： 2021年 01月 21日 14时 07分
- * @Data： 智能井盖Model数据层
+ * @Data： 智能井盖Model数据层 OR 地钉接口Model数据层
  * @JDK: VERSION_1_8
  * @Android_SDK: VERSION_8.0
  */

@@ -195,17 +195,17 @@ public class WellPresenter extends BasePresenter<WellView> {
                         break;
                     }
                     case 3: {
-                        Log4j.e("WellConfig.lockOrSm32()在此位置上", "------------------------------------------");
+                        Log4j.e("WellConfig.lockOrSm03()在此位置上", "------------------------------------------");
                         scanCodePresenter = new ScanCodePresenter(getView().getContext(), WellConfig.lockOrSm03());
                         break;
                     }
                     case 4: {
-                        Log4j.e("WellConfig.lockOrSm32()在此位置上", "------------------------------------------");
+                        Log4j.e("WellConfig.lockOrSm01()在此位置上", "------------------------------------------");
                         scanCodePresenter = new ScanCodePresenter(getView().getContext(), WellConfig.lockOrSm01());
                         break;
                     }
                     case 5: {
-                        Log4j.e("WellConfig.lockOrSm32()在此位置上", "------------------------------------------");
+                        Log4j.e("WellConfig.lockOrSm31()在此位置上", "------------------------------------------");
                         scanCodePresenter = new ScanCodePresenter(getView().getContext(), WellConfig.lockOrSm31());
                         break;
                     }
@@ -317,7 +317,7 @@ public class WellPresenter extends BasePresenter<WellView> {
      */
     public void startCamera() {
         uri = fileToUri();
-        Log4j.d("uri",String.valueOf(uri));
+        Log4j.d("uri", String.valueOf(uri));
         getView().cameraIntent(uri, CameraConfig.PHOTO_REQUEST_CODE);
     }
 
@@ -329,11 +329,11 @@ public class WellPresenter extends BasePresenter<WellView> {
             List<CameraGroup> cameraGroups = new LinkedList<>();
             CameraGroup cameraGroup = new CameraGroup();
             String path = uri.getPath();
-            Log4j.d("path",path);
+            Log4j.d("path", path);
             cameraGroup.setUri(path);
             cameraGroup.setType(++type);
             Bitmap bitmap = BitmapFactory.decodeStream(getView().getContext().getContentResolver().openInputStream(uri));
-            Log4j.d("bitmap",String.valueOf(bitmap));
+            Log4j.d("bitmap", String.valueOf(bitmap));
             cameraGroup.setBitmap(bitmap);
             if (cameraPresenter == null) {
                 cameraGroups.add(cameraGroup);
@@ -357,9 +357,9 @@ public class WellPresenter extends BasePresenter<WellView> {
     /**
      * 删除对应照片
      */
-    public void removeCamera(int type){
-        for (int i=0;i<cameraPresenter.getCount();i++){
-            if(cameraPresenter.getCameraGroups().get(i).getType() == type){
+    public void removeCamera(int type) {
+        for (int i = 0; i < cameraPresenter.getCount(); i++) {
+            if (cameraPresenter.getCameraGroups().get(i).getType() == type) {
                 cameraPresenter.getCameraGroups().remove(i);
                 cameraAdapter.notifyDataSetChanged();
             }

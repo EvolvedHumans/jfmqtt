@@ -62,10 +62,10 @@ public interface WellView extends LoginView {
     /**
      * 拍照回调处理
      *
-     * @param uri 入参
+     * @param uri         入参
      * @param requestCode 请求时Intent入参
      */
-    void cameraIntent(Uri uri,int requestCode);
+    void cameraIntent(Uri uri, int requestCode);
 
 
 }

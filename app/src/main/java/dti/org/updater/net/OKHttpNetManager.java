@@ -65,8 +65,8 @@ public class OKHttpNetManager implements INetManager {
         //OkHttpClient构建对象
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         //方法实现者进行设置，连接超时规定，供使用者调用
-        builder.connectTimeout(20, TimeUnit.SECONDS);
-        builder.readTimeout(20, TimeUnit.SECONDS);
+        builder.connectTimeout(5, TimeUnit.SECONDS);
+        builder.readTimeout(5, TimeUnit.SECONDS);
         //获取OkHttpClient实例
         okHttpClient = builder.build();
     }
