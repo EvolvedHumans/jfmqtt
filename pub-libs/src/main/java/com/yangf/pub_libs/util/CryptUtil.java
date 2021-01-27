@@ -1,5 +1,6 @@
 package com.yangf.pub_libs.util;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 /**
@@ -19,7 +20,7 @@ public class CryptUtil {
     public static String encryptMD5(String value) {
         try {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
-            md5.update(value.getBytes("utf8"));
+            md5.update(value.getBytes(StandardCharsets.UTF_8));
             byte[] md = md5.digest();
             return binToHex(md);
         } catch (Exception e) {
@@ -41,7 +42,7 @@ public class CryptUtil {
     }
 
     private static String binToHex(byte[] md) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int b : md) {
             if (b < 0) {
                 b += 256;

@@ -52,8 +52,6 @@ public class UrlImageView extends androidx.appcompat.widget.AppCompatImageView {
         return isRefresh;
     }
 
-
-
     /**
      * 设置网络图片
      *

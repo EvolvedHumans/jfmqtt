@@ -27,7 +27,7 @@ public final class Conversion {
     //-------------------------------------------------------
     //1字节转2个Hex字符
     public static String Byte2Hex(Byte inByte) {
-        return String.format("%02x", new Object[]{inByte}).toUpperCase();
+        return String.format("%02x", inByte).toUpperCase();
     }
 
     //-------------------------------------------------------
@@ -35,7 +35,7 @@ public final class Conversion {
     public static String ByteArrToHex(byte[] inBytArr) {
         StringBuilder strBuilder = new StringBuilder();
         for (byte valueOf : inBytArr) {
-            strBuilder.append(Byte2Hex(Byte.valueOf(valueOf)));
+            strBuilder.append(Byte2Hex(valueOf));
             strBuilder.append(" ");
         }
         return strBuilder.toString();
@@ -47,7 +47,7 @@ public final class Conversion {
         StringBuilder strBuilder = new StringBuilder();
         int j = byteCount;
         for (int i = offset; i < j; i++) {
-            strBuilder.append(Byte2Hex(Byte.valueOf(inBytArr[i])));
+            strBuilder.append(Byte2Hex(inBytArr[i]));
         }
         return strBuilder.toString();
     }

@@ -3,7 +3,6 @@ package com.yangf.pub_libs.util;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 
 /**
  * @name： 杨帆
