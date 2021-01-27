@@ -11,25 +11,21 @@ import dti.org.base.BaseView;
  */
 public interface LoginView extends BaseView {
     /**
-     *
      * @return 获取用户名
      */
     String getUserName();
 
     /**
-     *
      * @return 获取密码
      */
     String getPassword();
 
     /**
-     *
      * @param userTips 设置用户区域提示内容
      */
     void setUserTips(String userTips);
 
     /**
-     *
      * @param passwordTips 设置密码区域提示内容
      */
     void setPasswordTips(String passwordTips);

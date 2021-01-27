@@ -2,9 +2,11 @@ package dti.org.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,26 +19,43 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import dti.org.R;
+import dti.org.base.BaseActivity;
 
 /**
  * 展示界面跳转到登录界面
  */
-public class FirstPageActivity extends AppCompatActivity {
+public class FirstPageActivity extends BaseActivity {
+
+    private final static String TAG = "dti.org.FirstPageActivity";
 
     Boolean timer = false;
 
     Timer time_login = new Timer();
 
+    @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //设置顶部状态栏为透明
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-        getWindow().getDecorView()
-                .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-
+        setNavigAtion();
         setContentView(R.layout.activity_first);
+
+        //* 二：Android 点击 Home 键后再点击 APP 图标，APP 显示退出之前的界面
+        //*         //具体可查看Android 应用 Home 键后 Launcher 重复启动问题
+        //* 解决方法：
+        //* 在SplashActivity（启动页）中通过 isTaskRoot
+        //*（Return whether this activity is the root of a task.The root is the first activity in a task.）
+        //* 方法来进行判断：
+        //*
+//        if (!isTaskRoot()) {
+//            finish();
+//        }
+
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+            finish();
+            Log.d(TAG,"判断当前启动页是否为当前任务栈的根Activity,如果不搜，则销毁");
+            return;
+        }
+
 
         XXPermissions.with(this)
                 .permission(Permission.CAMERA)
@@ -47,37 +66,40 @@ public class FirstPageActivity extends AppCompatActivity {
                 .request(new OnPermission() {
                     @Override
                     public void hasPermission(List<String> granted, boolean all) {
-                        if(all){
-                            Toast.makeText(FirstPageActivity.this,"授权通过",Toast.LENGTH_LONG)
+                        if (all) {
+                            Toast.makeText(FirstPageActivity.this, "授权通过", Toast.LENGTH_LONG)
                                     .show();
-                        }
-                        else {
+                        } else {
                             Toast.makeText
-                                    (FirstPageActivity.this,"部分权限未授予",Toast.LENGTH_LONG)
+                                    (FirstPageActivity.this, "部分权限未授予", Toast.LENGTH_LONG)
                                     .show();
                         }
-                        timer =true;
+                        timer = true;
                     }
 
                     @Override
                     public void noPermission(List<String> denied, boolean never) {
-                        if(never)
+                        if (never)
                             //全部授权失败，跳转到设置界面，用户手动授权
                             XXPermissions.startPermissionActivity
-                                    (FirstPageActivity.this,denied);
+                                    (FirstPageActivity.this, denied);
                     }
                 });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         time_login.schedule(new TimerTask() {
             @Override
             public void run() {
-                if(timer == true){
-                    startActivity(new Intent(FirstPageActivity.this,LoginActivity.class));
-                    finish();
+                if (timer) {
+                    startActivity(new Intent(FirstPageActivity.this, LoginActivity.class));
+                   finish();
                 }
             }
-        },3000,3000);
-
+        }, 3000, 3000);
     }
 
     @Override

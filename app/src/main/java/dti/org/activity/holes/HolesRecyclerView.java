@@ -1,8 +1,7 @@
-package dti.org.activity.choice.equip.message.map.collection.holes;
+package dti.org.activity.holes;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

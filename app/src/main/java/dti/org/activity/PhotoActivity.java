@@ -1,8 +1,10 @@
 package dti.org.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
@@ -28,6 +30,7 @@ public class PhotoActivity extends BaseActivity {
 
     ActivityPhotoBinding activityPhotoBinding;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,5 +55,14 @@ public class PhotoActivity extends BaseActivity {
             setResult(CameraConfig.RESULT_Well_OK,intent);
             finish();
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //后退键销毁当前页面
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

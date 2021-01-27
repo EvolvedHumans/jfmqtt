@@ -3,6 +3,8 @@ package dti.org.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
+
 import androidx.databinding.DataBindingUtil;
 import dti.org.R;
 import dti.org.base.BaseActivity;
@@ -23,6 +25,7 @@ public class LoginOutActivity extends BaseActivity implements LoginoutView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setNavigAtion();
         activityLoginoutBinding = DataBindingUtil.setContentView(this,R.layout.activity_loginout);
         loginOutPresenter = new LoginoutPresenter();
         loginOutPresenter.attachView(this);
@@ -32,7 +35,11 @@ public class LoginOutActivity extends BaseActivity implements LoginoutView {
             //todo 登出接口
             loginOutPresenter.loginout();
         });
-
+        activityLoginoutBinding.imageIconReturn.setOnClickListener(v -> {
+            Intent intent = new Intent(this,ChoiceActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     @Override
@@ -54,6 +61,8 @@ public class LoginOutActivity extends BaseActivity implements LoginoutView {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //后退键销毁当前页面
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent(this,ChoiceActivity.class);
+            startActivity(intent);
             finish();
         }
         return super.onKeyDown(keyCode, event);

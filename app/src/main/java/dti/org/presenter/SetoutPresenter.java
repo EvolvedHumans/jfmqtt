@@ -69,7 +69,7 @@ public class SetoutPresenter extends BasePresenter<SetoutView> {
                         if (name != null && picture != null) {
                             viewList.add(getView().toPager(name, picture));
                         } else {
-                            getView().showErr("获取Setout中的" + name + "和" + picture);
+                            //   getView().showErr("获取Setout中的" + name + "和" + picture);
                             // return;
                         }
                     } else {
@@ -125,15 +125,18 @@ public class SetoutPresenter extends BasePresenter<SetoutView> {
             if (loginGroup != null) {
                 //3.获取当前选中页的信息
                 int position = setoutPageChange.getPosition();
-
                 Setout setout = getList().get(position);
                 String departmentId = loginGroup.getUser().getDepartmentId();
 
-                if (position <= getList().size() && null != setout && null != departmentId && null != setout.getType()) {
-                    body.put("departmentId", departmentId);
-                    body.put("type", String.valueOf(setout.getType()));
-                    Log4j.d("departmentId", departmentId);
-                    Log4j.d("type", String.valueOf(setout.getType()));
+                if(null != setout && null != departmentId){
+                    if (position <= getList().size() && null != setout.getType()) {
+                        body.put("departmentId", departmentId);
+                        body.put("type", String.valueOf(setout.getType()));
+                        Log4j.d("departmentId", departmentId);
+                        Log4j.d("type", String.valueOf(setout.getType()));
+                    }
+                }else {
+                    getView().showErr("null != setout && null != departmentId未获取到有效数据");
                 }
             }
         } else {
@@ -145,14 +148,14 @@ public class SetoutPresenter extends BasePresenter<SetoutView> {
             @Override
             public void onSuccess(String data) {
 
-                Log4j.e("获取到的数据",data);
+                Log4j.e("获取到的数据", data);
 
                 //存储设备ID号
                 getView().importIntegerCache(SharedPreferenceConfig.Setout_TYPE,
                         getList().get(setoutPageChange.getPosition()).getType());
 
                 //存储返回数据(服务器返回的JSON数据)
-                getView().importStringCache(SharedPreferenceConfig.Setout_OnClick,data);
+                getView().importStringCache(SharedPreferenceConfig.Setout_OnClick, data);
 
                 //跳转
                 getView().jump();

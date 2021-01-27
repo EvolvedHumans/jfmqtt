@@ -1,4 +1,4 @@
-package dti.org.activity.choice.equip.message.map.collection.holes;
+package dti.org.activity.holes;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

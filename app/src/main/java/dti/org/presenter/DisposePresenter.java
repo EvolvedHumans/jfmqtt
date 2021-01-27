@@ -58,13 +58,13 @@ public class DisposePresenter extends BasePresenter<DisposeView> implements Disp
     public void drawDispose() {
         //总数据 List<DisposeGroup>
         String content = getView().exportStringCache(SharedPreferenceConfig.Setout_OnClick, SharedPreferenceConfig.NO);
-        Log4j.d("获取上个界面返回信息",content);
+        Log4j.d("获取上个界面返回信息", content);
         if (GsonYang.IsJson(content)) {
             DisposeObtain disposeObtain = GsonYang.JsonObject(content, DisposeObtain.class);
             if (judgeDisposeObtain(disposeObtain)) {
                 if (disposeObtain.getRt() == 1) {
                     disposeGroups = disposeObtain.getData();
-                    int i =0;
+                    int i = 0;
                     for (DisposeGroup disposeGroup : disposeGroups) {
                         if (judgeDisposeGroup(disposeGroup)) {
                             list.add(disposeGroup.getName());
@@ -83,7 +83,7 @@ public class DisposePresenter extends BasePresenter<DisposeView> implements Disp
     public void lockMechanism() {
         //事件发射器
         Observable<String> observable = Observable.create(emitter -> {
-            while (!lock);
+            while (!lock) ;
             emitter.onNext("");
             emitter.onComplete();
         });
@@ -92,7 +92,7 @@ public class DisposePresenter extends BasePresenter<DisposeView> implements Disp
         DisposableObserver<String> disposableObserver = new DisposableObserver<String>() {
             @Override
             public void onNext(@NonNull String response) {
-                if(isViewAttached()){
+                if (isViewAttached()) {
                     getView().startOptional();
                 }
             }
@@ -104,7 +104,8 @@ public class DisposePresenter extends BasePresenter<DisposeView> implements Disp
 
             @SuppressLint("LongLogTag")
             @Override
-            public void onComplete() { }
+            public void onComplete() {
+            }
         };
 
         observable.subscribeOn(Schedulers.io())
@@ -154,7 +155,7 @@ public class DisposePresenter extends BasePresenter<DisposeView> implements Disp
      * 判断该按钮是否为选择配置按钮
      */
     @Override
-    public boolean itemConfig(int position){
+    public boolean itemConfig(int position) {
         return disposeGroups.get(position).getType() == 2;
     }
 
@@ -199,7 +200,7 @@ public class DisposePresenter extends BasePresenter<DisposeView> implements Disp
         if (compositeDisposable != null && !compositeDisposable.isDisposed()) {
             compositeDisposable.dispose();
         }
-        Log4j.d("~~~~~~~~~~~~~~~~~~~~~~~~~~~~","页面销毁！！！！！");
+        Log4j.d("~~~~~~~~~~~~~~~~~~~~~~~~~~~~", "页面销毁！！！！！");
     }
 
 }

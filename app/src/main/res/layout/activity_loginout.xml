@@ -11,52 +11,57 @@
         android:layout_height="match_parent"
         android:background="@drawable/dti_bg"
         android:fitsSystemWindows="true"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         tools:context=".activity.LoginOutActivity">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="60" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="240"
-            android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="24" />
-
-            <!-- 页面标题   -->
+        <!--    导入井盖布局-->
+        <FrameLayout
+            android:id="@+id/framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="70"
+            tools:ignore="UselessParent">
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="56"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="账户信息"
+                android:text="@string/loginout_title"
                 android:textColor="#ffffffff"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/image_icon_return"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginStart="30dp"
+                android:background="@mipmap/back"
+                android:contentDescription="@string/todo"
+                tools:ignore="RtlHardcoded" />
+        </FrameLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="64" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="400"
+            android:gravity="left|top"
+            android:orientation="vertical"
+            tools:ignore="RtlHardcoded">
 
             <!--        用户名栏-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="32"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_margin="50dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                tools:ignore="RtlSymmetry">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:background="@mipmap/user_user" />
+                    android:background="@mipmap/user_user"
+                    android:contentDescription="@string/todo" />
 
                 <View
                     android:layout_width="0dp"
@@ -74,24 +79,21 @@
 
             </LinearLayout>
 
-            <!--        无用-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="19" />
 
             <!--        公司名栏-->
-            <!--        -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="32"
-                android:gravity="left">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:background="@mipmap/user_company" />
+                    android:background="@mipmap/user_company"
+                    android:contentDescription="@string/todo" />
 
                 <View
                     android:layout_width="0dp"
@@ -109,36 +111,18 @@
 
             </LinearLayout>
 
-            <!--        无用-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="297" />
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="36"
-                android:background="@drawable/login_bt"
-                android:onClick="onViewClicked"
-                android:text="退出账户"
-                android:textColor="#ff0099ff"
-                android:textSize="14sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="80" />
-
-
         </LinearLayout>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="60" />
-
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="50dp"
+            android:background="@drawable/login_bt"
+            android:text="@string/logout_exit"
+            android:textColor="#ff0099ff"
+            android:textSize="14sp" />
 
     </LinearLayout>
+
 </layout>

@@ -36,4 +36,6 @@
     <string name="well_text">设备信息录入</string>
     <string name="add_scancode">添加节点设备</string>
     <string name="setName">设备名称：</string>
+    <string name="logout_exit">退出账户</string>
+    <string name="loginout_title">账户信息</string>
 </resources>

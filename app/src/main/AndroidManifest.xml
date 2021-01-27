@@ -27,60 +27,54 @@
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" /> <!-- 安装应用权限 -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
+<!--    Android属性allowBackup安全风险源于adb backup容许任何一个能够打开USB 调试开关的人从Android手机中
+复制应用数据到外设，一旦应用数据被备份之后，所有应用数据都可被用户读取；adb restore容许用户指定一个恢复的数
+据来源（即备份的应用数据）来恢复应用程序数据的创建。因此，当一个应用数据被备份之后，用户即可在其他Android手
+机或模拟器上安装同一个应用，以及通过恢复该备份的应用数据到该设备上，在该设备上打开该应用即可恢复到被备份的应用程序的状态。
+尤其是通讯录应用，一旦应用程序支持备份和恢复功能，攻击者即可通过adb backup和adb restore进行恢复新安装的同一个
+应用来查看聊天记录等信息；对于支付金融类应用，攻击者可通过此来进行恶意支付、盗取存款等；因此为了安全起见，开发者
+务必将allowBackup标志值设置为false来关闭应用程序的备份和恢复功能，以免造成信息泄露和财产损失。-->
     <application
         android:name=".application.Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher1"
         android:label="@string/app_name"
         android:launchMode="singleTask"
+        android:persistent="true"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activity.GroundNailActivity"
-            android:launchMode="singleInstance" />
+            android:name=".activity.GroundNailActivity" />
         <activity
-            android:name=".activity.FirstPageActivity"
-            android:launchMode="singleInstance">
+            android:name=".activity.FirstPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.FailActivity"
-            android:launchMode="singleInstance" />
+            android:name=".activity.FailActivity" />
         <activity
-            android:name=".activity.WellActivity"
-            android:launchMode="singleInstance" />
+            android:name=".activity.WellActivity" />
         <activity
-            android:name=".activity.MapActivity"
-            android:launchMode="singleInstance" />
+            android:name=".activity.MapActivity" />
         <activity
-            android:name=".activity.HolesActivity"
-            android:launchMode="singleInstance" />
+            android:name=".activity.holes.HolesActivity" />
         <activity
-            android:name=".activity.CameraActivity"
-            android:launchMode="singleInstance" />
+            android:name=".activity.SetoutActivity" />
         <activity
-            android:name=".activity.SetoutActivity"
-            android:launchMode="singleInstance" />
+            android:name=".activity.LoginOutActivity" />
         <activity
-            android:name=".activity.LoginOutActivity"
-            android:launchMode="singleInstance" />
+            android:name=".activity.ChoiceActivity" />
         <activity
-            android:name=".activity.ChoiceActivity"
-            android:launchMode="singleInstance" />
-        <activity
-            android:name=".activity.LoginActivity"
-            android:launchMode="singleInstance" />
+            android:name=".activity.LoginActivity" />
         <activity
             android:name=".activity.DisposeActivity"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleTask"/>
         <activity
-            android:name=".activity.PhotoActivity"
-            android:launchMode="singleInstance" />
+            android:name=".activity.PhotoActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

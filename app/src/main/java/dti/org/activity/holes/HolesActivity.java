@@ -1,4 +1,4 @@
-package dti.org.activity;
+package dti.org.activity.holes;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,11 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dti.org.R;
-import dti.org.activity.choice.equip.message.map.collection.Dti;
-import dti.org.activity.choice.equip.message.map.collection.holes.HolesAdapter;
-import dti.org.activity.choice.equip.message.map.collection.holes.HolesData;
-import dti.org.activity.choice.equip.message.map.collection.holes.HolesItemDecoration;
-import dti.org.activity.choice.equip.message.map.collection.holes.HolesProperties;
+
 
 public class HolesActivity extends AppCompatActivity {
 
@@ -65,7 +61,7 @@ public class HolesActivity extends AppCompatActivity {
                 .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
         buttonScanCode.setText("扫描网关二维码");
-        textScanCode.setText(Dti.TEXT_CODE_SCAN);
+        textScanCode.setText(HolesConfig.TEXT_CODE_SCAN);
 
         holesRecycler.post(() -> {
 
@@ -119,7 +115,7 @@ public class HolesActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         //确定是拍照的返回回调
-        if(requestCode == Dti.RESULT_CODE_SCAN){
+        if(requestCode == HolesConfig.RESULT_CODE_SCAN){
             //获取拍照参数,先获取返回的值
             assert data != null;
             String str = data.getStringExtra(Constant.CODED_CONTENT);

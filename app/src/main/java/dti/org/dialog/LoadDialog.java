@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,4 +44,14 @@ public class LoadDialog extends Dialog {
         rotateImageView = window.findViewById(R.id.rotateImageView);
         rotateImageView.show();
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            dismiss();
+        }
+        return false;
+    }
+
+
 }

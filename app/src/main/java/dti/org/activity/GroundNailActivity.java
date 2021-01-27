@@ -1,24 +1,24 @@
 package dti.org.activity;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
+import android.view.KeyEvent;
 
 import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.bean.ZxingConfig;
 import com.yzq.zxinglibrary.common.Constant;
 
 import dti.org.R;
-import dti.org.activity.choice.equip.message.map.collection.Dti;
 import dti.org.adapter.camera.CameraAdapter;
 import dti.org.adapter.scancode.ScanCodeAdapter;
 import dti.org.base.BaseActivity;
+import dti.org.config.CameraConfig;
 import dti.org.config.MapConfig;
 import dti.org.dao.MapObtain;
 import dti.org.databinding.ActivityGroundNailBinding;
@@ -56,6 +56,7 @@ public class GroundNailActivity extends BaseActivity implements GroundNailView{
         });
         Intent intent = getIntent();
         MapObtain mapObtain = (MapObtain) intent.getSerializableExtra(MapConfig.MAP);
+        assert mapObtain != null;
         activityGroundNailBinding.localText.append(mapObtain.getAddress());
         activityGroundNailBinding.localExitText.append(mapObtain.getAddress());
         activityGroundNailBinding.finish.buttonCollectionFinish.setOnClickListener(v -> {
@@ -76,8 +77,19 @@ public class GroundNailActivity extends BaseActivity implements GroundNailView{
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //后退键销毁当前页面
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent(this,MapActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode == Dti.RESULT_CODE_SCAN && requestCode == position) {
+        if (resultCode == CameraConfig.PHOTO_REQUEST_CODE && requestCode == position) {
             assert data != null;
             //刷新扫描
             groundNailPresenter.updateScancode(data.getStringExtra(Constant.CODED_CONTENT));
@@ -87,21 +99,25 @@ public class GroundNailActivity extends BaseActivity implements GroundNailView{
     /**
      * 绘制地钉文本框
      */
+    @SuppressLint("SetTextI18n")
     @Override
     public void setUserTips(String userTips) {
         activityGroundNailBinding.scancode.textScanCode.setText("扫描的地钉是："+userTips);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void idWarning() {
         activityGroundNailBinding.scancode.listItem.setBackground(getDrawable(R.drawable.lock_err));
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void nameWarning() {
         activityGroundNailBinding.localText.setBackground(getDrawable(R.drawable.lock_err));
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void localWarning() {
         activityGroundNailBinding.localExitText.setBackground(getDrawable(R.drawable.lock_err));

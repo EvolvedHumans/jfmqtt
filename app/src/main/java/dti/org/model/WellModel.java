@@ -30,16 +30,18 @@ public class WellModel {
             public void success(String content) {
                 Log4j.d("校验后数据",content);
                 callbcak.onSuccess(content);
+                callbcak.onComplete();
             }
 
             @Override
             public void failed(Throwable throwable) {
                 callbcak.onError(throwable);
+                callbcak.onComplete();
             }
 
             @Override
             public void onComplete() {
-                callbcak.onComplete();
+             //   callbcak.onComplete();
             }
         });
     }

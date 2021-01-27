@@ -47,11 +47,6 @@ public class UrlImageView extends androidx.appcompat.widget.AppCompatImageView {
         super(context, attrs);
     }
 
-    //获取刷新结果,判断图片有无显示成功
-    public boolean isShow() {
-        return isRefresh;
-    }
-
     /**
      * 设置网络图片
      *

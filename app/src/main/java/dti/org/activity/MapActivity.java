@@ -3,6 +3,7 @@ package dti.org.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.KeyEvent;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -138,6 +139,17 @@ public class MapActivity extends BaseActivity {
         locationClient.onDestroy();
         //销毁地图
         activityMapBinding.map.onDestroy();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //后退键销毁当前页面
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent(this,DisposeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

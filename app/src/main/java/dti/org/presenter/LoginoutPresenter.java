@@ -36,16 +36,16 @@ public class LoginoutPresenter extends BasePresenter<LoginoutView> {
      * 1.查数据 -> todo 未查到需要重新跳转到登录界面(暂时不实现)
      * 2.绘制
      */
-    public void drawLoginout(){
-        String content = getView().exportStringCache(SharedPreferenceConfig.APP_LOGIN,SharedPreferenceConfig.NO);
-        if(!content.equals(SharedPreferenceConfig.NO)){
-            if(GsonYang.IsJson(content)){
+    public void drawLoginout() {
+        String content = getView().exportStringCache(SharedPreferenceConfig.APP_LOGIN, SharedPreferenceConfig.NO);
+        if (!content.equals(SharedPreferenceConfig.NO)) {
+            if (GsonYang.IsJson(content)) {
                 LoginGroup loginGroup = GsonYang.JsonObject(content, LoginGroup.class);
                 Login login = loginGroup.getUser();
-                if(login !=null){
+                if (login != null) {
                     String username = login.getName(); // 用户名
                     String departmentName = login.getDepartmentName(); //公司
-                    if(username!=null && departmentName!=null){
+                    if (username != null && departmentName != null) {
                         handler.post(() -> {
                             getView().setUserTips(username);
                             getView().setPasswordTips(departmentName);
@@ -55,13 +55,13 @@ public class LoginoutPresenter extends BasePresenter<LoginoutView> {
                 }
             }
         }
-        getView().showErr("DrawLoginout is error:"+content);
+        getView().showErr("DrawLoginout is error:" + content);
     }
 
     /**
      * 登出请求
      */
-    public void loginout(){
+    public void loginout() {
         //1,
         getView().showLoading();
 
@@ -70,15 +70,15 @@ public class LoginoutPresenter extends BasePresenter<LoginoutView> {
 
         HashMap<String, String> header = new HashMap<>();
         header.put("ts", timestamp);
-        header.put("Content-Type","application/x-www-form-urlencoded"); //提交格式
+        header.put("Content-Type", "application/x-www-form-urlencoded"); //提交格式
 
         HashMap<String, String> body = new HashMap<>();
         body.put("appKey", SignConfig.APP_KEY);    //应用标识
         body.put("sign", SignConfig.sign(timestamp)); //将缓存区中的应用标识上传
 
-        Log4j.d("ts",timestamp);
-        Log4j.d("appKey",SignConfig.APP_KEY);
-        Log4j.d("sign",SignConfig.sign(timestamp));
+        Log4j.d("ts", timestamp);
+        Log4j.d("appKey", SignConfig.APP_KEY);
+        Log4j.d("sign", SignConfig.sign(timestamp));
 
         Model.LoginoutModel(UrlConfig.LoginOutUrl, header, body, new BaseCallbcak<String>() {
             @Override

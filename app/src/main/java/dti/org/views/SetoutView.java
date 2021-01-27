@@ -14,15 +14,15 @@ import dti.org.listener.SetoutPageChange;
  * @JDK: VERSION_1_8
  * @Android_SDK: VERSION_8.0
  */
-public interface SetoutView extends BaseView{
+public interface SetoutView extends BaseView {
     /**
      * 将导入图片name和地址，转换成View
      *
-     * @param name 图片名
+     * @param name    图片名
      * @param picture 图片地址
      * @return View视图
      */
-    View toPager(String name,String picture);
+    View toPager(String name, String picture);
 
     /**
      * 刷新ViewPager控件，并将SetoutAdapter适配器配置到ViewPager上

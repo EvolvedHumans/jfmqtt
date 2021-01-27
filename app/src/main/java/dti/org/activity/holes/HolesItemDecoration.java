@@ -1,4 +1,4 @@
-package dti.org.activity.choice.equip.message.map.collection.holes;
+package dti.org.activity.holes;
 
 import android.graphics.Rect;
 import android.view.View;

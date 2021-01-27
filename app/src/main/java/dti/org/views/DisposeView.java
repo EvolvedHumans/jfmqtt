@@ -16,7 +16,7 @@ public interface DisposeView extends BaseView {
     /**
      * 刷新按钮组
      *
-     * @param disposeAdapter 适配器
+     * @param disposeAdapter        适配器
      * @param disposeItemDecoration item位置布局
      */
     void setButtonGroup(DisposeAdapter disposeAdapter, DisposeItemDecoration disposeItemDecoration);

@@ -31,7 +31,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginCon
      */
     @Override
     public void firstLogin() {
-        Log4j.d("登录",String.valueOf(getView().exportBooleanCache(LoginConfig.LOGIN_KEY, false)));
+        Log4j.d("登录", String.valueOf(getView().exportBooleanCache(LoginConfig.LOGIN_KEY, false)));
         if (getView().exportBooleanCache(LoginConfig.LOGIN_KEY, false)) {
             getView().jump();
         }
@@ -67,7 +67,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginCon
         }
 
         //2.
-        Log4j.d("showLoading","开始加载");
+        Log4j.d("showLoading", "开始加载");
         getView().showLoading();
 
         //3.
@@ -83,10 +83,10 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginCon
         body.put("username", username);  //用户名
         body.put("password", password);  //密码
 
-        Log4j.d("ts",timestamp);
+        Log4j.d("ts", timestamp);
 //        Log4j.d("Content-Type","application/x-www-form-urlencoded");
-        Log4j.d("appKey",SignConfig.APP_KEY);
-        Log4j.d("sign",SignConfig.sign(timestamp));
+        Log4j.d("appKey", SignConfig.APP_KEY);
+        Log4j.d("sign", SignConfig.sign(timestamp));
         Log4j.d("username", username);
         Log4j.d("password", password);
 
@@ -116,7 +116,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginCon
 
             @Override
             public void onComplete() {
-                Log4j.d("onComlete","关闭");
+                Log4j.d("onComlete", "关闭");
                 getView().hideLoading();
             }
         });

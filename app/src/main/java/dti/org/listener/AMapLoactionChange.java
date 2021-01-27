@@ -19,6 +19,7 @@ import com.amap.api.services.geocoder.RegeocodeAddress;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.yangf.pub_libs.DensityUtil;
+
 import dti.org.R;
 import dti.org.databinding.ActivityMapBinding;
 import dti.org.util.MapUtil;
@@ -32,7 +33,7 @@ import lombok.Data;
  * @Android_SDK: VERSION_8.0
  */
 @Data
-public class AMapLoactionChange implements AMapLocationListener{
+public class AMapLoactionChange implements AMapLocationListener {
 
     ActivityMapBinding activityMapBinding;
 
@@ -46,7 +47,7 @@ public class AMapLoactionChange implements AMapLocationListener{
 
     GeocodeSearch geocodeSearch; //逆地理编译包
 
-    public AMapLoactionChange(Context context, ActivityMapBinding activityIMapBinding){
+    public AMapLoactionChange(Context context, ActivityMapBinding activityIMapBinding) {
         this.context = context;
         this.aMap = activityIMapBinding.map.getMap();
         this.activityMapBinding = activityIMapBinding;
@@ -61,10 +62,10 @@ public class AMapLoactionChange implements AMapLocationListener{
             public void onCameraChangeFinish(CameraPosition cameraPosition) {
 
                 //获取屏幕中心点像素
-                setMarket(cameraPosition.target,DensityUtil.getScreenWidth()/2,(int)getMapHeight());
+                setMarket(cameraPosition.target, DensityUtil.getScreenWidth() / 2, (int) getMapHeight());
                 activityIMapBinding.longitude.setText(String.valueOf(cameraPosition.target.longitude));
                 activityIMapBinding.latitude.setText(String.valueOf(cameraPosition.target.latitude));
-             //   activityIMapBinding.address.setText();
+                //   activityIMapBinding.address.setText();
                 //逆地理编码获取
                 getAddressByLatlng(cameraPosition.target);
             }
@@ -87,13 +88,13 @@ public class AMapLoactionChange implements AMapLocationListener{
 
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
-        if(aMapLocation != null){
-            if(aMapLocation.getErrorCode() == 0){
+        if (aMapLocation != null) {
+            if (aMapLocation.getErrorCode() == 0) {
 
-                setLatLng(new LatLng(aMapLocation.getLatitude(),aMapLocation.getLongitude()));
+                setLatLng(new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude()));
 
                 //设置定位坐标和缩放比例
-                aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getLatLng(),19));
+                aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getLatLng(), 19));
 
                 //描点
                 MarkerOptions markerOptions = new MarkerOptions();
@@ -108,7 +109,6 @@ public class AMapLoactionChange implements AMapLocationListener{
     }
 
 
-
     private void getAddressByLatlng(LatLng latLng) {
         //逆地理编码查询条件：逆地理编码查询的地理坐标点、查询范围、坐标类型。
         LatLonPoint latLonPoint = new LatLonPoint(latLng.latitude, latLng.longitude);
@@ -121,21 +121,21 @@ public class AMapLoactionChange implements AMapLocationListener{
     /**
      * 获取地图中心点坐标点高度单位px
      */
-    private double getMapHeight(){
+    private double getMapHeight() {
         float height = DensityUtil.getScreenWidth() - DensityUtil.spToPx(12) - DensityUtil.dpToPx(20);
-        return 0.29*height;
+        return 0.29 * height;
     }
 
 
     /**
      * 通过拖动地图进行位置定位改变，且mark位于屏幕中间不变
+     *
      * @param latLng 中心点坐标
-     * @param width 所处屏幕的横向位置
+     * @param width  所处屏幕的横向位置
      * @param height 所处屏幕的纵向位置
      */
-    private void setMarket(LatLng latLng,int width,int height) {
-        if (mGPSMarker != null)
-        {
+    private void setMarket(LatLng latLng, int width, int height) {
+        if (mGPSMarker != null) {
             mGPSMarker.remove();
         }
 

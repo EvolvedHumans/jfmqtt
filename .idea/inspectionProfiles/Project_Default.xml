@@ -30,7 +30,7 @@
       <option name="IGNORE_JAVADOC_PERIOD" value="true" />
       <option name="IGNORE_DUPLICATED_THROWS" value="false" />
       <option name="IGNORE_POINT_TO_ITSELF" value="false" />
-      <option name="myAdditionalJavadocTags" value="Android_SDK:,JDK:,TechnicalPoints：,Time：,Data：,name：,Byte[],File,Integer,error,return,Author,Date,Data：Dispose界面Recycle自定义子控件位置" />
+      <option name="myAdditionalJavadocTags" value="Android_SDK:,JDK:,TechnicalPoints：,Time：,Data：,name：,Byte[],File,Integer,error,return,Author,Date,Data：Dispose界面Recycle自定义子控件位置,Data：公用实参" />
     </inspection_tool>
   </profile>
 </component>

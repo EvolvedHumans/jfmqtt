@@ -47,22 +47,25 @@ public class Model {
                         if (login.getRt() != null && login.getComments() != null) {
                             if (login.getRt() == 1 && login.getData() != null) {
                                 callbcak.onSuccess(login.getData());
+                                callbcak.onComplete();
                                 return;
                             }
                         }
                     }
                 }
                 callbcak.onFailure(content);
+                callbcak.onComplete();
             }
 
             @Override
             public void failed(Throwable throwable) {
                 callbcak.onError(throwable);
+                callbcak.onComplete();
             }
 
             @Override
             public void onComplete() {
-                callbcak.onComplete();
+
             }
         });
 
@@ -119,21 +122,24 @@ public class Model {
                     if (setoutObtain != null && setoutObtain.getRt() != null) {
                         if (setoutObtain.getRt() == 1 && setoutObtain.getData() != null) {
                             callbcak.onSuccess(setoutObtain.getData());
+                            callbcak.onComplete();
                             return;
                         }
                     }
                 }
                 callbcak.onFailure(content);
+                callbcak.onComplete();
             }
 
             @Override
             public void failed(Throwable throwable) {
                 callbcak.onError(throwable);
+                callbcak.onComplete();
             }
 
             @Override
             public void onComplete() {
-                callbcak.onComplete();
+
             }
         });
     }
@@ -146,15 +152,18 @@ public class Model {
             @Override
             public void success(String content) {
                 callbcak.onSuccess(content);
+                callbcak.onComplete();
             }
 
             @Override
             public void failed(Throwable throwable) {
                 callbcak.onError(throwable);
+                callbcak.onComplete();
             }
 
             @Override
             public void onComplete() {
+                callbcak.onComplete();
                 callbcak.onComplete();
             }
         });

@@ -1,13 +1,10 @@
 package dti.org.views;
 
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
-import dti.org.activity.choice.equip.message.map.collection.scancode.ScanCode;
 import dti.org.adapter.camera.CameraAdapter;
 import dti.org.adapter.scancode.ScanCodeAdapter;
-import dti.org.base.BaseView;
+
 import dti.org.dao.MapObtain;
 
 /**

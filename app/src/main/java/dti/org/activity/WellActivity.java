@@ -7,20 +7,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.View;
+import android.view.KeyEvent;
 
-import com.yangf.pub_libs.DensityUtil;
-import com.yangf.pub_libs.DimensionImage;
 import com.yangf.pub_libs.Log4j;
 import com.yzq.zxinglibrary.common.Constant;
 
 import dti.org.R;
-import dti.org.activity.choice.equip.message.map.collection.Dti;
 
 import dti.org.adapter.camera.CameraAdapter;
 import dti.org.base.BaseActivity;
@@ -82,6 +77,17 @@ public class WellActivity extends BaseActivity implements WellView {
     protected void onDestroy() {
         super.onDestroy();
         wellPresenter.detachView();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //后退键销毁当前页面
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent1 = new Intent(this, MapActivity.class);
+            startActivity(intent1);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     /**

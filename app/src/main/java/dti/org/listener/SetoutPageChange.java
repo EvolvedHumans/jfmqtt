@@ -17,7 +17,8 @@ public class SetoutPageChange implements ViewPager.OnPageChangeListener {
     private int position = 0;
 
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
 
     @Override
     public void onPageSelected(int position) {
@@ -25,5 +26,6 @@ public class SetoutPageChange implements ViewPager.OnPageChangeListener {
     }
 
     @Override
-    public void onPageScrollStateChanged(int state) { }
+    public void onPageScrollStateChanged(int state) {
+    }
 }

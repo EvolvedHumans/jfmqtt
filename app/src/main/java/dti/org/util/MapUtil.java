@@ -24,7 +24,7 @@ public class MapUtil {
     /**
      * 控件交互
      */
-    public static void getUiSettings(AMap aMap){
+    public static void getUiSettings(AMap aMap) {
         UiSettings uiSettings = aMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(false); //缩放按钮隐藏
         aMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -33,9 +33,10 @@ public class MapUtil {
 
     /**
      * 定位参数获取
+     *
      * @return 自定义定位参数，API接口获取
      */
-    public static AMapLocationClientOption getAMapLocationClientOption(){
+    public static AMapLocationClientOption getAMapLocationClientOption() {
         AMapLocationClientOption locationClientOption = new AMapLocationClientOption(); //设置定位参数
         locationClientOption.setOnceLocation(true); //设置单次定位
 //        locationClientOption.setOnceLocationLatest(true); //返回启动定位时，3s内精度最高的一次定位结果
@@ -45,10 +46,11 @@ public class MapUtil {
 
     /**
      * 定位蓝点模式获取
+     *
      * @param context 上下文
      * @return 自定义定位蓝点模式，API接口获取
      */
-    public static MyLocationStyle getMyLocationStyle(Context context){
+    public static MyLocationStyle getMyLocationStyle(Context context) {
         MyLocationStyle myLocationStyle = new MyLocationStyle();
         //自定义定位蓝点图标
         myLocationStyle.myLocationIcon(
