@@ -22,7 +22,7 @@ import dti.org.R;
  * @JDK: VERSION_1_8
  * @Android_SDK: VERSION_8.0
  */
-public class CameraHolder extends RecyclerView.ViewHolder implements CameraView{
+public class CameraHolder extends RecyclerView.ViewHolder implements CameraView {
 
     ImageButton imageButton;
 
@@ -32,18 +32,16 @@ public class CameraHolder extends RecyclerView.ViewHolder implements CameraView{
     }
 
     /**
-     *
      * @param bitmap 图片
-     * @param width 宽
+     * @param width  宽
      * @param height 高
      */
     @Override
-    public void setImage(Bitmap bitmap,int width,int height) {
-        imageButton.setImageBitmap(DimensionImage.zoomBitmap(bitmap,width,height));
+    public void setImage(Bitmap bitmap, int width, int height) {
+        imageButton.setImageBitmap(DimensionImage.zoomBitmap(bitmap, width, height));
     }
 
     /**
-     *
      * @param listener 设置按钮监听事件
      */
     @Override

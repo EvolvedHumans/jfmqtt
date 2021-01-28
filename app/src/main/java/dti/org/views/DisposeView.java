@@ -25,5 +25,4 @@ public interface DisposeView extends BaseView {
      * 设置按钮可选
      */
     void startOptional();
-
 }

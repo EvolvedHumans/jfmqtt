@@ -11,15 +11,13 @@ import okhttp3.Response;
  * 网络请求方法的回调无非包括：
  * 1.网络请求成功,回调成功提示字符串
  * 2.网络请求失败，带抛异常处理
- *
- *
- *
- *
  * @JDK: VERSION_1_8
  * @Android_SDK: VERSION_8.0
  */
 public interface INetCallBack {
     void success(String content);
+
     void failed(Throwable throwable);
+
     void onComplete();
 }

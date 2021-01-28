@@ -7,7 +7,7 @@ package dti.org.activity.holes;
  * @JDK: VERSION_1_8
  * @Android_SDK: VERSION_8.0
  */
-public class HolesConfig {
+public final class HolesConfig {
     //拍照和扫码的回调
     public static final int RESULT_CODE_SCAN = -1;
 

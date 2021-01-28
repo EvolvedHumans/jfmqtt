@@ -31,7 +31,7 @@ public class DisposeItemDecoration extends RecyclerView.ItemDecoration {
     private int top;
     private int buttom;
 
-    public DisposeItemDecoration(int start,int end,int top,int buttom){
+    public DisposeItemDecoration(int start, int end, int top, int buttom) {
         this.start = start;
         this.end = end;
         this.top = top;

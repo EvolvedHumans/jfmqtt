@@ -38,4 +38,8 @@
     <string name="setName">设备名称：</string>
     <string name="logout_exit">退出账户</string>
     <string name="loginout_title">账户信息</string>
+    <string name="ground_nail_bt">继续安装</string>
+    <string name="ground_nail_close">关闭</string>
+    <string name="success">安装完成</string>
+    <string name="successful">安装完成</string>
 </resources>

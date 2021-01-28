@@ -12,6 +12,6 @@ import lombok.Data;
 @Data
 public class UidTest {
     Integer rt;
-    String  msg;
+    String msg;
     Boolean data;
 }

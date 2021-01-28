@@ -12,15 +12,13 @@ import java.io.File;
  * 1.下载成功，回调File下载的文件
  * 2.下载进度，回调当前的下载进度
  * 3.下载失败，回调失败的异常Throwable
- *
- *
- *
- *
  * @JDK: VERSION_1_8
  * @Android_SDK: VERSION_8.0
  */
 public interface INetDownloadCallBack {
     void success(File file);
+
     void progress(int progress);
+
     void failed(Throwable throwable);
 }

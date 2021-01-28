@@ -54,6 +54,7 @@ public class DisposeActivity extends BaseActivity implements DisposeView {
         });
         disposePresenter = new DisposePresenter();
         disposePresenter.attachView(this);
+        disposePresenter.clearHistory();
         disposePresenter.drawDispose();
         disposePresenter.lockMechanism();
     }
@@ -71,7 +72,7 @@ public class DisposeActivity extends BaseActivity implements DisposeView {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //后退键销毁当前页面
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(this,SetoutActivity.class);
+            Intent intent = new Intent(this, SetoutActivity.class);
             startActivity(intent);
             finish();
         }

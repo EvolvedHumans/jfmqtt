@@ -39,7 +39,7 @@ import lombok.EqualsAndHashCode;
 @Data
 public class SetoutPresenter extends BasePresenter<SetoutView> {
 
-    private List<Setout> list;
+    private List<Setout> list = new LinkedList<>();
     private SetoutPageChange setoutPageChange = new SetoutPageChange();
 
     /**
@@ -60,17 +60,14 @@ public class SetoutPresenter extends BasePresenter<SetoutView> {
             public void onSuccess(List<Setout> data) {
                 //3.获取List<Setout>
                 List<View> viewList = new LinkedList<>();
-                setList(data);
                 //4.将List<Setout> 逐个转换成List<View> 集合
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i) != null) {
-                        String name = list.get(i).getName();
-                        String picture = list.get(i).getPicture();
+                for (int i = 0; i < data.size(); i++) {
+                    if (data.get(i) != null) {
+                        String name = data.get(i).getName();
+                        String picture = data.get(i).getPicture();
                         if (name != null && picture != null) {
+                            list.add(data.get(i));
                             viewList.add(getView().toPager(name, picture));
-                        } else {
-                            //   getView().showErr("获取Setout中的" + name + "和" + picture);
-                            // return;
                         }
                     } else {
                         getView().showErr("将List<Setout> 逐个转换成List<View> 集合捕捉到异常数据");
@@ -83,13 +80,14 @@ public class SetoutPresenter extends BasePresenter<SetoutView> {
 
             @Override
             public void onFailure(String msg) {
-                getView().showErr(msg);
+               // getView().showErr(msg);
             }
 
             @Override
             public void onError(Throwable throwable) {
                 throwable.printStackTrace();
-                getView().showErr(throwable.toString());
+                getView().showErr("无法与服务器响应");
+                //getView().showErr(throwable.toString());
             }
 
             @Override
@@ -128,14 +126,14 @@ public class SetoutPresenter extends BasePresenter<SetoutView> {
                 Setout setout = getList().get(position);
                 String departmentId = loginGroup.getUser().getDepartmentId();
 
-                if(null != setout && null != departmentId){
+                if (null != setout && null != departmentId) {
                     if (position <= getList().size() && null != setout.getType()) {
                         body.put("departmentId", departmentId);
                         body.put("type", String.valueOf(setout.getType()));
                         Log4j.d("departmentId", departmentId);
                         Log4j.d("type", String.valueOf(setout.getType()));
                     }
-                }else {
+                } else {
                     getView().showErr("null != setout && null != departmentId未获取到有效数据");
                 }
             }

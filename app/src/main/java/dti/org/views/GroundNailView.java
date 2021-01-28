@@ -10,4 +10,26 @@ import dti.org.base.BaseView;
  * 创建时间：  2021年 01月 26日 09时 38分
  */
 public interface GroundNailView extends WellView {
+    /**
+     * 显示安装弹出框
+     */
+    void showExportPopup(String tile,String resource);
+
+    /**
+     * 关闭去掉警告颜色
+     */
+    void scancodeNormal();
+
+    /**
+     * 跳转到安装成功界面
+     * GroundNailInstall类的json格式参数
+     */
+    void installSuccessful(String key,String json);
+
+    /**
+     * 跳转到安装失败界面
+     * GroundNailInstall类的json格式参数
+     */
+    void installFailed(String key,String json);
+
 }

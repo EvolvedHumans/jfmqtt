@@ -9,20 +9,26 @@ import androidx.databinding.DataBindingUtil;
 
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.maps.CameraUpdateFactory;
+import com.yangf.pub_libs.GsonYang;
 import com.yangf.pub_libs.Log4j;
 
 import org.jetbrains.annotations.NotNull;
 
 import dti.org.R;
 import dti.org.base.BaseActivity;
+import dti.org.config.DisposeConfig;
 import dti.org.config.MapConfig;
+import dti.org.config.SetoutConfig;
 import dti.org.config.SharedPreferenceConfig;
+import dti.org.dao.Dispose;
 import dti.org.dao.MapObtain;
 import dti.org.databinding.ActivityMapBinding;
 import dti.org.listener.AMapLoactionChange;
 import dti.org.util.MapUtil;
 
 public class MapActivity extends BaseActivity {
+
+    private final static String TAG = "dti.org.MapActivity";
 
     ActivityMapBinding activityMapBinding;
 
@@ -59,37 +65,46 @@ public class MapActivity extends BaseActivity {
             //TODO 假设此产品是智能井盖。获取产品Type，获取对应NB产品Type
             int baseType = getSharedPreferences().getInt(SharedPreferenceConfig.Setout_TYPE, SharedPreferenceConfig.TYPE_NO);
 
-            //todo 假设该产品是智能井盖，获取智能井盖下配置对应NB模块页面
-            int type = getSharedPreferences().getInt(SharedPreferenceConfig.NB_Type, SharedPreferenceConfig.TYPE_NO);
+            int type = 0;
 
-            //baseType->1 智能井盖
-            //type->1 跳转智能井盖，->2 跳转地钉
-            if (type != SharedPreferenceConfig.TYPE_NO) {
-                MapObtain mapObtain = new MapObtain();
-                mapObtain.setLongitude(activityMapBinding.longitude.getText().toString());
-                mapObtain.setLatitude(activityMapBinding.latitude.getText().toString());
-                mapObtain.setAddress(activityMapBinding.address.getText().toString());
-                mapObtain.setType(type);
-
-                if (baseType == 1) {
-                    if (baseType != SharedPreferenceConfig.TYPE_NO) {
-                        mapObtain.setBaseType(baseType); //智能井盖，有配置选项
-                        Log4j.d("配置信息", mapObtain.toString());
-                        Intent intent = new Intent(this, WellActivity.class);
-                        intent.putExtra(MapConfig.MAP, mapObtain);
-                        startActivity(intent);
-                        finish();
-                    }
-                } else if (baseType == 2) {
+            if(baseType == SetoutConfig.Well) {
+                //todo 假设该产品是智能井盖，获取智能井盖下配置对应NB模块页面
+                String config = getSharedPreferences().getString(DisposeConfig.WellConfigure, DisposeConfig.WellConfigure);
+                Log4j.d(TAG, config);
+                assert config != null;
+                if (!config.equals(DisposeConfig.WellConfigure)) {
+                    Dispose dispose = GsonYang.JsonObject(config, Dispose.class);
+                    type = dispose.getType();
+                    //baseType->1 智能井盖
+                    //type->1 跳转智能井盖，->2 跳转地钉
+                    MapObtain mapObtain = new MapObtain();
+                    mapObtain.setLongitude(activityMapBinding.longitude.getText().toString());
+                    mapObtain.setLatitude(activityMapBinding.latitude.getText().toString());
+                    mapObtain.setAddress(activityMapBinding.address.getText().toString());
+                    mapObtain.setType(type);
+                    mapObtain.setBaseType(baseType); //智能井盖，有配置选项
                     Log4j.d("配置信息", mapObtain.toString());
-                    Intent intent = new Intent(this,GroundNailActivity.class);
+                    Intent intent = new Intent(this, WellActivity.class);
                     intent.putExtra(MapConfig.MAP, mapObtain);
                     startActivity(intent);
                     finish();
                 }
-            } else {
-                showErr("缓存被清理，无产品信息");
             }
+
+            if(baseType == SetoutConfig.GroundNail) {
+                MapObtain mapObtain = new MapObtain();
+                mapObtain.setLongitude(activityMapBinding.longitude.getText().toString());
+                mapObtain.setLatitude(activityMapBinding.latitude.getText().toString());
+                mapObtain.setAddress(activityMapBinding.address.getText().toString());
+                mapObtain.setType(type); //地钉不需要type，界面唯一
+                mapObtain.setBaseType(baseType); //产品类型
+                Log4j.d("配置信息", mapObtain.toString());
+                Intent intent = new Intent(this, GroundNailActivity.class);
+                intent.putExtra(MapConfig.MAP, mapObtain);
+                startActivity(intent);
+                finish();
+            }
+
         });
 
         activityMapBinding.imageIconReturn.setOnClickListener(v -> {
@@ -145,7 +160,7 @@ public class MapActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //后退键销毁当前页面
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(this,DisposeActivity.class);
+            Intent intent = new Intent(this, DisposeActivity.class);
             startActivity(intent);
             finish();
         }

@@ -52,7 +52,7 @@ public class FirstPageActivity extends BaseActivity {
 
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
-            Log.d(TAG,"判断当前启动页是否为当前任务栈的根Activity,如果不搜，则销毁");
+            Log.d(TAG, "判断当前启动页是否为当前任务栈的根Activity,如果不搜，则销毁");
             return;
         }
 
@@ -96,7 +96,7 @@ public class FirstPageActivity extends BaseActivity {
             public void run() {
                 if (timer) {
                     startActivity(new Intent(FirstPageActivity.this, LoginActivity.class));
-                   finish();
+                    finish();
                 }
             }
         }, 3000, 3000);

@@ -15,7 +15,7 @@ public final class SignConfig {
     public final static String SIGN_KEY = "dti@002";
 
     //MD5加密
-    public static String sign(String ts){
+    public static String sign(String ts) {
         return CryptUtil.encryptMD5(APP_SECRET + ts + SIGN_KEY);
     }
 

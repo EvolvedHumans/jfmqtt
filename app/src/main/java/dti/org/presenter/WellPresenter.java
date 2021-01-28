@@ -186,6 +186,7 @@ public class WellPresenter extends BasePresenter<WellView> {
                 switch (mapObtain.getType()) {
                     //只有锁
                     case 1: {
+                        Log4j.e("WellConfig.lock()在此位置上", "------------------------------------------");
                         scanCodePresenter = new ScanCodePresenter(getView().getContext(), WellConfig.lock());
                         break;
                     }
@@ -242,6 +243,8 @@ public class WellPresenter extends BasePresenter<WellView> {
      * public static String SM03 = "扫描SM03二维码"; //3
      * public static String SM31 = "扫描SM31二维码"; //4
      * public static String SM32 = "扫描SM32二维码"; //5
+     *
+     * 各项锁具二维码存储在 List<ScanCode>集合中
      */
     public void updateScanCode(String text, int position) {
 
@@ -293,13 +296,14 @@ public class WellPresenter extends BasePresenter<WellView> {
 
                 @Override
                 public void onFailure(String msg) {
-                    getView().showErr(msg);
+                 //   getView().showErr(msg);
                 }
 
                 @Override
                 public void onError(Throwable throwable) {
                     throwable.printStackTrace();
-                    getView().showErr(throwable.toString());
+                    getView().showErr("无法与服务器响应");
+                 //   getView().showErr(throwable.toString());
                 }
 
                 @Override

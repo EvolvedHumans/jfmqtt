@@ -21,6 +21,12 @@ public interface LoginView extends BaseView {
     String getPassword();
 
     /**
+     *
+     * @param userName 设置用户名
+     */
+    void setUserName(String userName);
+
+    /**
      * @param userTips 设置用户区域提示内容
      */
     void setUserTips(String userTips);

@@ -78,7 +78,7 @@ public class DisposeItemDialog extends BottomSheetDialog {
      *
      * @return 数据源
      */
-    public Dispose getWheelView(){
+    public Dispose getWheelView() {
         return wheelView.getSelectionItem();
     }
 
@@ -87,7 +87,7 @@ public class DisposeItemDialog extends BottomSheetDialog {
      *
      * @return position
      */
-    public int getPosition(){
+    public int getPosition() {
         return wheelView.getCurrentPosition();
     }
 
@@ -97,7 +97,7 @@ public class DisposeItemDialog extends BottomSheetDialog {
      *
      * @param listener 按钮点击事件
      */
-    public void setOnClickListener(View.OnClickListener listener){
+    public void setOnClickListener(View.OnClickListener listener) {
         button.setOnClickListener(listener);
     }
 }

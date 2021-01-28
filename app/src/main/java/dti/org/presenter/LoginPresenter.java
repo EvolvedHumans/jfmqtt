@@ -26,11 +26,24 @@ import dti.org.views.LoginView;
  */
 public class LoginPresenter extends BasePresenter<LoginView> implements LoginController {
 
+    private final static String TAG = "dti.org.presenter.LoginPresenter";
+
     /**
      * 进入登录界面，判断是否第一次进入
      */
     @Override
     public void firstLogin() {
+
+        String username = getView().exportStringCache(LoginConfig.LOGIN_ACOUNT, LoginConfig.LOGIN_ACOUNT);
+
+        Log4j.d(TAG, username);
+
+        //获取历史记录，将账户放入账户文本中
+        if (!LoginConfig.LOGIN_ACOUNT.equals(username)) {
+            Log4j.d(TAG, "将账户放入账户文本中");
+            getView().setUserName(username);
+        }
+
         Log4j.d("登录", String.valueOf(getView().exportBooleanCache(LoginConfig.LOGIN_KEY, false)));
         if (getView().exportBooleanCache(LoginConfig.LOGIN_KEY, false)) {
             getView().jump();
@@ -53,6 +66,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginCon
         //1.
         String username = getView().getUserName();
         String password = getView().getPassword();
+
         if (username.equals(LoginConfig.NULL)) {
             getView().setUserTips(LoginConfig.USER_ERROR_NULL);
             return;
@@ -94,6 +108,9 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginCon
         Model.LoginModel(UrlConfig.LoginUrl, header, body, new BaseCallbcak() {
             @Override
             public void onSuccess(Object data) {
+                //todo 登录成功，保存本地登录时的账户
+                getView().importStringCache(LoginConfig.LOGIN_ACOUNT, username);
+
                 //(6).存数据,保留登录历史记录(LoginGroup存储)
                 LoginGroup loginGroup = (LoginGroup) data;
                 getView().importStringCache(SharedPreferenceConfig.APP_LOGIN, GsonYang.JsonString(loginGroup));
@@ -104,14 +121,15 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginCon
 
             @Override
             public void onFailure(String msg) {
-                getView().showErr(msg);
+                //getView().showErr(msg);
             }
 
             @Override
             public void onError(Throwable throwable) {
                 //todo 后期添加崩溃，上传到bugly
                 throwable.printStackTrace();
-                getView().showErr(throwable.toString());
+                getView().showErr("无法与服务器响应");
+               // getView().showErr(throwable.toString());
             }
 
             @Override

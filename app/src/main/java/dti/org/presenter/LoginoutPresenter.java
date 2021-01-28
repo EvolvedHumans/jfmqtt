@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import dti.org.base.BaseCallbcak;
 import dti.org.base.BasePresenter;
+import dti.org.config.LoginConfig;
 import dti.org.config.SharedPreferenceConfig;
 import dti.org.config.SignConfig;
 import dti.org.config.UrlConfig;
@@ -87,7 +88,9 @@ public class LoginoutPresenter extends BasePresenter<LoginoutView> {
                 getView().showToast(data);
 
                 //4.清除记录
-                getView().clearCache();
+                //todo 此处只清楚历史登录记录
+                getView().importBooleanCache(LoginConfig.LOGIN_KEY,false);
+               // getView().clearCache();
 
                 //5.跳转
                 getView().jump();
@@ -95,14 +98,15 @@ public class LoginoutPresenter extends BasePresenter<LoginoutView> {
 
             @Override
             public void onFailure(String msg) {
-                getView().showErr(msg);
+                //getView().showErr(msg);
             }
 
             @Override
             public void onError(Throwable throwable) {
                 //todo 后期添加崩溃，上传到bugly
                 throwable.printStackTrace();
-                getView().showErr(throwable.toString());
+                getView().showErr("无法与服务器响应");
+                //getView().showErr(throwable.toString());
             }
 
             @Override

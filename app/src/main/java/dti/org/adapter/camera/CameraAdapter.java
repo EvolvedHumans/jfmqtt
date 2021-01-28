@@ -27,13 +27,13 @@ public class CameraAdapter extends RecyclerView.Adapter<CameraHolder> {
     @NonNull
     @Override
     public CameraHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.camera_image,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.camera_image, parent, false);
         return new CameraHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CameraHolder holder, int position) {
-        cameraPresenter.onBindView(holder,position);
+        cameraPresenter.onBindView(holder, position);
     }
 
     @Override

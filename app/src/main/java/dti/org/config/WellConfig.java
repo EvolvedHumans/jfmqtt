@@ -18,7 +18,7 @@ import dti.org.dao.ScanCode;
 //         * * Type -》 5 ，锁+SM31
 //         * * Type -》 6 ，SM32
 //         * * Type -》 7 ，锁+SM03+锁+SM01
-    //Type -> 8.新增的设备
+//Type -> 8.新增的设备
 public final class WellConfig {
 
     public static String Lock = "扫描锁具二维码"; //1
@@ -47,7 +47,6 @@ public final class WellConfig {
         ScanCode scanCode1 = new ScanCode();
         scanCode1.setCode(SM32);
         scanCode1.setType(5);
-
 
 
         list.add(scanCode);

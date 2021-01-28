@@ -45,9 +45,7 @@
             android:id="@+id/local_layout"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_marginLeft="28dp"
-            android:layout_marginRight="28dp"
-            android:layout_marginBottom="24dp"
+            android:layout_margin="30dp"
             android:background="@drawable/lock_ok"
             android:orientation="horizontal"
             android:textColor="#ffb4b4b4">
@@ -138,13 +136,13 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 android:layout_weight="450"
+                android:autofillHints="请工作人员手动输入"
                 android:background="@null"
                 android:gravity="top|left"
+                android:inputType="none"
                 android:textColor="#ff000000"
                 android:textSize="14sp"
-                android:autofillHints="请工作人员手动输入"
-                android:inputType="numberSigned"
-                tools:ignore="LabelFor,RtlHardcoded"/>
+                tools:ignore="LabelFor,RtlHardcoded" />
         </LinearLayout>
 
     </LinearLayout>

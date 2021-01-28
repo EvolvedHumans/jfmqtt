@@ -18,9 +18,8 @@ import com.yangf.pub_libs.image.rotate.RotateImageView;
  * @name： 杨帆
  * @Time： 2021年 01月 11日 19时 25分
  * @Data： 加载视图窗口
- *
+ * <p>
  * bug：需要创建
- *
  * @JDK: VERSION_1_8
  * @Android_SDK: VERSION_8.0
  */

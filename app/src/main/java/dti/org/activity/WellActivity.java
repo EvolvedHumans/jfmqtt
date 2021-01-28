@@ -200,6 +200,11 @@ public class WellActivity extends BaseActivity implements WellView {
         return activityWellBinding.title.localExitText.getText().toString();
     }
 
+    @Override
+    public void setUserName(String userName) {
+
+    }
+
     /**
      * 工井ID警告
      */

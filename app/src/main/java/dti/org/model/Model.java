@@ -48,13 +48,13 @@ public class Model {
                             if (login.getRt() == 1 && login.getData() != null) {
                                 callbcak.onSuccess(login.getData());
                                 callbcak.onComplete();
-                                return;
+                            }else {
+                                callbcak.onFailure(login.getComments());
+                                callbcak.onComplete();
                             }
                         }
                     }
                 }
-                callbcak.onFailure(content);
-                callbcak.onComplete();
             }
 
             @Override
@@ -65,7 +65,7 @@ public class Model {
 
             @Override
             public void onComplete() {
-
+                callbcak.onComplete();
             }
         });
 

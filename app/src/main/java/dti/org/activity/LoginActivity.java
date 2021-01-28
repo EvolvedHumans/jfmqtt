@@ -57,6 +57,11 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
     @Override
+    public void setUserName(String userName) {
+        activityLoginBinding.user.setText(userName);
+    }
+
+    @Override
     public void setUserTips(String userTips) {
         activityLoginBinding.userTips.setText(userTips);
     }
@@ -68,7 +73,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void jump() {
-        Intent intent = new Intent(this,ChoiceActivity.class);
+        Intent intent = new Intent(this, ChoiceActivity.class);
         startActivity(intent);
         finish();
     }

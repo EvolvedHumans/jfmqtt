@@ -24,29 +24,26 @@ import dti.org.R;
  * @JDK: VERSION_1_8
  * @Android_SDK: VERSION_8.0
  */
-public class NbDialog extends Dialog {
+public class ExportDialog extends Dialog {
     //标题
     TextView titleTextView;
-
     //内容栏
     TextView contentTextView;
-
     //关闭按钮
     Button button;
-
     //横向宽度
     int width = 100;
 
-    public NbDialog(@NonNull Context context) {
+    public ExportDialog(@NonNull Context context) {
         super(context);
         @SuppressLint("InflateParams")
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.nb_dialog, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.export_dialog, null);
         setCancelable(false); //设置点击失效，
         setContentView(view);
 
         Window window = getWindow();
         assert window != null;
-        window.setLayout(DensityUtil.getScreenWidth()-width, ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setLayout(DensityUtil.getScreenWidth() - width, ViewGroup.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
         window.setBackgroundDrawableResource(R.color.touming);
         titleTextView = window.findViewById(R.id.nb_title);
@@ -55,26 +52,23 @@ public class NbDialog extends Dialog {
     }
 
     /**
-     *
      * @param title Dialog 标题
      */
-    public void setTitle(@NonNull String title){
+    public void setTitle(@NonNull String title) {
         this.titleTextView.setText(title);
     }
 
     /**
-     *
      * @param content Dialog 内容
      */
-    public void setContent(@NonNull String content){
+    public void setContent(@NonNull String content) {
         this.contentTextView.setText(content);
     }
 
     /**
-     *
      * @param listener 按钮
      */
-    public void setOnClickListener(View.OnClickListener listener){
+    public void setOnClickListener(View.OnClickListener listener) {
         button.setOnClickListener(listener);
     }
 

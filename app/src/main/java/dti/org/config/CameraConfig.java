@@ -7,7 +7,7 @@ package dti.org.config;
  * @JDK: VERSION_1_8
  * @Android_SDK: VERSION_8.0
  */
-public class CameraConfig {
+public final class CameraConfig {
     /*
     拍照和扫码的resultCode的回调参数,拍照完成后的参数
      */

@@ -12,6 +12,7 @@ public final class LoginConfig {
 
     //输入为空
     public static String USER_ERROR_NULL = "账户为空，请输入账户！";
+
     public static String PASSWORD_ERROR_NULL = "密码为空，请输入密码";
 
     //请求后的提示语
@@ -19,5 +20,7 @@ public final class LoginConfig {
 
     //登录key值
     public static String LOGIN_KEY = "loginkey";
+
+    public static String LOGIN_ACOUNT = "LOGIN_ACOUNT";
 
 }

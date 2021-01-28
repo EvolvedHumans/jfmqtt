@@ -10,18 +10,19 @@ package dti.org.base;
 public interface BaseCallbcak<T> {
     /**
      * 数据请求成功
+     *
      * @param data 请求到的数据
      */
     void onSuccess(T data);
 
     /**
      * 使用网络API接口请求方式时，虽然已经成功，但出现@Code等原因无法正常返回数据时
+     *
      * @param msg 失败字符串返回
      */
     void onFailure(String msg);
 
     /**
-     *
      * 请求数据失败，指定请求网络API接口请求方式时，出现无法联网。
      * 缺少权限，内存泄露等原因导致的错误
      *

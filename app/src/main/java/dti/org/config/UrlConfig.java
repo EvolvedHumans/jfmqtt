@@ -36,6 +36,9 @@ public final class UrlConfig {
     public static String RFID = URL + "/nbset/checkRfid";
 
     //地钉是否被使用接口
-    public static String GroundNail = URL + "/stake/checkPickproofUid";
+    public static String GroundNail = URL + "/stake/checkStake";
+
+    //地钉数据导入接口
+    public static String ImportGroundNail = URL + "/stake/installStake";
 
 }

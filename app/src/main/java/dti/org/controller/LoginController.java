@@ -9,5 +9,6 @@ package dti.org.controller;
  */
 public interface LoginController {
     void firstLogin();
+
     void login();
 }

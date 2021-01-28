@@ -44,37 +44,7 @@ public class BasePresenter<V extends BaseView> {
      */
     public void attachView(final V view) {
         //动态代理
-        mView = (V) Proxy.newProxyInstance(view.getClass().getClassLoader(), view.getClass().getInterfaces(), new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                //在View层显示数据之前用户可能退出了View层的页面，会在Activity的onDestroy()方法中会把mView置为null
-                //由于View层都是接口，这里采用了动态代理，如果在View层显示数据之前用户可能退出了View层的页面，返回null的话，onSuccess()方法不会执行
-                if (mView == null) {
-                    return null;
-                }
-                //每次调用View层接口的方法，都会执行这里
-                return method.invoke(view, args);
-            }
-        });
-//        this.view = view;
-//
-//        this.mViewReference = new WeakReference<V>(view);
-//
-//        // 用代理对象 动态代理
-//        view = (V) Proxy.newProxyInstance(view.getClass().getClassLoader(), view.getClass().getInterfaces(), new InvocationHandler() {
-//            @Override
-//            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-//                // 动态代理每次都会执行这个方法，调用的是被代理的对象（就是mView）
-//                if (mViewReference == null || mViewReference.get() == null) {
-//                    Log4j.d("1","1");
-//                    return null ;
-//                }else{
-//                    Log4j.d("1","1");
-//
-//                    return method.invoke(mViewReference.get(), args);
-//                }
-//            }
-//        });
+        mView = view;
     }
 
     /**
@@ -94,7 +64,7 @@ public class BasePresenter<V extends BaseView> {
      */
     public boolean isViewAttached() {
 
-        return mView!=null;
+        return mView != null;
     }
 
 }

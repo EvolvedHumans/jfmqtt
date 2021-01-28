@@ -34,49 +34,43 @@ public interface BaseView<T> {
     void showErr(String msg);
 
     /**
-     *
-     * @param key 键
+     * @param key   键
      * @param value 值
      */
-    void importStringCache(String key,String value);
+    void importStringCache(String key, String value);
 
     /**
-     *
      * @return 缓存数据（缓存数据类型Integer）
      */
-    void importIntegerCache(String key,Integer value);
+    void importIntegerCache(String key, Integer value);
 
     /**
-     *
-     * @param key 键
+     * @param key   键
      * @param value 值
      * @return 缓存数据(查看缓存中Login方法中的数据)
      */
-    void importBooleanCache(String key,boolean value);
+    void importBooleanCache(String key, boolean value);
 
     /**
-     *
-     * @param key 键
+     * @param key   键
      * @param value 值
      * @return 缓存数据(查看缓存中Login方法中的数据)
      */
-    String exportStringCache(String key,String value);
+    String exportStringCache(String key, String value);
 
     /**
-     *
-     * @param key 键
+     * @param key   键
      * @param value 值
      * @return 缓存数据(查看缓存中Login方法中的数据)
      */
-    int exportIntegerCache(String key,int value);
+    int exportIntegerCache(String key, int value);
 
     /**
-     *
-     * @param key 键
+     * @param key   键
      * @param value 值
      * @return 缓存数据(查看缓存中Login方法中的数据)
      */
-    boolean exportBooleanCache(String key,boolean value);
+    boolean exportBooleanCache(String key, boolean value);
 
     /**
      * 清理缓存

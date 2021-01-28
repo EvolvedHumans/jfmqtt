@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import dti.org.config.SharedPreferenceConfig;
 import dti.org.dialog.LoadDialog;
 
 /**
@@ -47,19 +46,17 @@ public class BaseActivity extends Activity implements BaseView {
     }
 
     /**
-     *
      * @return 读取器
      */
-    public SharedPreferences getSharedPreferences(){
+    public SharedPreferences getSharedPreferences() {
         return sharedPreferences;
     }
 
 
     /**
-     *
      * @return 画笔
      */
-    public SharedPreferences.Editor getEditor(){
+    public SharedPreferences.Editor getEditor() {
         return editor;
     }
 
@@ -76,6 +73,7 @@ public class BaseActivity extends Activity implements BaseView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         editor.apply();
     }
 
@@ -106,16 +104,19 @@ public class BaseActivity extends Activity implements BaseView {
     @Override
     public void importStringCache(String key, String value) {
         getEditor().putString(key, value);
+        getEditor().commit();
     }
 
     @Override
     public void importIntegerCache(String key, Integer value) {
-        getEditor().putInt(key,value);
+        getEditor().putInt(key, value);
+        getEditor().commit();
     }
 
     @Override
     public void importBooleanCache(String key, boolean value) {
         getEditor().putBoolean(key, value);
+        getEditor().commit();
     }
 
     @Override

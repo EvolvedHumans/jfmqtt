@@ -23,12 +23,12 @@ public class WellModel {
      * 4.检测RFID是否被使用
      * 返回JSON字符串
      */
-    public static void isTesting(String url,BaseCallbcak<String> callbcak){
-        Log4j.d("完整地址",url);
+    public static void isTesting(String url, BaseCallbcak<String> callbcak) {
+        Log4j.d("完整地址", url);
         AppUpdater.getInstance().getOKHttpNetManager().getExecute(url, new INetCallBack() {
             @Override
             public void success(String content) {
-                Log4j.d("校验后数据",content);
+                Log4j.d("校验后数据", content);
                 callbcak.onSuccess(content);
                 callbcak.onComplete();
             }
@@ -41,7 +41,7 @@ public class WellModel {
 
             @Override
             public void onComplete() {
-             //   callbcak.onComplete();
+                //   callbcak.onComplete();
             }
         });
     }
@@ -62,8 +62,25 @@ public class WellModel {
      * 入参字段：经度、纬度
      * 返回JSON字符串
      */
-    public static void isInput(String url,String json,BaseCallbcak<String> callbcak){
+    public static void isInput(String url, String json, BaseCallbcak<String> callbcak) {
+        AppUpdater.getInstance().getOKHttpNetManager().postJsonExecute(url, json, new INetCallBack() {
+            @Override
+            public void success(String content) {
+                callbcak.onSuccess(content);
+                callbcak.onComplete();
+            }
 
+            @Override
+            public void failed(Throwable throwable) {
+                callbcak.onError(throwable);
+                callbcak.onComplete();
+            }
+
+            @Override
+            public void onComplete() {
+                callbcak.onComplete();
+            }
+        });
     }
 
 

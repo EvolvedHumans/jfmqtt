@@ -22,7 +22,7 @@
         android:layout_height="wrap_content">
 
         <!--    根据屏幕的宽度自适应的去配置的它高度-->
-        <dti.org.activity.choice.equip.message.map.collection.holes.HolesRecyclerView
+        <dti.org.activity.holes.HolesRecyclerView
             android:id="@+id/holes_recycler"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

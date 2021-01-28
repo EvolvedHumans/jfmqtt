@@ -14,14 +14,29 @@ import dti.org.dao.DisposeObtain;
  * 创建时间：  2021年 01月 25日 17时 28分
  */
 public interface DisposeController {
+
+    void clearHistory();
+
     void drawDispose();
+
     void lockMechanism();
+
     List<Dispose> itemDatabase(int position);
+
+    //获取对应位置的type信息
+    int getItemType(int position);
+
+    //获取对应产品类型的type信息
+    int getType();
+
     void itemOptional(int position);
-    boolean itemConfig(int position);
+
     boolean judgeDisposeObtain(DisposeObtain disposeObtain);
+
     boolean judgeDisposeGroup(DisposeGroup disposeGroup);
+
     boolean judgeDispose(Dispose dispose);
+
     //销毁界面释放静态变量
     void release();
 }

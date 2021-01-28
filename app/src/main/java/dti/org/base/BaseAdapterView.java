@@ -9,7 +9,7 @@ package dti.org.base;
  */
 public interface BaseAdapterView<V> {
 
-    void onBindView(V holder,int position);
+    void onBindView(V holder, int position);
 
     int getCount();
 

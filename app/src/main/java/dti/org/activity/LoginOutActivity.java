@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
+
 import dti.org.R;
 import dti.org.base.BaseActivity;
 import dti.org.databinding.ActivityLoginoutBinding;
@@ -26,7 +27,7 @@ public class LoginOutActivity extends BaseActivity implements LoginoutView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setNavigAtion();
-        activityLoginoutBinding = DataBindingUtil.setContentView(this,R.layout.activity_loginout);
+        activityLoginoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_loginout);
         loginOutPresenter = new LoginoutPresenter();
         loginOutPresenter.attachView(this);
         //todo 绘制界面 drawLoginout
@@ -36,7 +37,7 @@ public class LoginOutActivity extends BaseActivity implements LoginoutView {
             loginOutPresenter.loginout();
         });
         activityLoginoutBinding.imageIconReturn.setOnClickListener(v -> {
-            Intent intent = new Intent(this,ChoiceActivity.class);
+            Intent intent = new Intent(this, ChoiceActivity.class);
             startActivity(intent);
             finish();
         });
@@ -50,18 +51,17 @@ public class LoginOutActivity extends BaseActivity implements LoginoutView {
 
 
     /**
-     *
      * 物理按键点击回调
      *
      * @param keyCode 按键编码
-     * @param event 按键事件
+     * @param event   按键事件
      * @return 返回true表示不再响应系统动作，返回false表示继续响应系统动作
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //后退键销毁当前页面
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(this,ChoiceActivity.class);
+            Intent intent = new Intent(this, ChoiceActivity.class);
             startActivity(intent);
             finish();
         }
@@ -93,7 +93,7 @@ public class LoginOutActivity extends BaseActivity implements LoginoutView {
      */
     @Override
     public void jump() {
-        Intent intent = new Intent(this,LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
@@ -106,6 +106,11 @@ public class LoginOutActivity extends BaseActivity implements LoginoutView {
     @Override
     public String getPassword() {
         return activityLoginoutBinding.company.getText().toString();
+    }
+
+    @Override
+    public void setUserName(String userName) {
+
     }
 
 }

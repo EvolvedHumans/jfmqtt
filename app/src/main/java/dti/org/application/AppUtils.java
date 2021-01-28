@@ -19,6 +19,7 @@ public class AppUtils {
         }
         AppUtils.application = application;
     }
+
     public static Context getContext() {
         return application.getApplicationContext();
     }

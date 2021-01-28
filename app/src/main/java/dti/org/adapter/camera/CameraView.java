@@ -11,6 +11,7 @@ import android.view.View;
  * @Android_SDK: VERSION_8.0
  */
 public interface CameraView {
-    void setImage(Bitmap bitmap,int height,int width); //设置图片和宽、高，图片的宽、高等于控件的宽、高
+    void setImage(Bitmap bitmap, int height, int width); //设置图片和宽、高，图片的宽、高等于控件的宽、高
+
     void setOnClickListener(View.OnClickListener listener); //设置图片点击事件
 }

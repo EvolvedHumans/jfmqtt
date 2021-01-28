@@ -9,4 +9,5 @@ import dti.org.base.BaseAdapterView;
  * @JDK: VERSION_1_8
  * @Android_SDK: VERSION_8.0
  */
-public interface CameraPresenterView extends BaseAdapterView<CameraHolder> { }
+public interface CameraPresenterView extends BaseAdapterView<CameraHolder> {
+}

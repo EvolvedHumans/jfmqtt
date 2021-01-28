@@ -39,11 +39,11 @@ public class SetoutActivity extends BaseActivity implements SetoutView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setNavigAtion();
-        activityEquipBinding = DataBindingUtil.setContentView(this,R.layout.activity_equip);
+        activityEquipBinding = DataBindingUtil.setContentView(this, R.layout.activity_equip);
         setoutPresenter = new SetoutPresenter();
         setoutPresenter.attachView(this);
         activityEquipBinding.imageIconReturn.setOnClickListener(v -> {
-            Intent intent = new Intent(this,ChoiceActivity.class);
+            Intent intent = new Intent(this, ChoiceActivity.class);
             startActivity(intent);
             finish();
         });
@@ -70,8 +70,8 @@ public class SetoutActivity extends BaseActivity implements SetoutView {
 
         //根据需求动态设置urlImageView的宽与高
         ViewGroup.LayoutParams params = urlImageView.getLayoutParams();
-        params.height=imageWeight;
-        params.width =imageWeight;
+        params.height = imageWeight;
+        params.width = imageWeight;
         urlImageView.setLayoutParams(params);
 
         //所需图片宽度占屏幕的总宽度的0.56
@@ -97,18 +97,17 @@ public class SetoutActivity extends BaseActivity implements SetoutView {
     }
 
     /**
-     *
      * 物理按键点击回调
      *
      * @param keyCode 按键编码
-     * @param event 按键事件
+     * @param event   按键事件
      * @return 返回true表示不再响应系统动作，返回false表示继续响应系统动作
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //后退键销毁当前页面
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(this,ChoiceActivity.class);
+            Intent intent = new Intent(this, ChoiceActivity.class);
             startActivity(intent);
             finish();
         }
@@ -117,18 +116,19 @@ public class SetoutActivity extends BaseActivity implements SetoutView {
 
     /**
      * 导入产品type
-     * @param key 键
+     *
+     * @param key   键
      * @param value 值
      */
     @Override
     public void importIntegerCache(String key, Integer value) {
-        getEditor().putInt(key,value);
+        getEditor().putInt(key, value);
     }
 
 
     @Override
     public void jump() {
-        Intent intent = new Intent(this,DisposeActivity.class);
+        Intent intent = new Intent(this, DisposeActivity.class);
         startActivity(intent);
         finish();
     }

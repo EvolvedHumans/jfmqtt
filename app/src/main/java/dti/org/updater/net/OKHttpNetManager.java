@@ -17,11 +17,14 @@ import dti.org.pseudo.LoginPseudo;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableEmitter;
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -59,6 +62,8 @@ public class OKHttpNetManager implements INetManager {
 
     //RXJAVA实现请求IO，将请求结果回调在主线程当中
     private volatile CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     //在代码块中创建OKHTTPCLIENT对象
     static {
@@ -99,7 +104,7 @@ public class OKHttpNetManager implements INetManager {
      * @param callBack 请求成功与否的回调接口
      */
     @Override
-    public void getExecute(String url,final INetCallBack callBack) {
+    public void getExecute(String url, final INetCallBack callBack) {
         //事件发射器
         Observable<String> observable = Observable.create(emitter -> {
             //创建Request构建对象
@@ -220,6 +225,61 @@ public class OKHttpNetManager implements INetManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(disposableObserver);
         compositeDisposable.add(disposableObserver);
+    }
+
+    /**
+     * okhttp Json数据提交
+     * @param url 地址
+     * @param json  json格式字符串
+     */
+    @Override
+    public void postJsonExecute(String url, String json,INetCallBack callBack) {
+        //事件发射器
+        Observable<String> observable = Observable.create(emitter -> {
+            RequestBody requestBody = RequestBody.create(JSON,json);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .build();
+            Call call = okHttpClient.newCall(request);
+
+            //同步操作
+            Response response =  call.execute();
+            if (response.isSuccessful() && response.code() == 200) {
+                String content = Objects.requireNonNull(response.body()).string();
+                emitter.onNext(content); //获取JSON数据返回
+            } else {
+                throw new Exception("response.isSuccessful()、response.code() == 200异常");
+            }
+            emitter.onComplete();
+        });
+
+        //调度到主线程
+        DisposableObserver<String> disposableObserver = new DisposableObserver<String>() {
+            @Override
+            public void onNext(@NonNull String s) {
+                Log4j.d(TAG,"成功");
+                callBack.success(s);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log4j.e(TAG,e.toString());
+                callBack.failed(e);
+            }
+
+            @Override
+            public void onComplete() {
+                Log4j.d(TAG,"postJsonExecute");
+                callBack.onComplete(); //请求完毕
+            }
+        };
+
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(disposableObserver);
+        compositeDisposable.add(disposableObserver);
+
     }
 
     @Override

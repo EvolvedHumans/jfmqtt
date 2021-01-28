@@ -20,7 +20,7 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         AppUtils.setApplication(this);
-       // Log4j.e("application","我启动了！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
+        // Log4j.e("application","我启动了！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
     }
 
     /**

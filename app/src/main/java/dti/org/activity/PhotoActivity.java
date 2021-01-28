@@ -38,9 +38,9 @@ public class PhotoActivity extends BaseActivity {
         setTranSlucent();
         Intent intent = getIntent();
         String json = intent.getStringExtra(CameraConfig.PHOTO_Enlarge);
-        CameraGroup cameraGroup = GsonYang.JsonObject(json,CameraGroup.class);
-        Log4j.d("----",cameraGroup.toString());
-        activityPhotoBinding.photo.text.setText("照片"+cameraGroup.getType());
+        CameraGroup cameraGroup = GsonYang.JsonObject(json, CameraGroup.class);
+        Log4j.d("----", cameraGroup.toString());
+        activityPhotoBinding.photo.text.setText("照片" + cameraGroup.getType());
         activityPhotoBinding.photo.imageIcon.post(() -> {
             int width = activityPhotoBinding.photo.imageIcon.getWidth();
             int height = activityPhotoBinding.photo.imageIcon.getHeight();
@@ -51,8 +51,8 @@ public class PhotoActivity extends BaseActivity {
             finish();
         });
         activityPhotoBinding.photo.imageIconDelete.setOnClickListener(v -> {
-            intent.putExtra(CameraConfig.PHOTO_DELETE,cameraGroup.getType());
-            setResult(CameraConfig.RESULT_Well_OK,intent);
+            intent.putExtra(CameraConfig.PHOTO_DELETE, cameraGroup.getType());
+            setResult(CameraConfig.RESULT_Well_OK, intent);
             finish();
         });
     }
