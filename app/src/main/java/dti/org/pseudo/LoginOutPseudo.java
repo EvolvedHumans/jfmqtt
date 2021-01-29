@@ -12,7 +12,7 @@ import dti.org.dao.LoginoutObtain;
  * @Android_SDK: VERSION_8.0
  */
 public final class LoginOutPseudo {
-    public static String getJsonLoginOut(){
+    public static String getJsonLoginOut() {
         LoginoutObtain loginoutObtain = new LoginoutObtain();
         loginoutObtain.setRt(1);
         loginoutObtain.setMsg("OK");

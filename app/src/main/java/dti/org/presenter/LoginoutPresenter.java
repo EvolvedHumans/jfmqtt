@@ -89,8 +89,8 @@ public class LoginoutPresenter extends BasePresenter<LoginoutView> {
 
                 //4.清除记录
                 //todo 此处只清楚历史登录记录
-                getView().importBooleanCache(LoginConfig.LOGIN_KEY,false);
-               // getView().clearCache();
+                getView().importBooleanCache(LoginConfig.LOGIN_KEY, false);
+                // getView().clearCache();
 
                 //5.跳转
                 getView().jump();

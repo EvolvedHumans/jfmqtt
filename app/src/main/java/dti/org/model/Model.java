@@ -48,7 +48,7 @@ public class Model {
                             if (login.getRt() == 1 && login.getData() != null) {
                                 callbcak.onSuccess(login.getData());
                                 callbcak.onComplete();
-                            }else {
+                            } else {
                                 callbcak.onFailure(login.getComments());
                                 callbcak.onComplete();
                             }

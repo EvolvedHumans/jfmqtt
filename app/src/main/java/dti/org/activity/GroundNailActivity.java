@@ -69,6 +69,7 @@ public class GroundNailActivity extends BaseActivity implements GroundNailView {
         groundNailPresenter.drawGroundNail();
         activityGroundNailBinding.finish.buttonCollectionFinish.setOnClickListener(v -> {
             groundNailPresenter.clickInstall();
+          //  finish();
 //            Intent intent1 = new Intent(GroundNailActivity.this, FailActivity.class);
 //            startActivity(intent1);
 //            finish();
@@ -150,7 +151,6 @@ public class GroundNailActivity extends BaseActivity implements GroundNailView {
      */
     @Override
     public void installSuccessful(String key, String json) {
-        Log4j.d("~~~~~~~~~~~~~~~~","~~~~~~~~~~~~~~~~~~~~~~~~");
         Log4j.d(key, json);
         Intent intent = new Intent(this, GroundNailSuccessActivity.class);
         intent.putExtra(key, json);
@@ -166,7 +166,6 @@ public class GroundNailActivity extends BaseActivity implements GroundNailView {
      */
     @Override
     public void installFailed(String key, String json) {
-        Log4j.e("~~~~~~~~~~~~~~~~","~~~~~~~~~~~~~~~~~~~~~~~~");
         Log4j.e(key, json);
         Intent intent = new Intent(this, FailActivity.class);
         intent.putExtra(key, json);

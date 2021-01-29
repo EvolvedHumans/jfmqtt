@@ -41,7 +41,9 @@ public class GroundNailInstall {
 
     private String departmentId; //全局缓存获取
 
-    private int sceneType; //全局缓存获取
+    private int sceneType; //场景type
+
+    private String scene; //场景名
 
     private String pictures; //无
 

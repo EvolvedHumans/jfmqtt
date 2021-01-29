@@ -17,12 +17,14 @@ import dti.org.R;
 import dti.org.adapter.DisposeAdapter;
 import dti.org.base.BaseActivity;
 
+import dti.org.config.DestroyActivityConfig;
 import dti.org.dao.Dispose;
 import dti.org.dao.DisposeGroup;
 import dti.org.databinding.ActivityDisposeBinding;
 
 import dti.org.item.DisposeItemDecoration;
 import dti.org.presenter.DisposePresenter;
+import dti.org.util.DestroyActivityUtil;
 import dti.org.views.DisposeView;
 import lombok.SneakyThrows;
 
@@ -41,11 +43,12 @@ public class DisposeActivity extends BaseActivity implements DisposeView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTranSlucent();
+        DestroyActivityUtil.addDestoryActivityToMap(DestroyActivityConfig.DisposeClass, this); //添加Activity
         activityDisposeBinding = DataBindingUtil.setContentView(this, R.layout.activity_dispose);
         activityDisposeBinding.buttonIntent.setOnClickListener(v -> {
             Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
-            // finish();
+            //finish();
         });
         activityDisposeBinding.imageIconReturn.setOnClickListener(v -> {
             Intent intent = new Intent(this, SetoutActivity.class);

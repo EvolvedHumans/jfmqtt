@@ -33,4 +33,8 @@ public class MapObtain implements Serializable {
     产品下NB模块（智能井盖举例）
      */
     private Integer type;
+    /*
+     * 产品下是否有RFID模块（智能井盖）
+     */
+    private Integer rfidType;
 }

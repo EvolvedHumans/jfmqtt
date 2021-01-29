@@ -52,6 +52,7 @@ public class WellModel {
      * 入参方式:JSON
      * 请求方式:post
      * configType字段传递根据设备选择信息界面对应Type
+     * 1.无RFID 情况
      * Type -》 1 ，锁
      * Type -》 2 ，锁+SM32
      * Type -》 3 ，锁+SM03
@@ -59,6 +60,10 @@ public class WellModel {
      * Type -》 5 ，锁+SM31
      * Type -》 6 ，SM32
      * Type -》 7 ，锁+SM03+锁+SM01
+     *
+     * 2.有RFID 情况
+     * 在前面加一个RFID扫描
+     *
      * 入参字段：经度、纬度
      * 返回JSON字符串
      */

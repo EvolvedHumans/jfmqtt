@@ -32,7 +32,7 @@ public interface INetManager {
     void postFormExecute(String url, HashMap<String, String> header, HashMap<String, String> body, INetCallBack callBack);
 
     //post提交JSON同步请求
-    void postJsonExecute(String url,String json,INetCallBack callBack);
+    void postJsonExecute(String url, String json, INetCallBack callBack);
 
     //下载
     void download(String url, File targetFile, INetDownloadCallBack callBack);

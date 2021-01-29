@@ -12,11 +12,11 @@ package dti.org.config;
  * "type":4 "name":"外井盖类型"
  * "type":5 "name":"是否有RFID模块"
  * "type":6 "name":"基座类型"
- *
+ * <p>
  * 地钉 -> 5
  * "type":1 "name":"选择班组"
  * "type":3 "name":"安装场景"
- *
+ * <p>
  * 编译环境：  JDK-1_8、SDK-8.0
  * 创建时间：  2021年 01月 27日 18时 08分
  */

@@ -17,26 +17,26 @@ import dti.org.dao.DisposeObtain;
  * @Android_SDK: VERSION_8.0
  */
 public final class DisposePseudo {
-    public static String getJsonDispose(){
+    public static String getJsonDispose() {
         DisposeObtain disposeObtain = new DisposeObtain();
         disposeObtain.setRt(1);
         disposeObtain.setComments("返回comments");
 
         List<Dispose> list = new LinkedList<>();
-        for (int i=0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             Dispose dispose = new Dispose();
             dispose.setId(String.valueOf(i));
-            dispose.setName("类型"+i);
+            dispose.setName("类型" + i);
             dispose.setType(i);
             list.add(dispose);
         }
 
         List<DisposeGroup> groupList = new LinkedList<>();
-        for (int i=0;i<5;i++){
+        for (int i = 0; i < 5; i++) {
             DisposeGroup disposeGroup = new DisposeGroup();
-            disposeGroup.setName("井盖"+i);
+            disposeGroup.setName("井盖" + i);
             disposeGroup.setType(i);
-            disposeGroup.setTopic("标题"+i);
+            disposeGroup.setTopic("标题" + i);
             disposeGroup.setDetails(list);
             groupList.add(disposeGroup);
         }

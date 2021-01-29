@@ -21,7 +21,8 @@ public class FailActivity extends BaseActivity implements FailView {
     private final static String TAG = "dti.org.FailActivity";
     ActivityFailBinding activityFailBinding;
     //todo presenter层，API接口
-    FailPresenter  failPresenter;
+    FailPresenter failPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +36,7 @@ public class FailActivity extends BaseActivity implements FailView {
             failPresenter.retryRequest();
         });
         activityFailBinding.returnButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this,SetoutActivity.class);
+            Intent intent = new Intent(this, SetoutActivity.class);
             startActivity(intent);
             finish();
         });
@@ -50,7 +51,7 @@ public class FailActivity extends BaseActivity implements FailView {
     @Override
     public String getStringIntent(String key) {
         String json = getIntent().getStringExtra(key);
-        Log4j.d(TAG,json);
+        Log4j.d(TAG, json);
         return json;
     }
 }

@@ -16,13 +16,13 @@ import dti.org.dao.Setout;
  * @Android_SDK: VERSION_8.0
  */
 public final class EquipPseudo {
-    public static String getJsonEquip(){
+    public static String getJsonEquip() {
         List<Setout> list = new LinkedList<>();
-        list.add(new Setout("1","智能井盖",
-                "http://www.yyj2857.cn/wp-content/uploads/2020/12/d.png",1));
-        list.add(new Setout("2","道钉",
-                "http://www.yyj2857.cn/wp-content/uploads/2020/12/b.png",2));
-        SetoutObtain setoutObtain = new SetoutObtain(1,"msg","服务器返回成功",list);
+        list.add(new Setout("1", "智能井盖",
+                "http://www.yyj2857.cn/wp-content/uploads/2020/12/d.png", 1));
+        list.add(new Setout("2", "道钉",
+                "http://www.yyj2857.cn/wp-content/uploads/2020/12/b.png", 2));
+        SetoutObtain setoutObtain = new SetoutObtain(1, "msg", "服务器返回成功", list);
         return GsonYang.JsonString(setoutObtain);
     }
 }

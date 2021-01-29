@@ -182,42 +182,49 @@ public class WellPresenter extends BasePresenter<WellView> {
             getView().setUserTips(mapObtain.getAddress());
             getView().setPasswordTips(mapObtain.getAddress());
             //todo 3.判断产品类型和从设备类型刷新视图
-            if (mapObtain.getBaseType() == 1) {
+            if (mapObtain.getBaseType() == 1 && mapObtain.getRfidType()!=null) {
                 switch (mapObtain.getType()) {
                     //只有锁
                     case 1: {
                         Log4j.e("WellConfig.lock()在此位置上", "------------------------------------------");
-                        scanCodePresenter = new ScanCodePresenter(getView().getContext(), WellConfig.lock());
+                        scanCodePresenter = new ScanCodePresenter
+                                (getView().getContext(), WellConfig.lock(mapObtain.getRfidType(),getView().getContext()));
                         break;
                     }
                     case 2: {
                         Log4j.e("WellConfig.lockOrSm32()在此位置上", "------------------------------------------");
-                        scanCodePresenter = new ScanCodePresenter(getView().getContext(), WellConfig.lockOrSm32());
+                        scanCodePresenter = new ScanCodePresenter
+                                (getView().getContext(), WellConfig.lockOrSm32(mapObtain.getRfidType(),getView().getContext()));
                         break;
                     }
                     case 3: {
                         Log4j.e("WellConfig.lockOrSm03()在此位置上", "------------------------------------------");
-                        scanCodePresenter = new ScanCodePresenter(getView().getContext(), WellConfig.lockOrSm03());
+                        scanCodePresenter = new ScanCodePresenter
+                                (getView().getContext(), WellConfig.lockOrSm03(mapObtain.getRfidType(),getView().getContext()));
                         break;
                     }
                     case 4: {
                         Log4j.e("WellConfig.lockOrSm01()在此位置上", "------------------------------------------");
-                        scanCodePresenter = new ScanCodePresenter(getView().getContext(), WellConfig.lockOrSm01());
+                        scanCodePresenter = new ScanCodePresenter
+                                (getView().getContext(), WellConfig.lockOrSm01(mapObtain.getRfidType(),getView().getContext()));
                         break;
                     }
                     case 5: {
                         Log4j.e("WellConfig.lockOrSm31()在此位置上", "------------------------------------------");
-                        scanCodePresenter = new ScanCodePresenter(getView().getContext(), WellConfig.lockOrSm31());
+                        scanCodePresenter = new ScanCodePresenter
+                                (getView().getContext(), WellConfig.lockOrSm31(mapObtain.getRfidType(),getView().getContext()));
                         break;
                     }
                     case 6: {
                         Log4j.e("WellConfig.lockOrSm32()在此位置上", "------------------------------------------");
-                        scanCodePresenter = new ScanCodePresenter(getView().getContext(), WellConfig.sm32());
+                        scanCodePresenter = new ScanCodePresenter
+                                (getView().getContext(), WellConfig.sm32(mapObtain.getRfidType(),getView().getContext()));
                         break;
                     }
                     case 7: {
                         Log4j.e("WellConfig.lockOrSm32()在此位置上", "------------------------------------------");
-                        scanCodePresenter = new ScanCodePresenter(getView().getContext(), WellConfig.lockOrSm03orSm01());
+                        scanCodePresenter = new ScanCodePresenter
+                                (getView().getContext(), WellConfig.lockOrSm03orSm01(mapObtain.getRfidType(),getView().getContext()));
                         break;
                     }
                     default: {
@@ -238,12 +245,13 @@ public class WellPresenter extends BasePresenter<WellView> {
     /**
      * 当监听到onActivityResult返回的数据时，修改对应的List<ScanCode>的数据
      * 具体修改item，修改text字段的值
+     * public static String Rfid = "扫描RFID二维码"; //0
      * public static String Lock = "扫描锁具二维码"; //1
      * public static String SM01 = "扫描SM01二维码"; //2
      * public static String SM03 = "扫描SM03二维码"; //3
      * public static String SM31 = "扫描SM31二维码"; //4
      * public static String SM32 = "扫描SM32二维码"; //5
-     *
+     * <p>
      * 各项锁具二维码存储在 List<ScanCode>集合中
      */
     public void updateScanCode(String text, int position) {
@@ -261,7 +269,11 @@ public class WellPresenter extends BasePresenter<WellView> {
         Drawable error = getView().getContext().getDrawable(R.drawable.lock_err);
 
         //todo 先判断它属于哪个设备
-        if (type == 1) { //锁具
+        if (type == 0){ //RFID
+            param.put("rfid",text);
+            url = UrlsplicingUtil.attachHttpGetParams(UrlConfig.RFID,param);
+        }
+        else if (type == 1) { //锁具
             param.put("lockUid", text);
             url = UrlsplicingUtil.attachHttpGetParams(UrlConfig.Lock, param);
         } else if (type == 2 || type == 4) { //SM01、SM31
@@ -296,14 +308,14 @@ public class WellPresenter extends BasePresenter<WellView> {
 
                 @Override
                 public void onFailure(String msg) {
-                 //   getView().showErr(msg);
+                    //   getView().showErr(msg);
                 }
 
                 @Override
                 public void onError(Throwable throwable) {
                     throwable.printStackTrace();
                     getView().showErr("无法与服务器响应");
-                 //   getView().showErr(throwable.toString());
+                    //   getView().showErr(throwable.toString());
                 }
 
                 @Override

@@ -66,8 +66,6 @@
                 android:textStyle="bold"
                 android:textColor="#ff2f8ece" />
 
-
-
         </LinearLayout>
 
         <LinearLayout

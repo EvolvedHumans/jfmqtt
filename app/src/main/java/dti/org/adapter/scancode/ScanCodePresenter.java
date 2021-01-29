@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 
+import com.yangf.pub_libs.Log4j;
 import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.bean.ZxingConfig;
 import com.yzq.zxinglibrary.common.Constant;
@@ -30,6 +31,8 @@ import lombok.Data;
 @Data
 public class ScanCodePresenter implements ScanCodePresenterView {
 
+    private final static String TAG = "dti.org.scancode.ScanCodePresenter";
+
     private Context context;
     private List<ScanCode> list;
 
@@ -47,6 +50,7 @@ public class ScanCodePresenter implements ScanCodePresenterView {
         holder.setContent(code);
         holder.setText(text);
         holder.setLinearLayoutColor(drawable);
+        Log4j.d(TAG,"刷新图片颜色");
         holder.setOnClickListener(v -> {
             ZxingConfig zxingConfig = new ZxingConfig();
             zxingConfig.setPlayBeep(true);

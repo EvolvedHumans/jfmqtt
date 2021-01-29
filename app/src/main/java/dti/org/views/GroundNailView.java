@@ -13,7 +13,7 @@ public interface GroundNailView extends WellView {
     /**
      * 显示安装弹出框
      */
-    void showExportPopup(String tile,String resource);
+    void showExportPopup(String tile, String resource);
 
     /**
      * 关闭去掉警告颜色
@@ -24,12 +24,12 @@ public interface GroundNailView extends WellView {
      * 跳转到安装成功界面
      * GroundNailInstall类的json格式参数
      */
-    void installSuccessful(String key,String json);
+    void installSuccessful(String key, String json);
 
     /**
      * 跳转到安装失败界面
      * GroundNailInstall类的json格式参数
      */
-    void installFailed(String key,String json);
+    void installFailed(String key, String json);
 
 }

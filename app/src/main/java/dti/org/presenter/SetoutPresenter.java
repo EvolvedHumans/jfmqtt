@@ -80,7 +80,7 @@ public class SetoutPresenter extends BasePresenter<SetoutView> {
 
             @Override
             public void onFailure(String msg) {
-               // getView().showErr(msg);
+                // getView().showErr(msg);
             }
 
             @Override

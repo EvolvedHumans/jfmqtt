@@ -229,14 +229,15 @@ public class OKHttpNetManager implements INetManager {
 
     /**
      * okhttp Json数据提交
-     * @param url 地址
-     * @param json  json格式字符串
+     *
+     * @param url  地址
+     * @param json json格式字符串
      */
     @Override
-    public void postJsonExecute(String url, String json,INetCallBack callBack) {
+    public void postJsonExecute(String url, String json, INetCallBack callBack) {
         //事件发射器
         Observable<String> observable = Observable.create(emitter -> {
-            RequestBody requestBody = RequestBody.create(JSON,json);
+            RequestBody requestBody = RequestBody.create(JSON, json);
             Request request = new Request.Builder()
                     .url(url)
                     .post(requestBody)
@@ -244,7 +245,7 @@ public class OKHttpNetManager implements INetManager {
             Call call = okHttpClient.newCall(request);
 
             //同步操作
-            Response response =  call.execute();
+            Response response = call.execute();
             if (response.isSuccessful() && response.code() == 200) {
                 String content = Objects.requireNonNull(response.body()).string();
                 emitter.onNext(content); //获取JSON数据返回
@@ -258,19 +259,19 @@ public class OKHttpNetManager implements INetManager {
         DisposableObserver<String> disposableObserver = new DisposableObserver<String>() {
             @Override
             public void onNext(@NonNull String s) {
-                Log4j.d(TAG,"成功");
+                Log4j.d(TAG, "成功");
                 callBack.success(s);
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log4j.e(TAG,e.toString());
+                Log4j.e(TAG, e.toString());
                 callBack.failed(e);
             }
 
             @Override
             public void onComplete() {
-                Log4j.d(TAG,"postJsonExecute");
+                Log4j.d(TAG, "postJsonExecute");
                 callBack.onComplete(); //请求完毕
             }
         };

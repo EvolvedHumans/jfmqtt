@@ -28,8 +28,13 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center"
-        android:text="拍摄画面应按从左往右的设备顺序"
+        android:text="外井盖与井盖基座"
         android:textColor="#ff000000"
         android:textSize="14sp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="15dp"
+        />
 
 </LinearLayout>

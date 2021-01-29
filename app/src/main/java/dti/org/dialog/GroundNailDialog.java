@@ -80,7 +80,7 @@ public class GroundNailDialog extends Dialog {
         buttonProceed.setOnClickListener(listener);
     }
 
-    public void setOnClickCloseListener(View.OnClickListener listener){
+    public void setOnClickCloseListener(View.OnClickListener listener) {
         buttonClose.setOnClickListener(listener);
     }
 

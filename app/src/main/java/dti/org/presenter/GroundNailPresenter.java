@@ -41,10 +41,8 @@ public class GroundNailPresenter extends BasePresenter<GroundNailView> {
 
     private static MapObtain mapObtain;
 
-
-
     //1覆盖原有的否则不安装,否则提示已经被使用
-    private static int install = 1;
+    private static int install = 0;
 
     //道钉UI绘制
     public void drawGroundNail() {
@@ -79,13 +77,15 @@ public class GroundNailPresenter extends BasePresenter<GroundNailView> {
                             if (uidTest.getData()) {
                                 install = 1;
                                 getView().setUserTips(text);
+                                getView().scancodeNormal();
                                 getView().showToast(uidTest.getMsg());
                             } else {
-                                //todo 异常：置为0
                                 install = 0;
                                 getView().setUserTips(text);
                                 getView().showToast(uidTest.getMsg());
                                 getView().idWarning();
+                                //todo 异常：置为0
+                                Log4j.e("打印install", String.valueOf(install));
                             }
                         }
                     }
@@ -125,6 +125,15 @@ public class GroundNailPresenter extends BasePresenter<GroundNailView> {
      */
     public void clickInstall() {
 
+     //   Log4j.d(TAG,content);
+
+        if (content == null) {
+            getView().idWarning();
+            // Log4j.d(TAG,"弹出警告");
+            getView().showErr("地钉二维码未扫描");
+            return;
+        }
+
         getView().showLoading();
 
         GroundNailInstall groundNailInstall = new GroundNailInstall();
@@ -154,12 +163,14 @@ public class GroundNailPresenter extends BasePresenter<GroundNailView> {
 
         //获取安装场景sceneType
         Integer sceneType = null;
+        String scene = null;
         temp = getView().exportStringCache(DisposeConfig.GroundNailScene, DisposeConfig.GroundNailScene);
         if (GsonYang.IsJson(temp)) {
             Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
             Log4j.d("获取安装场景sceneType", dispose.toString());
             if (dispose != null) {
                 sceneType = dispose.getType();
+                scene = dispose.getName();
             }
         }
 
@@ -188,7 +199,7 @@ public class GroundNailPresenter extends BasePresenter<GroundNailView> {
 //                * 9.安装图片 pictures    String类型
 //                * 10.如有被使用的情况下是否继续安装 install  int类型
         if (departmentId != null && banzuId != null && sceneType != null &&
-                lon != null && lat != null && name != null) {
+                lon != null && lat != null && name != null && scene != null) {
             String url = UrlConfig.ImportGroundNail;
 //            //todo 数据导入
 //            Log4j.d("1.产品类型", lineType);
@@ -210,9 +221,12 @@ public class GroundNailPresenter extends BasePresenter<GroundNailView> {
             groundNailInstall.setBanzuId(banzuId);
             groundNailInstall.setDepartmentId(departmentId);
             groundNailInstall.setSceneType(sceneType);
+            groundNailInstall.setScene(scene);
             groundNailInstall.setPictures(pictures);
+            Log4j.d("地钉", String.valueOf(install));
             groundNailInstall.setInstall(install);
             //groundNailInstall.setInstall(0);
+
 
             String json = GsonYang.JsonString(groundNailInstall);
             Log4j.d(TAG, json);
@@ -239,7 +253,7 @@ public class GroundNailPresenter extends BasePresenter<GroundNailView> {
 
                 @Override
                 public void onFailure(String msg) {
-                   // getView().showErr(msg);
+                    // getView().showErr(msg);
                 }
 
                 @Override

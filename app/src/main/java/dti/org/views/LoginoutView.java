@@ -7,4 +7,5 @@ package dti.org.views;
  * @JDK: VERSION_1_8
  * @Android_SDK: VERSION_8.0
  */
-public interface LoginoutView extends LoginView { }
+public interface LoginoutView extends LoginView {
+}

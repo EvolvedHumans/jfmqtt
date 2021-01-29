@@ -129,7 +129,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginCon
                 //todo 后期添加崩溃，上传到bugly
                 throwable.printStackTrace();
                 getView().showErr("无法与服务器响应");
-               // getView().showErr(throwable.toString());
+                // getView().showErr(throwable.toString());
             }
 
             @Override

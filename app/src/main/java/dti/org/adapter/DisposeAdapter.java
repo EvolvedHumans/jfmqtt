@@ -101,48 +101,40 @@ public class DisposeAdapter extends RecyclerView.Adapter<DisposeAdapter.VH> {
                 //todo 转化Json格式数据
                 String content = GsonYang.JsonString(disposeItemDialog.getWheelView());
 
-                Log.d(TAG,content);
+                Log.d(TAG, content);
 
-                if(baseType == SetoutConfig.Well){
+                if (baseType == SetoutConfig.Well) {
                     if (type == SetoutConfig.WellTeam) {
-                        Log4j.d(TAG,"班组");
+                        Log4j.d(TAG, "班组");
                         editor.putString(DisposeConfig.WellTeam, content);
-                    }
-                    else if (type == SetoutConfig.WellConfigure) {
-                        Log4j.d(TAG,"配置");
+                    } else if (type == SetoutConfig.WellConfigure) {
+                        Log4j.d(TAG, "配置");
                         editor.putString(DisposeConfig.WellConfigure, content);
-                    }
-                    else if (type == SetoutConfig.WellScene) {
-                        Log4j.d(TAG,"场景");
+                    } else if (type == SetoutConfig.WellScene) {
+                        Log4j.d(TAG, "场景");
                         editor.putString(DisposeConfig.WellScene, content);
-                    }
-                    else if (type == SetoutConfig.WellOutside) {
-                        Log4j.d(TAG,"外井盖类型");
+                    } else if (type == SetoutConfig.WellOutside) {
+                        Log4j.d(TAG, "外井盖类型");
                         editor.putString(DisposeConfig.WellOutside, content);
-                    }
-                    else if (type == SetoutConfig.WellRfid) {
-                        Log4j.d(TAG,"RFID");
+                    } else if (type == SetoutConfig.WellRfid) {
+                        Log4j.d(TAG, "RFID");
                         editor.putString(DisposeConfig.WellRfid, content);
-                    }
-                    else if (type == SetoutConfig.WellPedestal) {
-                        Log4j.d(TAG,"基座类型");
+                    } else if (type == SetoutConfig.WellPedestal) {
+                        Log4j.d(TAG, "基座类型");
                         editor.putString(DisposeConfig.WellPedestal, content);
                     }
-                }
-
-                else if(baseType == SetoutConfig.GroundNail){
-                    if(type == SetoutConfig.GroundNailTeam){
-                        Log4j.d(TAG,"保存了班组信息");
-                        editor.putString(DisposeConfig.GroundNailTeam,content);
-                    }
-                    else if (type == SetoutConfig.GroundNailScene){
-                        editor.putString(DisposeConfig.GroundNailScene,content);
+                } else if (baseType == SetoutConfig.GroundNail) {
+                    if (type == SetoutConfig.GroundNailTeam) {
+                        Log4j.d(TAG, "保存了班组信息");
+                        editor.putString(DisposeConfig.GroundNailTeam, content);
+                    } else if (type == SetoutConfig.GroundNailScene) {
+                        editor.putString(DisposeConfig.GroundNailScene, content);
                     }
                 }
                 editor.commit();
                 editor.apply();
 
-                Log4j.d(TAG,sharedPreferences.getString(DisposeConfig.GroundNailTeam,DisposeConfig.GroundNailTeam));
+                Log4j.d(TAG, sharedPreferences.getString(DisposeConfig.GroundNailTeam, DisposeConfig.GroundNailTeam));
 
                 disposePresenter.itemOptional(position);
 

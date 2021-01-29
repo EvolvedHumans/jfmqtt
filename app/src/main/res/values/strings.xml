@@ -42,4 +42,14 @@
     <string name="ground_nail_close">关闭</string>
     <string name="success">安装完成</string>
     <string name="successful">安装完成</string>
+    <string name="successful_local">位置信息：</string>
+    <string name="successful_name">设备名称：</string>
+    <string name="successful_banzu">所属班组：</string>
+    <string name="successful_scence">安装场景：</string>
+    <string name="successful_photo">现场照片：</string>
+    <string name="finish_tips">如要继续安装该产品，请点继续安装。 否则返回选择其他产品。</string>
+    <string name="successful_goon">继续安装</string>
+    <string name="finish_return">返回</string>
+    <string name="bt_cx">重新发送请求</string>
+    <string name="gosuccess">继续安装</string>
 </resources>

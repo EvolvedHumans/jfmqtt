@@ -12,7 +12,7 @@ import dti.org.dao.Login;
  * @Android_SDK: VERSION_8.0
  */
 public final class LoginPseudo {
-    public static LoginObtain getJsonLogin(){
+    public static LoginObtain getJsonLogin() {
         LoginObtain loginObtain = new LoginObtain();
         loginObtain.setRt(1);
         loginObtain.setMsg("返回成功");
