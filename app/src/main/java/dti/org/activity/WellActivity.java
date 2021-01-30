@@ -15,6 +15,8 @@ import android.view.KeyEvent;
 import com.yangf.pub_libs.Log4j;
 import com.yzq.zxinglibrary.common.Constant;
 
+import java.util.Objects;
+
 import dti.org.R;
 
 import dti.org.adapter.camera.CameraAdapter;
@@ -26,6 +28,8 @@ import dti.org.dao.MapObtain;
 import dti.org.databinding.ActivityWellBinding;
 import dti.org.presenter.WellPresenter;
 import dti.org.views.WellView;
+
+import dti.org.adapter.scancode.ScanCodeAdapter;
 
 /**
  * 1.智能井盖
@@ -63,8 +67,7 @@ public class WellActivity extends BaseActivity implements WellView {
 //            wellPresenter.addScanCode();
 //        });
         activityWellBinding.finish.buttonCollectionFinish.setOnClickListener(v -> {
-            Intent intent = new Intent(this, FailActivity.class);
-            startActivity(intent);
+            wellPresenter.clickInstall();
         });
         activityWellBinding.title.imageIconReturn.setOnClickListener(v -> {
             Intent intent1 = new Intent(this, MapActivity.class);
@@ -136,12 +139,12 @@ public class WellActivity extends BaseActivity implements WellView {
     public MapObtain getMapContainer() {
         //获取上一个activity中传过来的intent
         Intent intent = getIntent();
-        Log4j.d("返回过来的信息", ((MapObtain) intent.getSerializableExtra(MapConfig.MAP)).toString());
+        Log4j.d("返回过来的信息", Objects.requireNonNull(intent.getSerializableExtra(MapConfig.MAP)).toString());
         return (MapObtain) intent.getSerializableExtra(MapConfig.MAP);
     }
 
     @Override
-    public void drawScanCode(dti.org.adapter.scancode.ScanCodeAdapter scanCodeAdapter) {
+    public void drawScanCode(ScanCodeAdapter scanCodeAdapter) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         activityWellBinding.scancode.recyclerView.setLayoutManager(layoutManager);
@@ -181,6 +184,7 @@ public class WellActivity extends BaseActivity implements WellView {
      */
     @Override
     public String wellId() {
+        String wellId = activityWellBinding.title.idText.getText().toString();
         return activityWellBinding.title.idText.getText().toString();
     }
 
@@ -200,18 +204,13 @@ public class WellActivity extends BaseActivity implements WellView {
         return activityWellBinding.title.localExitText.getText().toString();
     }
 
-    @Override
-    public void setUserName(String userName) {
-
-    }
-
     /**
      * 工井ID警告
      */
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void idWarning() {
-        activityWellBinding.title.localLayout.setBackground(getDrawable(R.drawable.lock_err));
+        activityWellBinding.title.idLayout.setBackground(getDrawable(R.drawable.lock_err));
     }
 
     /**
@@ -243,9 +242,21 @@ public class WellActivity extends BaseActivity implements WellView {
         ((Activity) getContext()).startActivityForResult(intent, request);
     }
 
+    /**
+     * 跳转到安装失败界面
+     */
     @Override
     public void jump() {
+        Intent intent = new Intent(this, FailActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void setUserName(String userName) {
 
     }
+
+
 
 }

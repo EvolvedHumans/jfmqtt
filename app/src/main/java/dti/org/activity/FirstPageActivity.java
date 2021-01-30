@@ -13,7 +13,12 @@ import android.widget.Toast;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
+import com.yangf.pub_libs.Log4j;
+import com.yangf.pub_libs.jxi.ExcelUtils;
+import com.yangf.pub_libs.util.FileUtil;
 
+import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,24 +43,6 @@ public class FirstPageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setNavigAtion();
         setContentView(R.layout.activity_first);
-
-        //* 二：Android 点击 Home 键后再点击 APP 图标，APP 显示退出之前的界面
-        //*         //具体可查看Android 应用 Home 键后 Launcher 重复启动问题
-        //* 解决方法：
-        //* 在SplashActivity（启动页）中通过 isTaskRoot
-        //*（Return whether this activity is the root of a task.The root is the first activity in a task.）
-        //* 方法来进行判断：
-        //*
-//        if (!isTaskRoot()) {
-//            finish();
-//        }
-
-        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
-            finish();
-            Log.d(TAG, "判断当前启动页是否为当前任务栈的根Activity,如果不搜，则销毁");
-            return;
-        }
-
 
         XXPermissions.with(this)
                 .permission(Permission.CAMERA)

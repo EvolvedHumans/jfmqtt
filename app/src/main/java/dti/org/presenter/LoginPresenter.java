@@ -121,7 +121,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginCon
 
             @Override
             public void onFailure(String msg) {
-                //getView().showErr(msg);
+                getView().showErr(msg);
             }
 
             @Override

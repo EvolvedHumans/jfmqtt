@@ -130,6 +130,6 @@ public class SetoutActivity extends BaseActivity implements SetoutView {
     public void jump() {
         Intent intent = new Intent(this, DisposeActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 }

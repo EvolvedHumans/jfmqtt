@@ -42,6 +42,10 @@ public interface WellView extends LoginView {
     String wellId();
 
     /**
+     * 设备名称
+     */
+
+    /**
      * 工井id为空，填充颜色警告
      */
     void idWarning();

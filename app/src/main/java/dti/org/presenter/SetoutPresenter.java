@@ -167,7 +167,8 @@ public class SetoutPresenter extends BasePresenter<SetoutView> {
             @Override
             public void onError(Throwable throwable) {
                 throwable.printStackTrace();
-                getView().showErr(throwable.toString());
+                getView().showErr("与服务器无响应");
+                //getView().showErr(throwable.toString());
             }
 
             @Override

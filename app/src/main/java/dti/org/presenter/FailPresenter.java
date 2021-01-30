@@ -6,6 +6,8 @@ import com.yangf.pub_libs.Log4j;
 import dti.org.base.BaseCallbcak;
 import dti.org.base.BasePresenter;
 import dti.org.config.GroundNailConfig;
+import dti.org.config.InstallConfig;
+import dti.org.config.SetoutConfig;
 import dti.org.dao.GroundNailInstall;
 import dti.org.dao.GroundNailInstallObtain;
 import dti.org.model.GroundNailModel;
@@ -29,49 +31,58 @@ public class FailPresenter extends BasePresenter<FailView> {
     static GroundNailInstall groundNailInstall;
 
     public void retryRequest() {
-        String json = getView().getStringIntent(GroundNailConfig.GroundNailImportFail);
-        if (GsonYang.IsJson(json)) {
-            getView().showLoading();
-            groundNailInstall = GsonYang.JsonObject(json, GroundNailInstall.class);
-            //获取url
-            String url = groundNailInstall.getUrl();
-            if (url != null) {
-                //发起请求
-                GroundNailModel.GroundNailInput(url, json, new BaseCallbcak<String>() {
-                    @Override
-                    public void onSuccess(String content) {
-                        if (GsonYang.IsJson(content)) {
-                            GroundNailInstallObtain groundNailInstallObtain =
-                                    GsonYang.JsonObject(content, GroundNailInstallObtain.class);
-                            if (groundNailInstallObtain != null) {
-                                if (groundNailInstallObtain.getRt() != null && groundNailInstallObtain.getMsg() != null) {
-                                    if (groundNailInstallObtain.getRt() == 1) {
-                                        getView().showToast(groundNailInstallObtain.getMsg());
-                                    } else {
-                                        groundNailInstall.setInstall(1);
-                                        getView().showToast(groundNailInstallObtain.getMsg());
+        //todo 1.先获取产品类型
+        int type = getView().getIntIntent(InstallConfig.InstallIntent);
+        if (type == SetoutConfig.Well) {
+            getView().showToast("智能井盖重新请求");
+        }
+        if (type == SetoutConfig.GroundNail) {
+            String json = getView().getStringIntent(GroundNailConfig.GroundNailImportFail);
+            if (GsonYang.IsJson(json)) {
+                getView().showLoading();
+                groundNailInstall = GsonYang.JsonObject(json, GroundNailInstall.class);
+                //获取url
+                String url = groundNailInstall.getUrl();
+                if (url != null) {
+                    //发起请求
+                    GroundNailModel.GroundNailInput(url, json, new BaseCallbcak<String>() {
+                        @Override
+                        public void onSuccess(String content) {
+                            if (GsonYang.IsJson(content)) {
+                                GroundNailInstallObtain groundNailInstallObtain =
+                                        GsonYang.JsonObject(content, GroundNailInstallObtain.class);
+                                if (groundNailInstallObtain != null) {
+                                    if (groundNailInstallObtain.getRt() != null && groundNailInstallObtain.getMsg() != null) {
+                                        if (groundNailInstallObtain.getRt() == 1) {
+                                            //todo 跳转到设备信息选择界面
+                                            getView().showToast(groundNailInstallObtain.getMsg());
+                                            getView().jump();
+                                        } else {
+                                            groundNailInstall.setInstall(1);
+                                            getView().showToast(groundNailInstallObtain.getMsg());
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(String msg) {
-                        //getView().showErr(msg);
-                    }
+                        @Override
+                        public void onFailure(String msg) {
+                            //getView().showErr(msg);
+                        }
 
-                    @Override
-                    public void onError(Throwable throwable) {
-                        throwable.printStackTrace();
-                        getView().showErr("无法与服务器响应");
-                    }
+                        @Override
+                        public void onError(Throwable throwable) {
+                            throwable.printStackTrace();
+                            getView().showErr("无法与服务器响应");
+                        }
 
-                    @Override
-                    public void onComplete() {
-                        getView().hideLoading();
-                    }
-                });
+                        @Override
+                        public void onComplete() {
+                            getView().hideLoading();
+                        }
+                    });
+                }
             }
         }
     }

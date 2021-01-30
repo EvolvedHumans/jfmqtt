@@ -12,4 +12,10 @@ import dti.org.base.BaseView;
 public interface FailView extends BaseView {
     //获取跳转数据，数据为json格式数据
     String getStringIntent(String key);
+
+    //获取安装完成后，产品类型的配置
+    int getIntIntent(String key);
+
+    //跳转到设备信息选择界面
+    void jump();
 }

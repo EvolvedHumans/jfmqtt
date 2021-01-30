@@ -12,6 +12,7 @@ import com.yangf.pub_libs.Log4j;
 
 import dti.org.R;
 import dti.org.base.BaseActivity;
+import dti.org.dao.Dispose;
 import dti.org.databinding.ActivityFailBinding;
 import dti.org.presenter.FailPresenter;
 import dti.org.presenter.LoginPresenter;
@@ -32,7 +33,7 @@ public class FailActivity extends BaseActivity implements FailView {
         failPresenter.attachView(this);
         //Toast.makeText(this, "数据导入后台功能尚未完成", Toast.LENGTH_LONG).show();
         activityFailBinding.comeButton.setOnClickListener(v -> {
-            //todo 点击推送请求
+            //todo 点击推送请求，如果请求成功，则继续安装
             failPresenter.retryRequest();
         });
         activityFailBinding.returnButton.setOnClickListener(v -> {
@@ -50,8 +51,22 @@ public class FailActivity extends BaseActivity implements FailView {
 
     @Override
     public String getStringIntent(String key) {
+        //根据产品类型做不同的重新请求方式
         String json = getIntent().getStringExtra(key);
         Log4j.d(TAG, json);
         return json;
     }
+
+    @Override
+    public int getIntIntent(String key) {
+        return getIntent().getIntExtra(key,0);
+    }
+
+    @Override
+    public void jump() {
+        Intent intent = new Intent(this, DisposeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

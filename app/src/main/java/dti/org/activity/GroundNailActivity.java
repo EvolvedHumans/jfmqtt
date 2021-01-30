@@ -20,7 +20,9 @@ import dti.org.adapter.camera.CameraAdapter;
 import dti.org.adapter.scancode.ScanCodeAdapter;
 import dti.org.base.BaseActivity;
 import dti.org.config.CameraConfig;
+import dti.org.config.InstallConfig;
 import dti.org.config.MapConfig;
+import dti.org.config.SetoutConfig;
 import dti.org.dao.MapObtain;
 import dti.org.databinding.ActivityGroundNailBinding;
 import dti.org.dialog.GroundNailDialog;
@@ -69,7 +71,7 @@ public class GroundNailActivity extends BaseActivity implements GroundNailView {
         groundNailPresenter.drawGroundNail();
         activityGroundNailBinding.finish.buttonCollectionFinish.setOnClickListener(v -> {
             groundNailPresenter.clickInstall();
-          //  finish();
+            //  finish();
 //            Intent intent1 = new Intent(GroundNailActivity.this, FailActivity.class);
 //            startActivity(intent1);
 //            finish();
@@ -102,6 +104,7 @@ public class GroundNailActivity extends BaseActivity implements GroundNailView {
         if (resultCode == CameraConfig.RESULT_Well_OK && requestCode == position) {
             assert data != null;
             //刷新扫描
+            Log4j.d(TAG, data.getStringExtra(Constant.CODED_CONTENT));
             groundNailPresenter.updateScancode(data.getStringExtra(Constant.CODED_CONTENT));
         }
     }
@@ -153,6 +156,7 @@ public class GroundNailActivity extends BaseActivity implements GroundNailView {
     public void installSuccessful(String key, String json) {
         Log4j.d(key, json);
         Intent intent = new Intent(this, GroundNailSuccessActivity.class);
+        //intent.putExtra()
         intent.putExtra(key, json);
         startActivity(intent);
         finish();
@@ -168,6 +172,8 @@ public class GroundNailActivity extends BaseActivity implements GroundNailView {
     public void installFailed(String key, String json) {
         Log4j.e(key, json);
         Intent intent = new Intent(this, FailActivity.class);
+        //此处是地钉界面
+        intent.putExtra(InstallConfig.InstallIntent, SetoutConfig.GroundNail);
         intent.putExtra(key, json);
         startActivity(intent);
         finish();

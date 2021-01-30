@@ -37,11 +37,17 @@ import dti.org.adapter.scancode.ScanCodePresenter;
 import dti.org.base.BaseCallbcak;
 import dti.org.base.BasePresenter;
 import dti.org.config.CameraConfig;
+import dti.org.config.DisposeConfig;
+import dti.org.config.SharedPreferenceConfig;
 import dti.org.config.UrlConfig;
 import dti.org.config.WellConfig;
 import dti.org.dao.CameraGroup;
+import dti.org.dao.Dispose;
+import dti.org.dao.LoginGroup;
 import dti.org.dao.MapObtain;
+import dti.org.dao.ScanCode;
 import dti.org.dao.UidTest;
+import dti.org.dao.WellInstall;
 import dti.org.model.WellModel;
 import dti.org.views.WellView;
 import lombok.EqualsAndHashCode;
@@ -117,7 +123,7 @@ public class WellPresenter extends BasePresenter<WellView> {
          * 开启拍照功能，并储存到SD卡下
          */
         //创建file对象,存储拍下来的图片
-        File file = new File(getView().getContext().getExternalCacheDir(), Date.timestamp() + ".jpg");
+        File file = new File(getView().getContext().getExternalCacheDir(), mapObtain.getAddress() + Date.timestamp() + ".jpg");
 
         //测试此抽象路径名表示的文件或目录是否存在,如果存在则删除。
         if (file.exists()) {
@@ -182,49 +188,49 @@ public class WellPresenter extends BasePresenter<WellView> {
             getView().setUserTips(mapObtain.getAddress());
             getView().setPasswordTips(mapObtain.getAddress());
             //todo 3.判断产品类型和从设备类型刷新视图
-            if (mapObtain.getBaseType() == 1 && mapObtain.getRfidType()!=null) {
+            if (mapObtain.getBaseType() == 1 && mapObtain.getRfidType() != null) {
                 switch (mapObtain.getType()) {
                     //只有锁
                     case 1: {
                         Log4j.e("WellConfig.lock()在此位置上", "------------------------------------------");
                         scanCodePresenter = new ScanCodePresenter
-                                (getView().getContext(), WellConfig.lock(mapObtain.getRfidType(),getView().getContext()));
+                                (getView().getContext(), WellConfig.lock(mapObtain.getRfidType(), getView().getContext()));
                         break;
                     }
                     case 2: {
                         Log4j.e("WellConfig.lockOrSm32()在此位置上", "------------------------------------------");
                         scanCodePresenter = new ScanCodePresenter
-                                (getView().getContext(), WellConfig.lockOrSm32(mapObtain.getRfidType(),getView().getContext()));
+                                (getView().getContext(), WellConfig.lockOrSm32(mapObtain.getRfidType(), getView().getContext()));
                         break;
                     }
                     case 3: {
                         Log4j.e("WellConfig.lockOrSm03()在此位置上", "------------------------------------------");
                         scanCodePresenter = new ScanCodePresenter
-                                (getView().getContext(), WellConfig.lockOrSm03(mapObtain.getRfidType(),getView().getContext()));
+                                (getView().getContext(), WellConfig.lockOrSm03(mapObtain.getRfidType(), getView().getContext()));
                         break;
                     }
                     case 4: {
                         Log4j.e("WellConfig.lockOrSm01()在此位置上", "------------------------------------------");
                         scanCodePresenter = new ScanCodePresenter
-                                (getView().getContext(), WellConfig.lockOrSm01(mapObtain.getRfidType(),getView().getContext()));
+                                (getView().getContext(), WellConfig.lockOrSm01(mapObtain.getRfidType(), getView().getContext()));
                         break;
                     }
                     case 5: {
                         Log4j.e("WellConfig.lockOrSm31()在此位置上", "------------------------------------------");
                         scanCodePresenter = new ScanCodePresenter
-                                (getView().getContext(), WellConfig.lockOrSm31(mapObtain.getRfidType(),getView().getContext()));
+                                (getView().getContext(), WellConfig.lockOrSm31(mapObtain.getRfidType(), getView().getContext()));
                         break;
                     }
                     case 6: {
                         Log4j.e("WellConfig.lockOrSm32()在此位置上", "------------------------------------------");
                         scanCodePresenter = new ScanCodePresenter
-                                (getView().getContext(), WellConfig.sm32(mapObtain.getRfidType(),getView().getContext()));
+                                (getView().getContext(), WellConfig.sm32(mapObtain.getRfidType(), getView().getContext()));
                         break;
                     }
                     case 7: {
                         Log4j.e("WellConfig.lockOrSm32()在此位置上", "------------------------------------------");
                         scanCodePresenter = new ScanCodePresenter
-                                (getView().getContext(), WellConfig.lockOrSm03orSm01(mapObtain.getRfidType(),getView().getContext()));
+                                (getView().getContext(), WellConfig.lockOrSm03orSm01(mapObtain.getRfidType(), getView().getContext()));
                         break;
                     }
                     default: {
@@ -269,11 +275,10 @@ public class WellPresenter extends BasePresenter<WellView> {
         Drawable error = getView().getContext().getDrawable(R.drawable.lock_err);
 
         //todo 先判断它属于哪个设备
-        if (type == 0){ //RFID
-            param.put("rfid",text);
-            url = UrlsplicingUtil.attachHttpGetParams(UrlConfig.RFID,param);
-        }
-        else if (type == 1) { //锁具
+        if (type == 0) { //RFID
+            param.put("rfid", text);
+            url = UrlsplicingUtil.attachHttpGetParams(UrlConfig.RFID, param);
+        } else if (type == 1 || type == 6) { //锁具
             param.put("lockUid", text);
             url = UrlsplicingUtil.attachHttpGetParams(UrlConfig.Lock, param);
         } else if (type == 2 || type == 4) { //SM01、SM31
@@ -332,9 +337,18 @@ public class WellPresenter extends BasePresenter<WellView> {
      * 2.CameraConfig.PHOTO_REQUEST_CODE 为跳转Intent入参
      */
     public void startCamera() {
-        uri = fileToUri();
-        Log4j.d("uri", String.valueOf(uri));
-        getView().cameraIntent(uri, CameraConfig.PHOTO_REQUEST_CODE);
+        if (mapObtain != null) {
+            if (mapObtain.getAddress() != null) {
+                uri = fileToUri();
+                Log4j.d("uri", String.valueOf(uri));
+                getView().cameraIntent(uri, CameraConfig.PHOTO_REQUEST_CODE);
+            } else {
+                getView().showErr("请先定位");
+            }
+        } else {
+            getView().showErr("未读到缓存");
+        }
+
     }
 
     /**
@@ -383,6 +397,188 @@ public class WellPresenter extends BasePresenter<WellView> {
 //        cameraPresenter.getCameraGroups().ge
     }
 
+    /**
+     * 判断当前工井id是否为null
+     */
+    public boolean wellId() {
+        if (getView().wellId().equals("")) {
+            getView().showToast("工井id未填写");
+            getView().idWarning();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 判断当前有无照片
+     */
+    public boolean isPhoto() {
+        if (cameraPresenter.getCount() > 0) {
+            return true;
+        } else {
+            getView().showToast("至少需要拍摄一张照片");
+            return false;
+        }
+    }
+
+    /**
+     * 设备信息导入
+     */
+    @SuppressLint("UseCompatLoadingForDrawables")
+    public void clickInstall() {
+
+        if (wellId() && isPhoto()) {
+            WellInstall wellInstall = new WellInstall();
+            String temp;
+            //todo 必选项 , 先获取完整信息
+            //1.班组id
+            String banzuId = null;
+            temp = getView().exportStringCache(DisposeConfig.WellTeam, DisposeConfig.WellTeam);
+            Log4j.d("班组id", temp);
+            if (GsonYang.IsJson(temp)) {
+                Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
+                Log4j.d("获取班组id", dispose.toString());
+                if (dispose != null) {
+                    banzuId = dispose.getId();
+                }
+            }
+            //2.配置
+            int configType = 0;
+            String config = null;
+            temp = getView().exportStringCache(DisposeConfig.WellConfigure, DisposeConfig.WellConfigure);
+            Log4j.d("配置", temp);
+            if (GsonYang.IsJson(temp)) {
+                Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
+                Log4j.d("配置", dispose.toString());
+                configType = dispose.getType();
+                config = dispose.getName();
+            }
+            //3.场景
+            String sceneTypeId = null; //安装场景ID
+            String scene = null; //场景名
+            temp = getView().exportStringCache(DisposeConfig.WellScene, DisposeConfig.WellScene);
+            Log4j.d("场景", temp);
+            if (GsonYang.IsJson(temp)) {
+                Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
+                Log4j.d("场景", dispose.toString());
+                sceneTypeId = dispose.getId();
+                scene = dispose.getName();
+            }
+            //4.外井盖类型
+            String outerWellTypeId = null; //外井盖类型ID
+            String outerWell = null; //井盖名
+            temp = getView().exportStringCache(DisposeConfig.WellOutside, DisposeConfig.WellOutside);
+            Log4j.d("外井盖类型", temp);
+            if (GsonYang.IsJson(temp)) {
+                Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
+                Log.d("外井盖类型", dispose.toString());
+                outerWellTypeId = dispose.getId();
+                outerWell = dispose.getName();
+            }
+            //5.RFID Type
+            int brfid = 0;  //有无rfid
+            temp = getView().exportStringCache(DisposeConfig.WellRfid, DisposeConfig.WellRfid);
+            Log4j.d("RFID", temp);
+            if (GsonYang.IsJson(temp)) {
+                Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
+                Log4j.d("RFID", dispose.toString());
+                brfid = dispose.getType();
+            }
+            //6.基座类型
+            String pedestalTypeId = null; //基座类型ID
+            String pedestal = null; //基座名
+            temp = getView().exportStringCache(DisposeConfig.WellPedestal, DisposeConfig.WellPedestal);
+            Log4j.d("基座类型", temp);
+            if (GsonYang.IsJson(temp)) {
+                Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
+                Log4j.d("基座类型", dispose.toString());
+                pedestalTypeId = dispose.getId();
+                pedestal = dispose.getName();
+            }
+            //7.工井id
+            String uid = getView().wellId();
+            //8.MapActivity页面传过来的讯息(经度、纬度、设备名称、产品类型)
+            String lon = mapObtain.getLongitude();
+            String lat = mapObtain.getLatitude();
+            String name = mapObtain.getAddress();
+            int lineType = mapObtain.getBaseType();
+            String url = UrlConfig.ImportWell;
+            //9.公司id
+            String departmentId = null;
+            LoginGroup loginGroup = GsonYang.JsonObject(getView().exportStringCache
+                    (SharedPreferenceConfig.APP_LOGIN, SharedPreferenceConfig.NO), LoginGroup.class);
+            if (loginGroup != null) {
+                departmentId = loginGroup.getUser().getDepartmentId();
+            }
+            wellInstall.setUrl(url); //地址
+            wellInstall.setName(name); //设备名称
+            wellInstall.setLineType(lineType); //产品type
+            wellInstall.setLon(lon); //经度
+            wellInstall.setLat(lat); //纬度
+            wellInstall.setDepartmentId(departmentId); //公司id
+            wellInstall.setUid(uid); //工井id
+            wellInstall.setPictures("http://www.yyj2857.cn/wp-content/uploads/2020/12/b.png");
+            wellInstall.setBrfid(brfid);
+            wellInstall.setConfigType(configType);
+            wellInstall.setBanzuId(banzuId); //班组id
+            wellInstall.setSceneTypeId(sceneTypeId); //安装场景id
+            wellInstall.setOuterWellTypeId(outerWellTypeId); //外井盖类型
+            wellInstall.setPedestalTypeId(pedestalTypeId);
+            //获取当type为0下的数据
+            List<ScanCode> list = scanCodePresenter.getList();
+            for (int i = 0; i < list.size(); i++) {
+                String content = list.get(i).getText();
+                int type = list.get(i).getType();
+                if (!content.equals("")) {
+                    scanCodePresenter.getList().get(i).setDrawable
+                            (getView().getContext().getDrawable(R.drawable.lock_ok));
+                    if (type == 0) {//RFID
+                        wellInstall.setRfid(content);
+                    } else if (type == 1) {//锁具
+                        wellInstall.setLockUid(content);
+                    } else if (type == 2) {//SM01
+                        wellInstall.setMonitoringUid(content); //01专用字段
+                    } else if ((type == 3 || type == 4 || type == 5)) { //32、31、03
+                        wellInstall.setPickproofuid(content);
+                    } else if ((type == 6)) {
+                        wellInstall.setLockUid03(content);
+                    }
+                } else {
+                    scanCodePresenter.getList().get(i).setDrawable
+                            (getView().getContext().getDrawable(R.drawable.lock_err));
+                }
+                scanCodeAdapter.notifyDataSetChanged();
+            }
+            Log4j.d("1.班组id", banzuId);
+            Log4j.d("2.配置", config);
+            Log4j.d("3.场景", scene);
+            Log4j.d("4.外井盖类型", outerWell);
+            Log4j.d("5.RFID Type", String.valueOf(brfid));
+            Log4j.d("6.基座类型", pedestal);
+            Log4j.d("7.工井id", uid);
+            Log4j.d("8.经度", lon);
+            Log4j.d("9.纬度", lat);
+            Log4j.d("10.设备名称", name);
+            Log4j.d("11.产品type", String.valueOf(lineType));
+            Log4j.d("12.地址", url);
+            Log4j.d("13.公司id", departmentId);
+            if (wellInstall.getRfid() != null) {
+                Log4j.d("14.rfid", wellInstall.getRfid());
+            }
+            if (wellInstall.getLockUid() != null) {
+                Log4j.d("15.01锁具", wellInstall.getLockUid());
+            }
+            if (wellInstall.getLockUid03() != null) {
+                Log4j.d("16.03锁具", wellInstall.getLockUid03());
+            }
+            if (wellInstall.getMonitoringUid() != null) {
+                Log4j.d("17.SM01", wellInstall.getMonitoringUid());
+            }
+            if (wellInstall.getPickproofuid() != null) {
+                Log4j.d("18.SM32、31、03", wellInstall.getPickproofuid());
+            }
+        }
+    }
 
     //沟盖板才有，智能井盖无
 //    /**

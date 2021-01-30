@@ -75,15 +75,15 @@ public class MapActivity extends BaseActivity {
                 if (!config.equals(DisposeConfig.WellConfigure) && !rfid.equals(DisposeConfig.WellRfid)) {
                     //todo 1.NB模块类型
                     Dispose dispose = GsonYang.JsonObject(config, Dispose.class);
-                    Log4j.d("NB模块类型",dispose.toString());
+                    Log4j.d("NB模块类型", dispose.toString());
                     //todo 2.RFID模块类型
-                    Dispose dispose1 = GsonYang.JsonObject(rfid,Dispose.class);
-                    Log4j.d("RFID模块类型",dispose1.toString());
+                    Dispose dispose1 = GsonYang.JsonObject(rfid, Dispose.class);
+                    Log4j.d("RFID模块类型", dispose1.toString());
                     int type = dispose.getType();
                     int rfidType = dispose1.getType();
                     //todo RFID type为0时，没有RFID模块的；当Type为1时，有RFID模块。
-                    Log4j.d("type",String.valueOf(type));
-                    Log4j.d("rfidType",String.valueOf(rfidType));
+                    Log4j.d("type", String.valueOf(type));
+                    Log4j.d("rfidType", String.valueOf(rfidType));
                     //baseType->1 智能井盖
                     //type->1 跳转智能井盖，->2 跳转地钉
                     MapObtain mapObtain = new MapObtain();

@@ -41,7 +41,7 @@ public class WellModel {
 
             @Override
             public void onComplete() {
-                //   callbcak.onComplete();
+                callbcak.onComplete();
             }
         });
     }
@@ -60,14 +60,14 @@ public class WellModel {
      * Type -》 5 ，锁+SM31
      * Type -》 6 ，SM32
      * Type -》 7 ，锁+SM03+锁+SM01
-     *
+     * <p>
      * 2.有RFID 情况
      * 在前面加一个RFID扫描
-     *
+     * <p>
      * 入参字段：经度、纬度
      * 返回JSON字符串
      */
-    public static void isInput(String url, String json, BaseCallbcak<String> callbcak) {
+    public static void WellInput(String url, String json, BaseCallbcak<String> callbcak) {
         AppUpdater.getInstance().getOKHttpNetManager().postJsonExecute(url, json, new INetCallBack() {
             @Override
             public void success(String content) {

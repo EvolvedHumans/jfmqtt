@@ -50,7 +50,7 @@ public class ScanCodePresenter implements ScanCodePresenterView {
         holder.setContent(code);
         holder.setText(text);
         holder.setLinearLayoutColor(drawable);
-        Log4j.d(TAG,"刷新图片颜色");
+        Log4j.d(TAG, "刷新图片颜色");
         holder.setOnClickListener(v -> {
             ZxingConfig zxingConfig = new ZxingConfig();
             zxingConfig.setPlayBeep(true);

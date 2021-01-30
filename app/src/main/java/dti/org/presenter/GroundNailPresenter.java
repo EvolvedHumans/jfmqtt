@@ -1,11 +1,16 @@
 package dti.org.presenter;
 
 import com.google.gson.Gson;
+import com.yangf.pub_libs.Date;
 import com.yangf.pub_libs.GsonYang;
 import com.yangf.pub_libs.Log4j;
+import com.yangf.pub_libs.jxi.ExcelUtils;
+import com.yangf.pub_libs.util.FileUtil;
 import com.yangf.pub_libs.util.UrlsplicingUtil;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import dti.org.base.BaseCallbcak;
 import dti.org.base.BasePresenter;
@@ -227,9 +232,29 @@ public class GroundNailPresenter extends BasePresenter<GroundNailView> {
             groundNailInstall.setInstall(install);
             //groundNailInstall.setInstall(0);
 
-
             String json = GsonYang.JsonString(groundNailInstall);
             Log4j.d(TAG, json);
+
+            //表头
+            List<String> list = new LinkedList<>();
+            list.add("地钉二维码");
+            list.add("经度");
+            list.add("纬度");
+            list.add("设备名称");
+            list.add("班组id");
+            list.add("公司id");
+            list.add("场景");
+            list.add("照片");
+            list.add("有无导入");
+            List<String> listForm = new LinkedList<>();
+            listForm.add(stakeUid);
+            listForm.add(lon);
+            listForm.add(lat);
+            listForm.add(name);
+            listForm.add(banzuId);
+            listForm.add(departmentId);
+            listForm.add(scene);
+            listForm.add(pictures);
 
             GroundNailModel.GroundNailInput(url, json, new BaseCallbcak<String>() {
                 @Override
@@ -243,9 +268,13 @@ public class GroundNailPresenter extends BasePresenter<GroundNailView> {
                                     getView().showToast(groundNailInstallObtain.getMsg());
                                     getView().installSuccessful
                                             (GroundNailConfig.GroundNailImportSuccess, json);
+                                    listForm.add("导入成功");
                                 } else {
                                     getView().showExportPopup("提示", groundNailInstallObtain.getMsg());
+                                    listForm.add("导入失败");
                                 }
+                                ExcelUtils.createFile(FileUtil.getExcelFileName("道钉"+ Date.timestamp()),getView().getContext());
+                                ExcelUtils.createExcel(list,listForm);
                             }
                         }
                     }

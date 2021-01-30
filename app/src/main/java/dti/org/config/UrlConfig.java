@@ -41,4 +41,22 @@ public final class UrlConfig {
     //地钉数据导入接口
     public static String ImportGroundNail = URL + "/stake/installStake";
 
+    //智能井盖数据导入接口
+    /**
+     * 入参字段：
+     * configType：1 锁
+     * configType：2 锁+Sm32
+     * *
+     * configType：3 锁+Sm03
+     * configType：4 锁+Sm01
+     * 新增
+     * configType：5 锁
+     */
+    public static String ImportWell = URL + "/nbset/installNbLock";
+
+    /**
+     * 图片上传服务器接口
+     */
+    public static String ImportUploadImage = URL + "upload/uploadImage";
+
 }

@@ -139,16 +139,12 @@
                 android:id="@+id/tips"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="93"
-                android:gravity="bottom"
+                android:layout_weight="175"
+                android:gravity="center"
+                android:text="@string/login_tips"
                 android:textColor="#ff2f8ece"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
 
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="82" />
 
             <Button
                 android:id="@+id/button"
@@ -156,8 +152,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="36"
                 android:background="@drawable/login_bt"
-                android:onClick="onClick"
-                android:text="登录账户"
+                android:text="@string/login_account"
                 android:textColor="#ff0099ff"
                 android:textSize="14sp" />
 

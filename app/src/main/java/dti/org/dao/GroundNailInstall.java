@@ -27,19 +27,19 @@ public class GroundNailInstall {
 
     private String url; //请求地址
 
-    private String lineType; //地图端传递
+    private String lineType; //产品类型
 
-    private String stakeUid; //扫码获取
+    private String stakeUid; //地钉二维码
 
-    private String lon; //地图端传递
+    private String lon; //经度
 
-    private String lat; //地图端传递
+    private String lat; //纬度
 
     private String name; //地图端传递
 
-    private String banzuId; //全局缓存获取
+    private String banzuId; //班组id
 
-    private String departmentId; //全局缓存获取
+    private String departmentId; //公司id
 
     private int sceneType; //场景type
 

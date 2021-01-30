@@ -6,6 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
+import com.yangf.pub_libs.Log4j;
+import com.yangf.pub_libs.jxi.ExcelUtils;
+
+import java.util.LinkedList;
+import java.util.List;
+
 import dti.org.R;
 import dti.org.base.BaseActivity;
 import dti.org.databinding.ActivityLoginBinding;
@@ -20,6 +26,8 @@ import dti.org.views.LoginView;
  * @Android_SDK: VERSION_8.0
  */
 public class LoginActivity extends BaseActivity implements LoginView {
+
+    private final static String TAG = "dti.org.activity.LoginActivity";
 
     ActivityLoginBinding activityLoginBinding;
 

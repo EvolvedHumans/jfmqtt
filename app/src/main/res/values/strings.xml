@@ -52,4 +52,6 @@
     <string name="finish_return">返回</string>
     <string name="bt_cx">重新发送请求</string>
     <string name="gosuccess">继续安装</string>
+    <string name="login_tips">如遇提示账户无法登陆， 请确认账号及密码。若需要帮助，请联系售后。</string>
+    <string name="login_account">登录账户</string>
 </resources>

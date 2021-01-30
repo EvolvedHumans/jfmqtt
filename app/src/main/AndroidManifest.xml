@@ -38,7 +38,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.GroundNailSuccessActivity"></activity>
+        <activity android:name=".activity.GroundNailSuccessActivity" />
         <activity android:name=".activity.GroundNailActivity" />
         <activity android:name=".activity.FirstPageActivity">
             <intent-filter>
@@ -51,7 +51,9 @@
         <activity android:name=".activity.WellActivity" />
         <activity android:name=".activity.MapActivity" />
         <activity android:name=".activity.holes.HolesActivity" />
-        <activity android:name=".activity.SetoutActivity" />
+        <activity
+            android:name=".activity.SetoutActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activity.LoginOutActivity" />
         <activity android:name=".activity.ChoiceActivity" />
         <activity android:name=".activity.LoginActivity" />

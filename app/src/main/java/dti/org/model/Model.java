@@ -29,6 +29,9 @@ import dti.org.updater.net.INetCallBack;
  * @Android_SDK: VERSION_8.0
  */
 public class Model {
+
+    private final static String TAG = "dti.org.model.Model";
+
     /**
      * 登录接口数据提取
      */
@@ -39,13 +42,14 @@ public class Model {
             @Override
             public void success(String content) {
                 //content= GsonYang.JsonString(LoginPseudo.getJsonLogin());
+//                Log4j.d(TAG,content);
                 //协议规定必须是json字符串
                 if (GsonYang.IsJson(content)) {
                     LoginObtain login = GsonYang.JsonObject(content, LoginObtain.class);
                     //判断是否是对应json字符串
                     if (login != null) {
                         if (login.getRt() != null && login.getComments() != null) {
-                            if (login.getRt() == 1 && login.getData() != null) {
+                            if (login.getRt() == 1) {
                                 callbcak.onSuccess(login.getData());
                                 callbcak.onComplete();
                             } else {

@@ -32,6 +32,7 @@ public final class WellConfig {
     public static String SM03 = "扫描SM03二维码"; //3
     public static String SM31 = "扫描SM31二维码"; //4
     public static String SM32 = "扫描SM32二维码"; //5
+                                                  //6、03锁
 
     //锁
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -216,7 +217,7 @@ public final class WellConfig {
 
         ScanCode scanCode3 = new ScanCode();
         scanCode3.setCode(Lock);
-        scanCode3.setType(1);
+        scanCode3.setType(6);
         scanCode3.setDrawable(context.getDrawable(R.drawable.lock_ok));
 
         ScanCode scanCode4 = new ScanCode();
