@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yangf.pub_libs.DensityUtil;
+import com.yangf.pub_libs.DimensionImage;
+
 import java.util.List;
 
 import dti.org.R;
@@ -51,7 +54,10 @@ public class PhotographAdapter extends RecyclerView.Adapter<PhotographAdapter.VH
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        holder.imageView.setImageBitmap(list.get(position));
+        int width = DensityUtil.getScreenWidth();
+        int height = DensityUtil.dpToPx(300);
+        Bitmap bitmap = DimensionImage.zoomBitmap(list.get(position),width,height);
+        holder.imageView.setImageBitmap(bitmap);
     }
 
     @Override

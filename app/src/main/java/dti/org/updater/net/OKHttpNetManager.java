@@ -22,6 +22,7 @@ import io.reactivex.rxjava3.core.ObservableOnSubscribe;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import lombok.SneakyThrows;
 import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
@@ -285,7 +286,6 @@ public class OKHttpNetManager implements INetManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(disposableObserver);
         compositeDisposable.add(disposableObserver);
-
     }
 
     /**
@@ -318,18 +318,16 @@ public class OKHttpNetManager implements INetManager {
             //同步操作
             Response response = call.execute();
             if (response.isSuccessful() && response.code() == 200) {
-                String content = Objects.requireNonNull(response.body()).string();
-                emitter.onNext(content);
-            } else {
-                throw new Exception("response.isSuccessful()、response.code() == 200异常");
+                emitter.onNext(Objects.requireNonNull(response.body()).string());
             }
             emitter.onComplete();
         });
 
         DisposableObserver<String> disposableObserver = new DisposableObserver<String>() {
+            @SneakyThrows
             @Override
-            public void onNext(@NonNull String s) {
-                callBack.success(s);
+            public void onNext(@NonNull String content) {
+                callBack.success(content);
             }
 
             @Override
@@ -344,7 +342,7 @@ public class OKHttpNetManager implements INetManager {
         };
 
         observable.subscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(disposableObserver);
         compositeDisposable.add(disposableObserver);
     }

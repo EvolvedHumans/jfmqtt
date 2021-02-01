@@ -45,7 +45,7 @@ public class DisposeItemDialog extends BottomSheetDialog {
 
         @SuppressLint("InflateParams")
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dispose_dialog, null);
-        setCancelable(false); //设置点击失效，
+        //setCancelable(false); //设置点击失效，
         setContentView(view);
 
         Window window = getWindow();

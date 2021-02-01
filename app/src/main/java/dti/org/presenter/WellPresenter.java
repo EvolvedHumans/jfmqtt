@@ -3,8 +3,6 @@ package dti.org.presenter;
 import android.annotation.SuppressLint;
 
 import android.content.ContentResolver;
-import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -13,26 +11,26 @@ import android.net.Uri;
 import android.os.Build;
 
 import android.os.FileUtils;
-import android.provider.MediaStore;
+
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
-import androidx.core.app.NavUtils;
 import androidx.core.content.FileProvider;
 
+import com.google.gson.Gson;
 import com.yangf.pub_libs.Date;
 
 import com.yangf.pub_libs.GsonYang;
 import com.yangf.pub_libs.Log4j;
+import com.yangf.pub_libs.jxi.ExcelUtils;
+import com.yangf.pub_libs.util.FileUtil;
 import com.yangf.pub_libs.util.UrlsplicingUtil;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,6 +56,7 @@ import dti.org.dao.GroundNailInstall;
 import dti.org.dao.InstallObtain;
 import dti.org.dao.LoginGroup;
 import dti.org.dao.MapObtain;
+import dti.org.dao.PhotoObtain;
 import dti.org.dao.ScanCode;
 import dti.org.dao.UidTest;
 import dti.org.dao.WellInstall;
@@ -337,7 +336,6 @@ public class WellPresenter extends BasePresenter<WellView> {
                 public void onError(Throwable throwable) {
                     throwable.printStackTrace();
                     getView().showErr("无法与服务器响应");
-                    //   getView().showErr(throwable.toString());
                 }
 
                 @Override
@@ -365,7 +363,6 @@ public class WellPresenter extends BasePresenter<WellView> {
         } else {
             getView().showErr("未读到缓存");
         }
-
     }
 
     /**
@@ -382,26 +379,63 @@ public class WellPresenter extends BasePresenter<WellView> {
             Bitmap bitmap = BitmapFactory.decodeStream
                     (getView().getContext().getContentResolver().openInputStream(uri));
             cameraGroup.setBitmap(bitmap);
-            //渲染视图
-            if (cameraPresenter == null) {
-                cameraGroups.add(cameraGroup);
-                cameraPresenter = new CameraPresenter(getView().getContext(), cameraGroups);
-            } else {
-                cameraPresenter.getCameraGroups().add(cameraGroup);
-            }
-            if (cameraAdapter == null) {
-                cameraAdapter = new CameraAdapter(cameraPresenter);
-                getView().drawCamera(cameraAdapter);
-            } else {
-                cameraAdapter.notifyDataSetChanged();
-            }
+            //todo uri转File
+            File file = uriToFileApiQ(uri);
+            getView().showLoading();
+            String url = UrlConfig.ImportUploadImage;
+            HashMap<String, File> hashMap = new HashMap<>();
+            hashMap.put("image_upload", file);
+            WellModel.CameraUpdata(url, hashMap, new BaseCallbcak<String>() {
+                @Override
+                public void onSuccess(String data) {
+                    if (GsonYang.IsJson(data)) {
+                        PhotoObtain photoObtain = GsonYang.JsonObject(data, PhotoObtain.class);
+                        if (photoObtain != null) {
+                            if (photoObtain.getUrl() != null && photoObtain.getPath() != null) {
+                                if (photoObtain.getRt() == 1) {
+                                    getView().showToast("请求成功");
+                                    cameraGroup.setUrl(photoObtain.getUrl());
+                                    //渲染视图
+                                    if (cameraPresenter == null) {
+                                        cameraGroups.add(cameraGroup);
+                                        cameraPresenter = new CameraPresenter(getView().getContext(), cameraGroups);
+                                    } else {
+                                        cameraPresenter.getCameraGroups().add(cameraGroup);
+                                    }
+                                    if (cameraAdapter == null) {
+                                        cameraAdapter = new CameraAdapter(cameraPresenter);
+                                        getView().drawCamera(cameraAdapter);
+                                    } else {
+                                        cameraAdapter.notifyDataSetChanged();
+                                    }
+                                } else {
+                                    getView().showErr("请求失败了");
+                                }
+                            }
+                        }
+                    }
+                }
 
-//            File file = uriToFileApiQ(uri);
-//            getPhotoUrl(file);
+                @Override
+                public void onFailure(String msg) {
+                    Log4j.d(TAG, msg);
+                    getView().showErr(msg);
+                }
 
+                @Override
+                public void onError(Throwable throwable) {
+                    throwable.printStackTrace();
+                    getView().showErr("与服务器无响应");
+                }
+
+                @Override
+                public void onComplete() {
+                    getView().hideLoading();
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
-            getView().showErr(e.toString());
+            getView().showErr("异常，拍照失败。");
         }
     }
 
@@ -432,38 +466,6 @@ public class WellPresenter extends BasePresenter<WellView> {
             }
         }
         return file;
-    }
-
-    /**
-     * 照片上传服务器
-     */
-    public void getPhotoUrl(File file) {
-        getView().showLoading();
-        String url = UrlConfig.ImportUploadImage;
-        HashMap<String, File> hashMap = new HashMap<>();
-        hashMap.put("image_upload", file);
-        WellModel.CameraUpdata(url, hashMap, new BaseCallbcak<String>() {
-            @Override
-            public void onSuccess(String data) {
-                getView().showToast(data);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                getView().showErr(msg);
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                throwable.printStackTrace();
-                getView().showErr("与服务器无响应");
-            }
-
-            @Override
-            public void onComplete() {
-                getView().hideLoading();
-            }
-        });
     }
 
     /**
@@ -520,10 +522,8 @@ public class WellPresenter extends BasePresenter<WellView> {
             //1.班组id
             String banzuId = null;
             temp = getView().exportStringCache(DisposeConfig.WellTeam, DisposeConfig.WellTeam);
-            Log4j.d("班组id", temp);
             if (GsonYang.IsJson(temp)) {
                 Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
-                Log4j.d("获取班组id", dispose.toString());
                 if (dispose != null) {
                     banzuId = dispose.getId();
                 }
@@ -533,10 +533,8 @@ public class WellPresenter extends BasePresenter<WellView> {
             String config = null;
             String configTypeId = null;
             temp = getView().exportStringCache(DisposeConfig.WellConfigure, DisposeConfig.WellConfigure);
-            Log4j.d("配置", temp);
             if (GsonYang.IsJson(temp)) {
                 Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
-                Log4j.d("配置", dispose.toString());
                 configTypeId = dispose.getId();
                 configType = dispose.getType();
                 config = dispose.getName();
@@ -545,10 +543,8 @@ public class WellPresenter extends BasePresenter<WellView> {
             String sceneTypeId = null; //安装场景ID
             String scene = null; //场景名
             temp = getView().exportStringCache(DisposeConfig.WellScene, DisposeConfig.WellScene);
-            Log4j.d("场景", temp);
             if (GsonYang.IsJson(temp)) {
                 Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
-                Log4j.d("场景", dispose.toString());
                 sceneTypeId = dispose.getId();
                 scene = dispose.getName();
             }
@@ -556,30 +552,24 @@ public class WellPresenter extends BasePresenter<WellView> {
             String outerWellTypeId = null; //外井盖类型ID
             String outerWell = null; //井盖名
             temp = getView().exportStringCache(DisposeConfig.WellOutside, DisposeConfig.WellOutside);
-            Log4j.d("外井盖类型", temp);
             if (GsonYang.IsJson(temp)) {
                 Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
-                Log.d("外井盖类型", dispose.toString());
                 outerWellTypeId = dispose.getId();
                 outerWell = dispose.getName();
             }
             //5.RFID Type
             int brfid = 0;  //有无rfid
             temp = getView().exportStringCache(DisposeConfig.WellRfid, DisposeConfig.WellRfid);
-            Log4j.d("RFID", temp);
             if (GsonYang.IsJson(temp)) {
                 Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
-                Log4j.d("RFID", dispose.toString());
                 brfid = dispose.getType();
             }
             //6.基座类型
             String pedestalTypeId = null; //基座类型ID
             String pedestal = null; //基座名
             temp = getView().exportStringCache(DisposeConfig.WellPedestal, DisposeConfig.WellPedestal);
-            Log4j.d("基座类型", temp);
             if (GsonYang.IsJson(temp)) {
                 Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
-                Log4j.d("基座类型", dispose.toString());
                 pedestalTypeId = dispose.getId();
                 pedestal = dispose.getName();
             }
@@ -606,7 +596,6 @@ public class WellPresenter extends BasePresenter<WellView> {
             wellInstall.setLat(lat); //纬度
             wellInstall.setDepartmentId(departmentId); //公司id
             wellInstall.setUid(uid); //工井id
-            wellInstall.setPictures("http://www.yyj2857.cn/wp-content/uploads/2020/12/b.png");
             wellInstall.setBrfid(brfid);
             wellInstall.setConfigType(configType);
             wellInstall.setBanzuId(banzuId); //班组id
@@ -668,16 +657,24 @@ public class WellPresenter extends BasePresenter<WellView> {
                 Log4j.d("19.SM32、31、03", wellInstall.getPickproofUid());
             }
 
+            StringBuilder picture = null;
             List<Bitmap> bitmapList = new LinkedList<>();
             for (int i = 0; i < cameraPresenter.getCameraGroups().size(); i++) {
                 Bitmap bitmap = cameraPresenter.getCameraGroups().get(i).getBitmap();
                 if (bitmap != null) {
                     bitmapList.add(bitmap);
                 }
+                String url1 = cameraPresenter.getCameraGroups().get(i).getUrl();
+                if (picture == null) {
+                    picture = new StringBuilder(url1);
+                } else {
+                    picture.append(",").append(url1);
+                }
             }
-
+            assert picture != null;
+            Log4j.d("20.图片地址集合", picture.toString());
+            wellInstall.setPictures(picture.toString());
             wellInstall.setCameraList(new CameraList(bitmapList));
-
 
             //是否需要安装字段
             for (int i = 0; i < scanCodePresenter.getCount(); i++) {
@@ -688,6 +685,46 @@ public class WellPresenter extends BasePresenter<WellView> {
                     wellInstall.setInstall(1);
                 }
             }
+
+            //表头
+            List<String> headerList = new LinkedList<>();
+            headerList.add("班组id");
+            headerList.add("配置");
+            headerList.add("场景");
+            headerList.add("外井盖类型");
+            headerList.add("RFID Type");
+            headerList.add("基座类型");
+            headerList.add("工井id");
+            headerList.add("经度");
+            headerList.add("纬度");
+            headerList.add("设备名称");
+            headerList.add("产品type");
+            headerList.add("公司id");
+            headerList.add("rfid");
+            headerList.add("01锁具");
+            headerList.add("03锁具");
+            headerList.add("SM01");
+            headerList.add("SM32、31、03");
+            headerList.add("有无导入");
+
+            List<String> bodyList = new LinkedList<>();
+            bodyList.add(banzuId);
+            bodyList.add(config);
+            bodyList.add(scene);
+            bodyList.add(outerWell);
+            bodyList.add(String.valueOf(brfid));
+            bodyList.add(pedestal);
+            bodyList.add(uid);
+            bodyList.add(lon);
+            bodyList.add(lat);
+            bodyList.add(name);
+            bodyList.add(lineType);
+            bodyList.add(departmentId);
+            bodyList.add(wellInstall.getRfid());
+            bodyList.add(wellInstall.getLockUid());
+            bodyList.add(wellInstall.getLockUid03());
+            bodyList.add(wellInstall.getMonitoringUid());
+            bodyList.add(wellInstall.getPickproofUid());
 
             //转成Json格式数据
             String content = GsonYang.JsonString(wellInstall);
@@ -703,8 +740,11 @@ public class WellPresenter extends BasePresenter<WellView> {
                             if (installObtain.getRt() != null && installObtain.getMsg() != null) {
                                 if (installObtain.getRt() == 1) {
                                     //todo 跳转到安装成功界面
-                                    getView().installSuccessful(WellConfig.WellImportSuccess, content);
+                                    bodyList.add("导入成功");
+                                    ExcelUtils.createFile(FileUtil.getExcelFileName("智能井盖" + Date.timestamp()), getView().getContext());
+                                    ExcelUtils.createExcel(headerList, bodyList);
                                     getView().showToast(installObtain.getMsg());
+                                    getView().installSuccessful(WellConfig.WellImportSuccess, content);
                                 } else {
                                     //todo 是否需要继续安装
                                     getView().showExportPopup("提示", installObtain.getMsg());
@@ -722,10 +762,14 @@ public class WellPresenter extends BasePresenter<WellView> {
 
                 @Override
                 public void onError(Throwable throwable) {
+                    bodyList.add("导入失败");
+                    ExcelUtils.createFile(FileUtil.getExcelFileName("智能井盖" + Date.timestamp()), getView().getContext());
+                    ExcelUtils.createExcel(headerList, bodyList);
                     getView().showErr("与服务器无响应");
                     throwable.printStackTrace();
                     //todo 跳转到安装失败的界面
                     getView().installFailed(WellConfig.WellImportFail, content);
+
                 }
 
                 @Override

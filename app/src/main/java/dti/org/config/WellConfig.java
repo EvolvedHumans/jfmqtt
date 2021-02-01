@@ -35,14 +35,14 @@ public final class WellConfig {
     public static String SM03 = "扫描SM03二维码"; //3
     public static String SM31 = "扫描SM31二维码"; //4
     public static String SM32 = "扫描SM32二维码"; //5
-                                                  //6、03锁
+    //6、03锁
 
     //锁
     @SuppressLint("UseCompatLoadingForDrawables")
     public static List<ScanCode> lock(int rfid, Context context) {
         List<ScanCode> list = new LinkedList<>();
 
-        if(rfid == 1){
+        if (rfid == 1) {
             ScanCode scanCode10 = new ScanCode();
             scanCode10.setCode(Rfid);
             scanCode10.setType(0);
@@ -63,7 +63,7 @@ public final class WellConfig {
     public static List<ScanCode> lockOrSm32(int rfid, Context context) {
         List<ScanCode> list = new LinkedList<>();
 
-        if(rfid == 1){
+        if (rfid == 1) {
             ScanCode scanCode10 = new ScanCode();
             scanCode10.setCode(Rfid);
             scanCode10.setType(0);
@@ -92,7 +92,7 @@ public final class WellConfig {
     public static List<ScanCode> lockOrSm03(int rfid, Context context) {
         List<ScanCode> list = new LinkedList<>();
 
-        if(rfid == 1){
+        if (rfid == 1) {
             ScanCode scanCode10 = new ScanCode();
             scanCode10.setCode(Rfid);
             scanCode10.setType(0);
@@ -121,7 +121,7 @@ public final class WellConfig {
     public static List<ScanCode> lockOrSm01(int rfid, Context context) {
         List<ScanCode> list = new LinkedList<>();
 
-        if(rfid == 1){
+        if (rfid == 1) {
             ScanCode scanCode10 = new ScanCode();
             scanCode10.setCode(Rfid);
             scanCode10.setType(0);
@@ -150,7 +150,7 @@ public final class WellConfig {
     public static List<ScanCode> lockOrSm31(int rfid, Context context) {
         List<ScanCode> list = new LinkedList<>();
 
-        if(rfid == 1){
+        if (rfid == 1) {
             ScanCode scanCode10 = new ScanCode();
             scanCode10.setCode(Rfid);
             scanCode10.setType(0);
@@ -178,7 +178,7 @@ public final class WellConfig {
     public static List<ScanCode> sm32(int rfid, Context context) {
         List<ScanCode> list = new LinkedList<>();
 
-        if(rfid == 1){
+        if (rfid == 1) {
             ScanCode scanCode10 = new ScanCode();
             scanCode10.setCode(Rfid);
             scanCode10.setType(0);
@@ -200,7 +200,7 @@ public final class WellConfig {
     public static List<ScanCode> lockOrSm03orSm01(int rfid, Context context) {
         List<ScanCode> list = new LinkedList<>();
 
-        if(rfid == 1){
+        if (rfid == 1) {
             ScanCode scanCode10 = new ScanCode();
             scanCode10.setCode(Rfid);
             scanCode10.setType(0);

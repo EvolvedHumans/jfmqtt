@@ -1,6 +1,7 @@
 package dti.org.presenter;
 
 import com.yangf.pub_libs.GsonYang;
+import com.yangf.pub_libs.Log4j;
 
 import dti.org.base.BaseCallbcak;
 import dti.org.base.BasePresenter;
@@ -33,9 +34,10 @@ public class FailPresenter extends BasePresenter<FailView> {
     public void retryRequest() {
         //todo 1.先获取产品类型
         int type = getView().getIntIntent(InstallConfig.InstallTypeIntent);
-
         if (type == SetoutConfig.Well) {
             String json = getView().getStringIntent(WellConfig.WellImportFail);
+            Log4j.d("type", String.valueOf(type));
+            Log4j.d("json", json);
             if (GsonYang.IsJson(json)) {
                 wellInstall = GsonYang.JsonObject(json, WellInstall.class);
                 //获取url
@@ -53,8 +55,6 @@ public class FailPresenter extends BasePresenter<FailView> {
                                         if (installObtain.getRt() == 1) {
                                             //todo 跳转到设备信息选择界面
                                             getView().jump();
-                                        } else {
-                                            groundNailInstall.setInstall(1);
                                         }
                                         getView().showToast(installObtain.getMsg());
                                     }

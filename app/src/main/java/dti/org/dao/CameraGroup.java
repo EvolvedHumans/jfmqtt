@@ -25,5 +25,6 @@ public class CameraGroup {
     private int type;
     private Bitmap bitmap;
     private String uri;
+    private String url;
     // private String file = Date.sTimestamp();
 }
