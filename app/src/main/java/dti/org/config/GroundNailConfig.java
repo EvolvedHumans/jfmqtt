@@ -10,4 +10,5 @@ package dti.org.config;
 public final class GroundNailConfig {
     public final static String GroundNailImportSuccess = "GroundNailSuccess";
     public final static String GroundNailImportFail = "GroundNailImportFail";
+
 }

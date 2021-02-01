@@ -68,5 +68,26 @@ public interface WellView extends LoginView {
      */
     void cameraIntent(Uri uri, int requestCode);
 
+    /**
+     * 安装成功
+     */
+    /**
+     * 跳转到安装成功界面
+     * WellInstall类的json格式参数
+     */
+    void installSuccessful(String key, String json);
+
+
+    /**
+     * 跳转到安装失败界面
+     * WellInstall类的json格式参数
+     */
+    void installFailed(String key, String json);
+
+
+    /**
+     * 继续安装弹框
+     */
+    void showExportPopup(String title,String resource);
 
 }

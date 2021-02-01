@@ -15,7 +15,7 @@ public class WellInstall {
 
     private String name; //设备名称
 
-    private int lineType; //产品类型
+    private String lineType; //产品类型
 
     private String lon; //经度
 
@@ -27,9 +27,10 @@ public class WellInstall {
 
     private String pictures; //安装图片
 
-    private int brfid;  //有无rfid
+    private int brfid;  //有无rfid  //TODO int
 
-    private int configType; //配置类型
+    private String configTypeId; //配置类型id
+    private int configType; //配置类型  //TODO int
     private String config; //配置名
 
 
@@ -39,10 +40,10 @@ public class WellInstall {
     private String sceneTypeId; //安装场景ID
     private String scene; //场景名
 
-    private String outerWellTypeId; //外井盖类型ID
+    private String outerWellTypeId; //外井盖类型ID   //TODO int
     private String outerWell; //井盖名
 
-    private String pedestalTypeId; //基座类型ID
+    private String pedestalTypeId; //基座类型ID   //TODO int
     private String pedestal; //基座名
 
     /**
@@ -55,7 +56,7 @@ public class WellInstall {
      * 锁、32/rfid   configType->2
      */
     //锁同上
-    private String pickproofuid; //32二维码
+    private String pickproofUid; //32二维码
 
     /**
      * 锁、03   configType->3
@@ -90,6 +91,8 @@ public class WellInstall {
     private String lockUid03;
     //01同上
     //03同上
+
+    private int install; //产品是否存在
 
 
 }

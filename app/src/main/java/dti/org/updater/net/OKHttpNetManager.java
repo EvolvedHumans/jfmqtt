@@ -25,6 +25,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -63,7 +64,11 @@ public class OKHttpNetManager implements INetManager {
     //RXJAVA实现请求IO，将请求结果回调在主线程当中
     private volatile CompositeDisposable compositeDisposable = new CompositeDisposable();
 
+    //json数据格式
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+    //图片格式上传
+    private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
 
     //在代码块中创建OKHTTPCLIENT对象
     static {
@@ -283,9 +288,70 @@ public class OKHttpNetManager implements INetManager {
 
     }
 
+    /**
+     * ohttp 文件上传
+     * MultipartBody---文件上传
+     * 将ResquestBody -》 MultipartBody
+     *
+     * @param url       地址
+     * @param paramsMap 待参数，目标文件
+     * @param callBack  回调
+     */
+    @Override
+    public void uploadExecute(String url, HashMap<String, File> paramsMap, INetCallBack callBack) {
+        Observable<String> observable = Observable.create(emitter -> {
+//            RequestBody requestBody = MultipartBody.create(MEDIA_TYPE_PNG,)
+            MultipartBody.Builder builder = new MultipartBody.Builder();
+            builder.setType(MultipartBody.FORM); //设置请求体
+            for (String key : paramsMap.keySet()) {
+                File file = paramsMap.get(key);
+                assert file != null;
+                //上传图片参数
+                builder.addFormDataPart(key, file.getName(), MultipartBody.create(MEDIA_TYPE_PNG, file));
+            }
+            RequestBody requestBody = builder.build();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .build();
+            Call call = okHttpClient.newCall(request);
+            //同步操作
+            Response response = call.execute();
+            if (response.isSuccessful() && response.code() == 200) {
+                String content = Objects.requireNonNull(response.body()).string();
+                emitter.onNext(content);
+            } else {
+                throw new Exception("response.isSuccessful()、response.code() == 200异常");
+            }
+            emitter.onComplete();
+        });
+
+        DisposableObserver<String> disposableObserver = new DisposableObserver<String>() {
+            @Override
+            public void onNext(@NonNull String s) {
+                callBack.success(s);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                callBack.failed(e);
+            }
+
+            @Override
+            public void onComplete() {
+                callBack.onComplete();
+            }
+        };
+
+        observable.subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(disposableObserver);
+        compositeDisposable.add(disposableObserver);
+    }
+
+
     @Override
     public void download(String url, File targetFile, INetDownloadCallBack callBack) {
-
 
     }
 

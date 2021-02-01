@@ -54,4 +54,17 @@
     <string name="gosuccess">继续安装</string>
     <string name="login_tips">如遇提示账户无法登陆， 请确认账号及密码。若需要帮助，请联系售后。</string>
     <string name="login_account">登录账户</string>
+    <string name="outerWell">外井盖类型</string>
+    <string name="pedestal">基座类型</string>
+    <string name="lock">锁具</string>
+    <string name="nb">NB</string>
+    <string name="banzu">所属班组</string>
+    <string name="scence">安装场景</string>
+    <string name="ew">安装失败</string>
+    <string name="sdasd">安装完成</string>
+    <string name="rec">重新发送请求</string>
+    <string name="returngoto">返回继续安装</string>
+    <string name="lostt">无法连接到服务器</string>
+    <string name="shengnue">...</string>
+    <string name="retur">返回</string>
 </resources>

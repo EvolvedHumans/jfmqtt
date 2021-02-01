@@ -2,6 +2,7 @@ package dti.org.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
@@ -65,5 +66,25 @@ public class GroundNailSuccessActivity extends BaseActivity {
             startActivity(intent1);
             finish();
         });
+    }
+
+    /**
+     * 物理按键点击回调
+     *
+     * @param keyCode 按键编码
+     * @param event   按键事件
+     * @return 返回true表示不再响应系统动作，返回false表示继续响应系统动作
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //后退键销毁当前页面
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //todo 跳转到产品信息选择界面,需要销毁上级的界面
+            DestroyActivityUtil.destoryActivity(DestroyActivityConfig.DisposeClass);
+            Intent intent = new Intent(this, SetoutActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -1,10 +1,6 @@
 package dti.org.model;
 
-import com.yangf.pub_libs.GsonYang;
-import com.yangf.pub_libs.Log4j;
-
 import dti.org.base.BaseCallbcak;
-import dti.org.dao.GroundNailInstallObtain;
 import dti.org.updater.AppUpdater;
 import dti.org.updater.net.INetCallBack;
 

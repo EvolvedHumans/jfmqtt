@@ -8,6 +8,6 @@ package dti.org.config;
  * 创建时间：  2021年 01月 29日 14时 36分
  */
 public class InstallConfig {
-    public final static String InstallIntent = "InstallIntent";
-    public final static int InstallFinish = 0;
+    //产品类型获取
+    public final static String InstallTypeIntent = "InstallIntent";
 }

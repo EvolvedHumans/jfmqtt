@@ -9,7 +9,7 @@ package dti.org.config;
  */
 public final class UrlConfig {
 
-    public static String URL = "http://scaninstalltest.dti2018.com";
+    public static String URL = "http://scaninstalltest.dti2018.com";//
 
     //登录
     public static String LoginUrl = URL + "/login";
@@ -57,6 +57,6 @@ public final class UrlConfig {
     /**
      * 图片上传服务器接口
      */
-    public static String ImportUploadImage = URL + "upload/uploadImage";
+    public static String ImportUploadImage = URL + "/upload/uploadImage";
 
 }

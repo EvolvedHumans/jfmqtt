@@ -79,13 +79,16 @@ public class GroundNailActivity extends BaseActivity implements GroundNailView {
         activityGroundNailBinding.imageIconReturn.setOnClickListener(v -> {
             Intent intent1 = new Intent(this, MapActivity.class);
             startActivity(intent1);
+            finish();
         });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        groundNailPresenter.release();
         groundNailPresenter.detachView();
+        groundNailPresenter = null;
     }
 
     @Override
@@ -159,7 +162,7 @@ public class GroundNailActivity extends BaseActivity implements GroundNailView {
         //intent.putExtra()
         intent.putExtra(key, json);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     /**
@@ -173,7 +176,7 @@ public class GroundNailActivity extends BaseActivity implements GroundNailView {
         Log4j.e(key, json);
         Intent intent = new Intent(this, FailActivity.class);
         //此处是地钉界面
-        intent.putExtra(InstallConfig.InstallIntent, SetoutConfig.GroundNail);
+        intent.putExtra(InstallConfig.InstallTypeIntent, SetoutConfig.GroundNail);
         intent.putExtra(key, json);
         startActivity(intent);
         finish();

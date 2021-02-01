@@ -38,8 +38,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.GroundNailSuccessActivity" />
-        <activity android:name=".activity.GroundNailActivity" />
+        <activity
+            android:name=".activity.WellSuccessActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.GroundNailSuccessActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.GroundNailActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activity.FirstPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,10 +54,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.FailActivity" />
-        <activity android:name=".activity.WellActivity" />
-        <activity android:name=".activity.MapActivity" />
-        <activity android:name=".activity.holes.HolesActivity" />
+        <activity
+            android:name=".activity.FailActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.WellActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.MapActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.holes.HolesActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.SetoutActivity"
             android:launchMode="singleTask" />
@@ -60,6 +75,7 @@
         <activity
             android:name=".activity.DisposeActivity"
             android:launchMode="singleTask" />
+
         <activity android:name=".activity.PhotoActivity" />
 
         <provider

@@ -26,6 +26,9 @@ import dti.org.dao.ScanCode;
 //Type -> 8.新增的设备
 public final class WellConfig {
 
+    public final static String WellImportSuccess = "WellImPortSuccess";
+    public final static String WellImportFail = "WellImportFail";
+
     public static String Rfid = "扫描RFID二维码";//0
     public static String Lock = "扫描锁具二维码"; //1
     public static String SM01 = "扫描SM01二维码"; //2

@@ -42,7 +42,7 @@ public class GroundNailInstall {
     private String departmentId; //公司id
 
     private int sceneType; //场景type
-
+    private String scaneTypeId; //场景type id
     private String scene; //场景名
 
     private String pictures; //无

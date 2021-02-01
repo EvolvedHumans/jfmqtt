@@ -30,25 +30,20 @@ public class HolesItemDecoration extends HolesRecyclerView.ItemDecoration {
      * 1.孔洞布局的宽、高相等
      * 2.上边距等于下边距
      * 3.已经每行有多少个items
-     *
+     * <p>
      * item上边距 = (13/292) * 孔洞布局高度
      * item下边距 = item上边距
      * 中间item的左右边距 = item上边距、下边距
      * 第一个item的左边距 = 12/292 *  孔洞布局高度
      * 最后一个item的右边距 = 12/292 * 孔洞布局高度
      * 第一个item的左边距 = 最后一个item的边距
-     *
-     *
      */
-    public HolesItemDecoration(int mColumnItem){
+    public HolesItemDecoration(int mColumnItem) {
 
         //每行item数量
         this.mColumnItem = mColumnItem;
 
     }
-
-
-
 
 
     /**
@@ -58,12 +53,10 @@ public class HolesItemDecoration extends HolesRecyclerView.ItemDecoration {
      * 或者itemview之后,如果通过重写 `onDrawOver(Canvas, RecyclerView, RecyclerView.State)`）绘制。
      * parent.getChildPosition(view)方法:获取view在Adapter中的position。
      *
-     *
-     *
      * @param outRect 设置边距
-     * @param view item视图获取
-     * @param parent 父容器parent(RecyclerView)
-     * @param state ！！！未知
+     * @param view    item视图获取
+     * @param parent  父容器parent(RecyclerView)
+     * @param state   ！！！未知
      */
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
@@ -73,28 +66,30 @@ public class HolesItemDecoration extends HolesRecyclerView.ItemDecoration {
         int position = parent.getChildAdapterPosition(view);
 
         //2.根据行数计算当前view所处的列数
-        int column = position%mColumnItem;
+        int column = position % mColumnItem;
 
         /**
          * 设置各个items边距
          */
         // 1.每行一个item边距设置
-        if(column == 1){{
-            //(1).左边距设置
-            outRect.left = HolesProperties.ITEM_PADDING;
+        if (column == 1) {
+            {
+                //(1).左边距设置
+                outRect.left = HolesProperties.ITEM_PADDING;
 
-            //(2).右边距设置
-            outRect.right = HolesProperties.ITEMS_CENTER_PADDING;
+                //(2).右边距设置
+                outRect.right = HolesProperties.ITEMS_CENTER_PADDING;
 
-            //(3).上边距设置
-            outRect.top = HolesProperties.ITEMS_CENTER_PADDING;
+                //(3).上边距设置
+                outRect.top = HolesProperties.ITEMS_CENTER_PADDING;
 
-            //(4).下边距设置
-            outRect.bottom = HolesProperties.ITEMS_CENTER_PADDING;
-        }}
+                //(4).下边距设置
+                outRect.bottom = HolesProperties.ITEMS_CENTER_PADDING;
+            }
+        }
 
         //2.每行最后一个item边距设置
-        else if(column == 0){
+        else if (column == 0) {
             //(1).左边距设置
             outRect.left = HolesProperties.ITEMS_CENTER_PADDING;
 

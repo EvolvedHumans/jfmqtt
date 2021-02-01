@@ -2,6 +2,7 @@ package dti.org.model;
 
 import com.yangf.pub_libs.Log4j;
 
+import java.io.File;
 import java.util.HashMap;
 
 import dti.org.base.BaseCallbcak;
@@ -88,5 +89,28 @@ public class WellModel {
         });
     }
 
+    /**
+     * File上传
+     */
+    public static void CameraUpdata(String url, HashMap<String, File> hashMap, BaseCallbcak<String> callbcak) {
+        AppUpdater.getInstance().getOKHttpNetManager().uploadExecute(url, hashMap, new INetCallBack() {
+            @Override
+            public void success(String content) {
+                callbcak.onSuccess(content);
+                callbcak.onComplete();
+            }
+
+            @Override
+            public void failed(Throwable throwable) {
+                callbcak.onError(throwable);
+                callbcak.onComplete();
+            }
+
+            @Override
+            public void onComplete() {
+                callbcak.onComplete();
+            }
+        });
+    }
 
 }

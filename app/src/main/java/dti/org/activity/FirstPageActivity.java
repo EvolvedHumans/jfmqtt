@@ -66,10 +66,10 @@ public class FirstPageActivity extends BaseActivity {
 
                     @Override
                     public void noPermission(List<String> denied, boolean never) {
-                        if (never)
-                            //全部授权失败，跳转到设置界面，用户手动授权
-                            XXPermissions.startPermissionActivity
-                                    (FirstPageActivity.this, denied);
+
+                        //全部授权失败，跳转到设置界面，用户手动授权
+//                            XXPermissions.startPermissionActivity
+//                                    (FirstPageActivity.this, denied);
                     }
                 });
 

@@ -12,10 +12,10 @@ import com.yangf.pub_libs.Log4j;
 
 import dti.org.R;
 import dti.org.base.BaseActivity;
-import dti.org.dao.Dispose;
+import dti.org.config.DestroyActivityConfig;
 import dti.org.databinding.ActivityFailBinding;
 import dti.org.presenter.FailPresenter;
-import dti.org.presenter.LoginPresenter;
+import dti.org.util.DestroyActivityUtil;
 import dti.org.views.FailView;
 
 public class FailActivity extends BaseActivity implements FailView {
@@ -37,10 +37,12 @@ public class FailActivity extends BaseActivity implements FailView {
             failPresenter.retryRequest();
         });
         activityFailBinding.returnButton.setOnClickListener(v -> {
+            DestroyActivityUtil.destoryActivity(DestroyActivityConfig.DisposeClass);
             Intent intent = new Intent(this, SetoutActivity.class);
             startActivity(intent);
             finish();
         });
+
     }
 
     @Override
@@ -49,6 +51,10 @@ public class FailActivity extends BaseActivity implements FailView {
         failPresenter.detachView();
     }
 
+    /**
+     * @param key 钥匙
+     * @return 获取所需传递的json格式数据
+     */
     @Override
     public String getStringIntent(String key) {
         //根据产品类型做不同的重新请求方式
@@ -57,9 +63,13 @@ public class FailActivity extends BaseActivity implements FailView {
         return json;
     }
 
+    /**
+     * @param key 钥匙
+     * @return 获取产品类型配置
+     */
     @Override
     public int getIntIntent(String key) {
-        return getIntent().getIntExtra(key,0);
+        return getIntent().getIntExtra(key, 0);
     }
 
     @Override

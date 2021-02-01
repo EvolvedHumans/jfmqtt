@@ -28,4 +28,7 @@ public class ScanCode {
 
     //对应的类型
     Integer type;
+
+    //是否已经安装
+    int install = 0;
 }

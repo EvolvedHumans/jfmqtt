@@ -22,10 +22,13 @@ import dti.org.R;
 import dti.org.adapter.camera.CameraAdapter;
 import dti.org.base.BaseActivity;
 import dti.org.config.CameraConfig;
+import dti.org.config.InstallConfig;
 import dti.org.config.MapConfig;
+import dti.org.config.SetoutConfig;
 import dti.org.dao.MapObtain;
 
 import dti.org.databinding.ActivityWellBinding;
+import dti.org.dialog.GroundNailDialog;
 import dti.org.presenter.WellPresenter;
 import dti.org.views.WellView;
 
@@ -48,12 +51,15 @@ public class WellActivity extends BaseActivity implements WellView {
 
     ActivityWellBinding activityWellBinding;
     WellPresenter wellPresenter;
+    //ExportDialog exportDialog;
+    GroundNailDialog groundNailDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTranSlucent();
         activityWellBinding = DataBindingUtil.setContentView(this, R.layout.activity_well);
+        groundNailDialog = new GroundNailDialog(this);
         activityWellBinding.camera.buttonAddCamera.setOnClickListener(v -> {
             //todo 开始拍照
             wellPresenter.startCamera();
@@ -184,7 +190,6 @@ public class WellActivity extends BaseActivity implements WellView {
      */
     @Override
     public String wellId() {
-        String wellId = activityWellBinding.title.idText.getText().toString();
         return activityWellBinding.title.idText.getText().toString();
     }
 
@@ -214,12 +219,12 @@ public class WellActivity extends BaseActivity implements WellView {
     }
 
     /**
-     * 设备名称警告
+     * 工井id颜色恢复
      */
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void nameWarning() {
-        activityWellBinding.title.nameLayout.setBackground(getDrawable(R.drawable.lock_err));
+        activityWellBinding.title.idLayout.setBackground(getDrawable(R.drawable.lock_ok));
     }
 
     /**
@@ -243,6 +248,65 @@ public class WellActivity extends BaseActivity implements WellView {
     }
 
     /**
+     * Well专用安装成功界面
+     *
+     * @param key  钥匙
+     * @param json 值
+     */
+    @Override
+    public void installSuccessful(String key, String json) {
+        Log4j.d(key, json);
+        Intent intent = new Intent(this, WellSuccessActivity.class);
+        intent.putExtra(key, json);
+        startActivity(intent);
+        finish();
+    }
+
+    /**
+     * 失败界面
+     *
+     * @param key  钥匙
+     * @param json 值
+     */
+    @Override
+    public void installFailed(String key, String json) {
+        Log4j.d(key, json);
+        Intent intent = new Intent(this, FailActivity.class);
+        intent.putExtra(InstallConfig.InstallTypeIntent, SetoutConfig.Well);
+        intent.putExtra(key, json);
+        startActivity(intent);
+        finish();
+    }
+
+    /**
+     * 点击安装弹框
+     *
+     * @param title
+     * @param resource
+     */
+    @Override
+    public void showExportPopup(String title, String resource) {
+        groundNailDialog.setTitle(title);
+        groundNailDialog.setContent(resource);
+
+        if (!groundNailDialog.isShowing()) {
+            groundNailDialog.show();
+        }
+
+        groundNailDialog.setOnClickProceedListener(v -> {
+            //允许重复安装，直接覆盖
+            wellPresenter.overlap();
+            //groundNailPresenter
+            groundNailDialog.dismiss();
+        });
+
+        groundNailDialog.setOnClickCloseListener(v -> {
+            //关闭当前提示
+            groundNailDialog.dismiss();
+        });
+    }
+
+    /**
      * 跳转到安装失败界面
      */
     @Override
@@ -256,7 +320,6 @@ public class WellActivity extends BaseActivity implements WellView {
     public void setUserName(String userName) {
 
     }
-
 
 
 }
