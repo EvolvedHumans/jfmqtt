@@ -52,7 +52,9 @@ import dti.org.config.SharedPreferenceConfig;
 import dti.org.config.UrlConfig;
 import dti.org.config.WellConfig;
 import dti.org.dao.CameraGroup;
+import dti.org.dao.CameraList;
 import dti.org.dao.Dispose;
+import dti.org.dao.GroundNailInstall;
 import dti.org.dao.InstallObtain;
 import dti.org.dao.LoginGroup;
 import dti.org.dao.MapObtain;
@@ -647,7 +649,7 @@ public class WellPresenter extends BasePresenter<WellView> {
             Log4j.d("9.经度", lon);
             Log4j.d("10.纬度", lat);
             Log4j.d("11.设备名称", name);
-            Log4j.d("12.产品type", String.valueOf(lineType));
+            Log4j.d("12.产品type", lineType);
             Log4j.d("13.地址", url);
             Log4j.d("14.公司id", departmentId);
             if (wellInstall.getRfid() != null) {
@@ -666,16 +668,26 @@ public class WellPresenter extends BasePresenter<WellView> {
                 Log4j.d("19.SM32、31、03", wellInstall.getPickproofUid());
             }
 
-            //是否需要安装字段
-            for (int i=0;i<scanCodePresenter.getCount();i++){
-                if (scanCodePresenter.getList().get(i).getInstall() == 0){
-                    wellInstall.setInstall(0);
-                    break;
-                }else {
-                    wellInstall.setInstall(1);
+            List<Bitmap> bitmapList = new LinkedList<>();
+            for (int i = 0; i < cameraPresenter.getCameraGroups().size(); i++) {
+                Bitmap bitmap = cameraPresenter.getCameraGroups().get(i).getBitmap();
+                if (bitmap != null) {
+                    bitmapList.add(bitmap);
                 }
             }
 
+            wellInstall.setCameraList(new CameraList(bitmapList));
+
+
+            //是否需要安装字段
+            for (int i = 0; i < scanCodePresenter.getCount(); i++) {
+                if (scanCodePresenter.getList().get(i).getInstall() == 0) {
+                    wellInstall.setInstall(0);
+                    break;
+                } else {
+                    wellInstall.setInstall(1);
+                }
+            }
 
             //转成Json格式数据
             String content = GsonYang.JsonString(wellInstall);
@@ -693,9 +705,9 @@ public class WellPresenter extends BasePresenter<WellView> {
                                     //todo 跳转到安装成功界面
                                     getView().installSuccessful(WellConfig.WellImportSuccess, content);
                                     getView().showToast(installObtain.getMsg());
-                                }else {
+                                } else {
                                     //todo 是否需要继续安装
-                                    getView().showExportPopup("提示",installObtain.getMsg());
+                                    getView().showExportPopup("提示", installObtain.getMsg());
                                 }
                             }
                         }
@@ -728,10 +740,17 @@ public class WellPresenter extends BasePresenter<WellView> {
     /**
      * 覆盖,变为可安装状态
      */
-    public void overlap(){
-        for (int i=0;i<scanCodePresenter.getCount();i++){
+    public void overlap() {
+        for (int i = 0; i < scanCodePresenter.getCount(); i++) {
             scanCodePresenter.getList().get(i).setInstall(1);
         }
+    }
+
+    public void release() {
+        cameraPresenter = null;
+        cameraAdapter = null;
+        scanCodeAdapter = null;
+        scanCodePresenter = null;
     }
 }
 

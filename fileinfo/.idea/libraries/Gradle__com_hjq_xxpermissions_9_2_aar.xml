@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.hjq:xxpermissions:9.2@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/191d924da82d7a713ec24af829c6a56f/jetified-xxpermissions-9.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/191d924da82d7a713ec24af829c6a56f/jetified-xxpermissions-9.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/191d924da82d7a713ec24af829c6a56f/jetified-xxpermissions-9.2/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hjq/xxpermissions/9.2/166068269ecb0331b55929f2b801fa62b6d94509/xxpermissions-9.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hjq/xxpermissions/9.2/3f42a8fcc6a1ad26cddbcd53cf952330929836d5/xxpermissions-9.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

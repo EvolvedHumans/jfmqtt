@@ -85,7 +85,9 @@ public class WellActivity extends BaseActivity implements WellView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        wellPresenter.release();
         wellPresenter.detachView();
+        wellPresenter = null;
     }
 
     @Override

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FileInfo</string>
+    <string name="text1">文件路径:根目录自定义文件.txt/</string>
+    <string name="sd">内容写入SD卡文档</string>
+</resources>

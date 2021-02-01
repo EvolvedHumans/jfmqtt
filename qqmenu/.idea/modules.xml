@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1903098541/Dti.iml" filepath="$PROJECT_DIR$/.idea/modules/1903098541/Dti.iml" group="Dti" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-687950913/app.iml" filepath="$PROJECT_DIR$/.idea/modules/-687950913/app.iml" group="Dti/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1700754304/pub-libs.iml" filepath="$PROJECT_DIR$/.idea/modules/-1700754304/pub-libs.iml" group="Dti/pub-libs" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/qqmenu.iml" filepath="$PROJECT_DIR$/.idea/modules/qqmenu.iml" group="Dti/qqmenu" />
+    </modules>
+  </component>
+</project>

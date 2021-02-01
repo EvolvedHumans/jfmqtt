@@ -58,7 +58,6 @@ public class ExhibitionAdapter extends RecyclerView.Adapter<ExhibitionAdapter.VH
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        Log4j.d(TAG,list.toString());
         holder.title.setText(list.get(position).getTitle());
         holder.resource.setText(list.get(position).getResource());
     }

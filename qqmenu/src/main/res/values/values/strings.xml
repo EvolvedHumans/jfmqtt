@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">QQ滑动菜单</string>
+    <string name="text_1" translatable="false">QQ钱包</string>
+    <string name="text_2" translatable="false">个性装扮</string>
+    <string name="text_3" translatable="false">我的收藏</string>
+    <string name="text_4" translatable="false">我的相册</string>
+    <string name="text_5" translatable="false">我的文件</string>
+    <string name="text_6" translatable="false">我的日程</string>
+    <string name="text_7" translatable="false">我的名片夹</string>
+</resources>

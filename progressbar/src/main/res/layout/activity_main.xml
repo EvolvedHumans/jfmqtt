@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top|center|left"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="原生加载条ProgressBar,在代码中控制显示隐藏" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="1.圆形进度条，循环转圈，不显示具体的进度值，控制其显隐藏即可，如下:" />
+
+    <!--    原生圆形进度条-->
+    <ProgressBar
+        android:id="@+id/progress_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="1.横向加载条，如下:" />
+
+    <!--    原生横向进度条-->
+    <!--    通过style="?android:attr/progressBarStyleHorizontal"设置-->
+    <!--    android:max="100"属性指定进度条总进度值-->
+    <!--    android:progress="64"设置当前进度值，也可以说是初始进度值-->
+    <!--    android:progressDrawable="@color/colorPrimary"设置进度条颜色-->
+    <ProgressBar
+        android:id="@+id/progress_2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="64"
+        style="?android:attr/progressBarStyleHorizontal" />
+
+    <!--        android:progressDrawable="@drawable/progressbar_bg"-->
+
+</LinearLayout>

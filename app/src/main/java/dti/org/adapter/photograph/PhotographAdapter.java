@@ -1,5 +1,6 @@
 package dti.org.adapter.photograph;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class PhotographAdapter extends RecyclerView.Adapter<PhotographAdapter.VH
         }
     }
 
-    List<Photograph> list;
+    List<Bitmap> list;
 
     @NonNull
     @Override
@@ -50,7 +51,7 @@ public class PhotographAdapter extends RecyclerView.Adapter<PhotographAdapter.VH
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        holder.imageView.setImageBitmap(list.get(position).getBitmap());
+        holder.imageView.setImageBitmap(list.get(position));
     }
 
     @Override

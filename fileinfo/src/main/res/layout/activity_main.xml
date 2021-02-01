@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:paddingStart="20dp"
+        android:text="@string/text1"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center|left"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:hint="输入想要保存的文本内容:"
+        android:gravity="left"
+        android:background="@drawable/main"/>
+
+    <Button
+        android:id="@+id/buttonPanel"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/main"
+        android:text="@string/sd"
+        android:onClick="onClick"/>
+
+    <Button
+        android:id="@+id/buttonPanell"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/main"
+        android:text="读取写入SD卡目录下的文档"
+        android:onClick="onClick"/>
+
+
+
+
+</LinearLayout>

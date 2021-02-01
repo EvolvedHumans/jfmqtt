@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ProgressBar</string>
+    <string name="text1">原生加载条ProgressBar,在代码中控制显示隐藏</string>
+</resources>

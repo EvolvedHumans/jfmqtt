@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!--    name属性的值可以随便填-->
+    <!--    path属性的值表示共享的具体路径。这里使用斜杠表示将整个SD卡进行共享，
+            当然也可以在共享里面写我需要的数据的路径-->
+    <external-path name="my_images" path="/"/>
+
+</paths>

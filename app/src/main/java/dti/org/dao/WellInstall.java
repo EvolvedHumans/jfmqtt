@@ -1,5 +1,7 @@
 package dti.org.dao;
 
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -32,8 +34,6 @@ public class WellInstall {
     private String configTypeId; //配置类型id
     private int configType; //配置类型  //TODO int
     private String config; //配置名
-
-
 
     private String banzuId; //班组id
 
@@ -93,6 +93,9 @@ public class WellInstall {
     //03同上
 
     private int install; //产品是否存在
+
+
+    private CameraList cameraList; //存储相片集合
 
 
 }

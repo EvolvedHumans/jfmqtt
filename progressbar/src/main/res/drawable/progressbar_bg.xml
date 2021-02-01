@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    设置背景色-->
+    <item
+        android:id="@+id/bg"
+        android:drawable="@color/colorDark"/>
+
+<!--    设置进度条颜色-->
+    <item android:id="@+id/bg_1">
+        <clip>
+            <shape>
+            <!--gradient可以设置进度条的渐变色，android:endColor和 android:startColor
+            可以设置渐变开始和结束的颜色。定义完成以后，便可以使用 -->
+                <gradient
+                    android:endColor="#ffffff"
+                    android:startColor="#fff000"/>
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

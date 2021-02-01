@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--databinding布局设置-->
+<!--按住Alt+Enter 选中databinding，这样我们的布局就转化成了databinding-->
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="account"
+            type="com.example.myapplication.dao.Account" />
+
+<!--        按钮的点击事件-->
+        <variable
+            name="activity"
+            type="com.example.myapplication.MainActivity" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="60dp"
+            android:inputType="text"
+            android:hint="@string/app_name"
+            android:autofillHints="@string/app_name" />
+
+        <Button
+            android:id="@+id/buttonPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text"
+            android:onClick="@{activity.onClick}" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="60dp"
+            android:text="@{account.name + '|' + account.level}"/>
+
+
+    </LinearLayout>
+</layout>
