@@ -88,6 +88,6 @@ public interface WellView extends LoginView {
     /**
      * 继续安装弹框
      */
-    void showExportPopup(String title,String resource);
+    void showExportPopup(String title, String resource);
 
 }

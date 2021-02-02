@@ -35,7 +35,7 @@ public interface INetManager {
     void postJsonExecute(String url, String json, INetCallBack callBack);
 
     //文件上传
-    void uploadExecute(String url,HashMap<String, File> paramsMap,INetCallBack callBack);
+    void uploadExecute(String url, HashMap<String, File> paramsMap, INetCallBack callBack);
 
     //下载
     void download(String url, File targetFile, INetDownloadCallBack callBack);

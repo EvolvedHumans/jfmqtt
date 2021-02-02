@@ -38,8 +38,8 @@ public class FailPresenter extends BasePresenter<FailView> {
             String json = getView().getStringIntent(WellConfig.WellImportFail);
             Log4j.d("type", String.valueOf(type));
             Log4j.d("json", json);
-            if (GsonYang.IsJson(json)) {
-                wellInstall = GsonYang.JsonObject(json, WellInstall.class);
+            if (GsonUtil.IsJson(json)) {
+                wellInstall = GsonUtil.JsonObject(json, WellInstall.class);
                 //获取url
                 String url = wellInstall.getUrl();
                 if (url != null) {
@@ -47,9 +47,9 @@ public class FailPresenter extends BasePresenter<FailView> {
                     WellModel.WellInput(url, json, new BaseCallbcak<String>() {
                         @Override
                         public void onSuccess(String content) {
-                            if (GsonYang.IsJson(content)) {
+                            if (GsonUtil.IsJson(content)) {
                                 InstallObtain installObtain =
-                                        GsonYang.JsonObject(content, InstallObtain.class);
+                                        GsonUtil.JsonObject(content, InstallObtain.class);
                                 if (installObtain != null) {
                                     if (installObtain.getRt() != null && installObtain.getMsg() != null) {
                                         if (installObtain.getRt() == 1) {
@@ -84,9 +84,9 @@ public class FailPresenter extends BasePresenter<FailView> {
 
         if (type == SetoutConfig.GroundNail) {
             String json = getView().getStringIntent(GroundNailConfig.GroundNailImportFail);
-            if (GsonYang.IsJson(json)) {
+            if (GsonUtil.IsJson(json)) {
                 getView().showLoading();
-                groundNailInstall = GsonYang.JsonObject(json, GroundNailInstall.class);
+                groundNailInstall = GsonUtil.JsonObject(json, GroundNailInstall.class);
                 //获取url
                 String url = groundNailInstall.getUrl();
                 if (url != null) {

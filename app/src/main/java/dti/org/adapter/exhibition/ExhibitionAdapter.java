@@ -52,7 +52,7 @@ public class ExhibitionAdapter extends RecyclerView.Adapter<ExhibitionAdapter.VH
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.exhibition_item,parent,false);
+                .inflate(R.layout.exhibition_item, parent, false);
         return new VH(view);
     }
 

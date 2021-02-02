@@ -8,6 +8,7 @@ package dti.org.controller;
  * 创建时间：  2021年 01月 25日 18时 12分
  */
 public interface LoginController {
+
     void firstLogin();
 
     void login();

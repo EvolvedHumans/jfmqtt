@@ -48,7 +48,7 @@ public class PhotographAdapter extends RecyclerView.Adapter<PhotographAdapter.VH
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.photo_item,parent,false);
+                .inflate(R.layout.photo_item, parent, false);
         return new VH(view);
     }
 

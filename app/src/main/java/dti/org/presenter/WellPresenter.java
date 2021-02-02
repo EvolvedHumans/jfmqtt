@@ -12,7 +12,6 @@ import android.os.Build;
 
 import android.os.FileUtils;
 
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import androidx.core.content.FileProvider;
@@ -20,8 +19,7 @@ import androidx.core.content.FileProvider;
 import com.google.gson.Gson;
 import com.yangf.pub_libs.Date;
 
-import com.yangf.pub_libs.GsonYang;
-import com.yangf.pub_libs.Log4j;
+import com.yangf.pub_libs.log.Log4j;
 import com.yangf.pub_libs.jxi.ExcelUtils;
 import com.yangf.pub_libs.util.FileUtil;
 import com.yangf.pub_libs.util.UrlsplicingUtil;
@@ -52,7 +50,6 @@ import dti.org.config.WellConfig;
 import dti.org.dao.CameraGroup;
 import dti.org.dao.CameraList;
 import dti.org.dao.Dispose;
-import dti.org.dao.GroundNailInstall;
 import dti.org.dao.InstallObtain;
 import dti.org.dao.LoginGroup;
 import dti.org.dao.MapObtain;
@@ -137,7 +134,7 @@ public class WellPresenter extends BasePresenter<WellView> {
          * 开启拍照功能，并储存到SD卡下
          */
         //创建file对象,存储拍下来的图片
-        File file = new File(getView().getContext().getExternalCacheDir(), mapObtain.getAddress() + Date.timestamp() + ".jpg");
+        File file = new File(getView().getContext().getExternalCacheDir(), mapObtain.getAddress() + TimeUtil.timestamp() + ".jpg");
 
         //测试此抽象路径名表示的文件或目录是否存在,如果存在则删除。
         if (file.exists()) {
@@ -149,7 +146,7 @@ public class WellPresenter extends BasePresenter<WellView> {
         try {
             file.createNewFile();
         } catch (IOException e) {
-            Log.e("点击确认进行拍照失败", Objects.requireNonNull(e.getMessage()));
+            e.printStackTrace();
         }
 
         //进行版本验证，Android7.0系统开始，直接使用本地真是路径的Uri会抛出异常，FileProvvider是
@@ -168,22 +165,6 @@ public class WellPresenter extends BasePresenter<WellView> {
             //这种方法在Android7.0以上报错
             uri = Uri.fromFile(file);
         }
-
-
-//        //构建Intent对象，指定action,指定uri（指定存储位置）
-//        /**
-//         * Intent在由以下几个部分组成：
-//         * 动作（action），
-//         * 数据（data），
-//         * 分类（Category），
-//         * 类型（Type），
-//         * 组件（Component），
-//         * 和扩展信息（Extra）。
-//         */
-//        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-////        ((Activity)context).startActivityForResult(intent,TAKE_PHOTO);
-
         return uri;
     }
 
@@ -307,8 +288,8 @@ public class WellPresenter extends BasePresenter<WellView> {
             WellModel.isTesting(url, new BaseCallbcak<String>() {
                 @Override
                 public void onSuccess(String data) {
-                    if (GsonYang.IsJson(data)) {
-                        UidTest uidTest = GsonYang.JsonObject(data, UidTest.class);
+                    if (GsonUtil.IsJson(data)) {
+                        UidTest uidTest = GsonUtil.JsonObject(data, UidTest.class);
                         if (uidTest.getRt() != null && uidTest.getData() != null) {
                             if (uidTest.getRt() == 1) {
                                 if (scanCodePresenter.getCount() >= position) {
@@ -388,8 +369,8 @@ public class WellPresenter extends BasePresenter<WellView> {
             WellModel.CameraUpdata(url, hashMap, new BaseCallbcak<String>() {
                 @Override
                 public void onSuccess(String data) {
-                    if (GsonYang.IsJson(data)) {
-                        PhotoObtain photoObtain = GsonYang.JsonObject(data, PhotoObtain.class);
+                    if (GsonUtil.IsJson(data)) {
+                        PhotoObtain photoObtain = GsonUtil.JsonObject(data, PhotoObtain.class);
                         if (photoObtain != null) {
                             if (photoObtain.getUrl() != null && photoObtain.getPath() != null) {
                                 if (photoObtain.getRt() == 1) {
@@ -522,8 +503,8 @@ public class WellPresenter extends BasePresenter<WellView> {
             //1.班组id
             String banzuId = null;
             temp = getView().exportStringCache(DisposeConfig.WellTeam, DisposeConfig.WellTeam);
-            if (GsonYang.IsJson(temp)) {
-                Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
+            if (GsonUtil.IsJson(temp)) {
+                Dispose dispose = GsonUtil.JsonObject(temp, Dispose.class);
                 if (dispose != null) {
                     banzuId = dispose.getId();
                 }
@@ -533,8 +514,8 @@ public class WellPresenter extends BasePresenter<WellView> {
             String config = null;
             String configTypeId = null;
             temp = getView().exportStringCache(DisposeConfig.WellConfigure, DisposeConfig.WellConfigure);
-            if (GsonYang.IsJson(temp)) {
-                Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
+            if (GsonUtil.IsJson(temp)) {
+                Dispose dispose = GsonUtil.JsonObject(temp, Dispose.class);
                 configTypeId = dispose.getId();
                 configType = dispose.getType();
                 config = dispose.getName();
@@ -543,8 +524,8 @@ public class WellPresenter extends BasePresenter<WellView> {
             String sceneTypeId = null; //安装场景ID
             String scene = null; //场景名
             temp = getView().exportStringCache(DisposeConfig.WellScene, DisposeConfig.WellScene);
-            if (GsonYang.IsJson(temp)) {
-                Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
+            if (GsonUtil.IsJson(temp)) {
+                Dispose dispose = GsonUtil.JsonObject(temp, Dispose.class);
                 sceneTypeId = dispose.getId();
                 scene = dispose.getName();
             }
@@ -552,24 +533,24 @@ public class WellPresenter extends BasePresenter<WellView> {
             String outerWellTypeId = null; //外井盖类型ID
             String outerWell = null; //井盖名
             temp = getView().exportStringCache(DisposeConfig.WellOutside, DisposeConfig.WellOutside);
-            if (GsonYang.IsJson(temp)) {
-                Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
+            if (GsonUtil.IsJson(temp)) {
+                Dispose dispose = GsonUtil.JsonObject(temp, Dispose.class);
                 outerWellTypeId = dispose.getId();
                 outerWell = dispose.getName();
             }
             //5.RFID Type
             int brfid = 0;  //有无rfid
             temp = getView().exportStringCache(DisposeConfig.WellRfid, DisposeConfig.WellRfid);
-            if (GsonYang.IsJson(temp)) {
-                Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
+            if (GsonUtil.IsJson(temp)) {
+                Dispose dispose = GsonUtil.JsonObject(temp, Dispose.class);
                 brfid = dispose.getType();
             }
             //6.基座类型
             String pedestalTypeId = null; //基座类型ID
             String pedestal = null; //基座名
             temp = getView().exportStringCache(DisposeConfig.WellPedestal, DisposeConfig.WellPedestal);
-            if (GsonYang.IsJson(temp)) {
-                Dispose dispose = GsonYang.JsonObject(temp, Dispose.class);
+            if (GsonUtil.IsJson(temp)) {
+                Dispose dispose = GsonUtil.JsonObject(temp, Dispose.class);
                 pedestalTypeId = dispose.getId();
                 pedestal = dispose.getName();
             }
@@ -583,7 +564,7 @@ public class WellPresenter extends BasePresenter<WellView> {
             String url = UrlConfig.ImportWell; //URL地址
             //9.公司id
             String departmentId = null;
-            LoginGroup loginGroup = GsonYang.JsonObject(getView().exportStringCache
+            LoginGroup loginGroup = GsonUtil.JsonObject(getView().exportStringCache
                     (SharedPreferenceConfig.APP_LOGIN, SharedPreferenceConfig.NO), LoginGroup.class);
             if (loginGroup != null) {
                 departmentId = loginGroup.getUser().getDepartmentId();
@@ -727,21 +708,21 @@ public class WellPresenter extends BasePresenter<WellView> {
             bodyList.add(wellInstall.getPickproofUid());
 
             //转成Json格式数据
-            String content = GsonYang.JsonString(wellInstall);
+            String content = GsonUtil.JsonString(wellInstall);
             Log4j.d(TAG, content);
 
             getView().showLoading();
             WellModel.WellInput(url, content, new BaseCallbcak<String>() {
                 @Override
                 public void onSuccess(String data) {
-                    if (GsonYang.IsJson(data)) {
-                        InstallObtain installObtain = GsonYang.JsonObject(data, InstallObtain.class);
+                    if (GsonUtil.IsJson(data)) {
+                        InstallObtain installObtain = GsonUtil.JsonObject(data, InstallObtain.class);
                         if (installObtain != null) {
                             if (installObtain.getRt() != null && installObtain.getMsg() != null) {
                                 if (installObtain.getRt() == 1) {
                                     //todo 跳转到安装成功界面
                                     bodyList.add("导入成功");
-                                    ExcelUtils.createFile(FileUtil.getExcelFileName("智能井盖" + Date.timestamp()), getView().getContext());
+                                    ExcelUtils.createFile(FileUtil.getExcelFileName("智能井盖" + TimeUtil.timestamp()), getView().getContext());
                                     ExcelUtils.createExcel(headerList, bodyList);
                                     getView().showToast(installObtain.getMsg());
                                     getView().installSuccessful(WellConfig.WellImportSuccess, content);
@@ -763,7 +744,7 @@ public class WellPresenter extends BasePresenter<WellView> {
                 @Override
                 public void onError(Throwable throwable) {
                     bodyList.add("导入失败");
-                    ExcelUtils.createFile(FileUtil.getExcelFileName("智能井盖" + Date.timestamp()), getView().getContext());
+                    ExcelUtils.createFile(FileUtil.getExcelFileName("智能井盖" + TimeUtil.timestamp()), getView().getContext());
                     ExcelUtils.createExcel(headerList, bodyList);
                     getView().showErr("与服务器无响应");
                     throwable.printStackTrace();

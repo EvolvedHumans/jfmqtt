@@ -33,5 +33,4 @@ public interface GroundNailView extends WellView {
     void installFailed(String key, String json);
 
 
-
 }

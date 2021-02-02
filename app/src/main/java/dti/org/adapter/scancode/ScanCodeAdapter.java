@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ScanCodeAdapter extends RecyclerView.Adapter<ScanCodeHolder> {
     private ScanCodePresenter scanCodePresenter;
+
     @NonNull
     @Override
     public ScanCodeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
