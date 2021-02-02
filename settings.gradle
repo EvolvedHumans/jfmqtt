@@ -1,4 +1,4 @@
-include ':jxiexcel'
+include ':graphicsloading'
 include ':pub-libs'
 include ':app'
 rootProject.name = "Dti"
